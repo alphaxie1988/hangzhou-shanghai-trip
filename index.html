@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hangzhou &amp; Shanghai — 11–20 Dec 2026</title>
 <style>
-  :root { --ink:#1f2a33; --muted:#5b6b76; --accent:#b3541e; --accent2:#0f766e; --bg:#faf7f2; --card:#fff; --line:#e8dfd3; }
+  :root { --ink:#1f2a33; --muted:#5b6b76; --accent:#b3541e; --accent2:#0f766e; --bg:#faf7f2; --card:#fff; --line:#e8dfd3; --red:#b91c1c; --amber:#92400e; --green:#166534; }
   * { box-sizing:border-box; }
   body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; }
   header { background:linear-gradient(135deg,#7c2d12,#b3541e 55%,#0f766e); color:#fff; padding:2.2rem 1.2rem 1.6rem; text-align:center; }
   header h1 { margin:0 0 .3rem; font-size:1.7rem; }
   header p { margin:.2rem 0; opacity:.95; }
   .countdown { display:inline-block; margin-top:.7rem; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35); padding:.35rem .9rem; border-radius:999px; font-weight:600; }
-  main { max-width:860px; margin:0 auto; padding:1rem 1rem 3rem; }
+  main { max-width:880px; margin:0 auto; padding:1rem 1rem 3rem; }
   nav.days { display:flex; gap:.4rem; overflow-x:auto; padding:.4rem 0 1rem; position:sticky; top:0; background:var(--bg); z-index:5; }
   nav.days button { flex:0 0 auto; border:1px solid var(--line); background:#fff; border-radius:999px; padding:.45rem .8rem; font-size:.9rem; cursor:pointer; }
   nav.days button.active { background:var(--accent); color:#fff; border-color:var(--accent); }
@@ -41,6 +41,22 @@
   section.page.active { display:block; }
   footer { text-align:center; color:var(--muted); font-size:.85rem; padding:1rem; }
   a { color:var(--accent2); }
+  /* place cards */
+  .place { border:1px solid var(--line); border-radius:12px; padding:.8rem .9rem; margin:.7rem 0; background:#fff; }
+  .place h3 { margin:0 0 .3rem; font-size:1.05rem; }
+  .place h3 .cn { color:var(--muted); font-weight:400; font-size:.9rem; }
+  .meta { display:grid; grid-template-columns:110px 1fr; gap:.15rem .6rem; font-size:.92rem; margin:.4rem 0; }
+  .meta dt { color:var(--muted); font-weight:600; }
+  .meta dd { margin:0; }
+  .tip { background:#f0fdfa; border-left:3px solid var(--accent2); padding:.45rem .7rem; border-radius:0 8px 8px 0; font-size:.92rem; margin:.4rem 0 0; }
+  .warn { background:#fef2f2; border-left:3px solid var(--red); padding:.45rem .7rem; border-radius:0 8px 8px 0; font-size:.92rem; margin:.4rem 0 0; }
+  .verdict { display:inline-block; font-size:.8rem; font-weight:700; border-radius:999px; padding:.15rem .6rem; margin-left:.4rem; vertical-align:middle; }
+  .verdict.ok { background:#dcfce7; color:var(--green); }
+  .verdict.tight { background:#fef3c7; color:var(--amber); }
+  .verdict.fixed { background:#fee2e2; color:var(--red); }
+  .src { font-size:.8rem; color:var(--muted); }
+  .book li { margin:.55rem 0; }
+  .book b { color:var(--red); }
 </style>
 </head>
 <body>
@@ -48,6 +64,7 @@
   <h1>🏮 Hangzhou &amp; Shanghai</h1>
   <p>11–20 December 2026 · Relaxed pace, 2–3 places a day</p>
   <p>✈️ TR188 SIN → Hangzhou, Fri 11 Dec 16:45–21:55 &nbsp;·&nbsp; ✈️ SQ839 Hangzhou → SIN, Sun 20 Dec 02:15–07:15</p>
+  <p>🌡️ December: highs ~11°C, lows ~3–4°C — pack warm layers, hats and gloves for the kids</p>
   <span class="countdown" id="countdown"></span>
 </header>
 <main>
@@ -55,21 +72,38 @@
     <button class="active" data-page="days">📅 Day by day</button>
     <button data-page="food">🍜 Restaurants — recommended by Cylin</button>
     <button data-page="info">🧳 Travel &amp; hotels</button>
+    <button data-page="book">✅ Book before you go</button>
   </div>
 
-  <!-- ============ DAYS ============ -->
   <section class="page active" id="page-days">
+    <div class="card">
+      <h2>🔍 What the sense-check changed</h2>
+      <p>Every stop was checked for opening hours, closing days, prices and travel time. Four things in the original plan would not have worked — all fixed below:</p>
+      <ul>
+        <li><b>Hangzhou Paradise is closed all winter</b> (30 Nov–5 Mar). Sat 19 Dec is now the China Animation Museum in the morning, then Yunman Hot Spring in the afternoon.</li>
+        <li><b>Shanghai Natural History Museum is closed on Tuesdays</b> — it was planned for Tue 15 Dec. The Science and Technology Museum moves to Tue afternoon instead, and Wed 16 Dec becomes a full day at the Wild Animal Park. The Natural History Museum no longer fits this trip.</li>
+        <li><b>Sun 13 Dec tried to fit three venues that all close by 18:00</b> across town. Now: Xixi Wetland in the morning, Wetland Museum early afternoon, Airobox Tech 15:30–18:00. Airobox is <b>not</b> an evening visit — it closes at 18:00.</li>
+        <li><b>MeLand Club after dinner on Tue</b> would leave ~1 hour for a full-price ticket. Replaced with a free Bund evening walk.</li>
+      </ul>
+      <p>Smaller fixes: Mon 14 Dec train should be ~13:00 (hotel ~15:30, not 15:00); Yu Garden is closed Mondays, so the evening is bazaar + Wu Kang Lu only; Yongfu Temple needs a reservation made at least 1 day ahead; the Songcheng show is likely 19:30, back at the hotel ~21:30, and you need a luggage plan for that day.</p>
+    </div>
     <nav class="days" id="daynav"></nav>
     <div id="days"></div>
   </section>
 
-  <!-- ============ FOOD ============ -->
   <section class="page" id="page-food">
     <div class="card rest">
       <span class="tag">Recommended by Cylin</span>
       <h2>榆园·甬绍荟馆 (杭州嘉里中心店)</h2>
-      <p><b>Slotted: Sat 12 Dec, dinner</b> — after Wulin Night Market, same Wulin area. Kerry Centre, Yan'an Road, North Zone Commercial 1F. Metro Line 1, Fengqi Road Station, Exit C1. Hours 11:00–22:30. Mon–Thu 14:00–17:00 afternoon tea only. 4.6★ · ¥169/person · Zhejiang cuisine (甬绍菜 — Ningbo + Shaoxing).</p>
+      <p><b>Slotted: Sat 12 Dec, dinner</b> — after Wulin Night Market, same Wulin area.</p>
       <img src="https://img.alicdn.com/i1/2673015014/O1CN01gWrHFQ1muSQgjIXsu_!!2673015014.jpg_400x400.jpg" alt="Marinated red-paste crab">
+      <dl class="meta">
+        <dt>Address</dt><dd>Kerry Centre, Yan'an Road, Wulin — North Zone Commercial 1F, next to Qingchunli</dd>
+        <dt>Hours</dt><dd>11:00–22:30. Mon–Thu 14:00–17:00 afternoon tea only</dd>
+        <dt>Price</dt><dd>¥169/person on Dianping (budget ¥169–250 for a full crab feast)</dd>
+        <dt>Nearest metro</dt><dd>Line 1, Fengqi Road (凤起路), Exit C1 — ~30 m</dd>
+        <dt>Booking</dt><dd>Dianping / Meituan — no direct online booking link found</dd>
+      </dl>
       <p>A dark, elegant new-Chinese “garden” dining room — old stone slabs, pine and water features, semi-private booths. Ningbo's salty-fresh seafood meets Shaoxing's wine-soaked, fermented flavours. Named in the 2026 Michelin Guide, Hangzhou.</p>
       <div class="must">
         <div><b>Must do:</b> order the signature raw-marinated crab and let the staff shuck it at the table.</div>
@@ -81,12 +115,20 @@
     <div class="card rest">
       <span class="tag">Recommended by Cylin</span>
       <h2>成隆行·蟹王府 (九江路店)</h2>
-      <p><b>Slotted: Mon 14 Dec, dinner</b> — your first night in Shanghai. 216 Jiujiang Road, Huangpu, ~250m from Nanjing East Road Metro. Hours 11:00–15:00, 17:00–22:00. Tel 021-63212010. ¥311/person on Dianping; budget ¥400–600 for a full crab feast. Michelin 1 star.</p>
+      <p><b>Slotted: Mon 14 Dec, dinner</b> — your first night in Shanghai.</p>
       <img src="https://zwz66.cn/uploads/allimg/20251010/5c5b38820862c52293ea0cee65c503c9.jpg" alt="Steamed hairy crab">
-      <p>A Shanghai crab institution since the 1950s, with its own 50,000-mu crab farm. Ming–Qing dining room, red lanterns, old wood, live folk music in the evenings. Free expert crab-shelling at the table.</p>
+      <dl class="meta">
+        <dt>Address</dt><dd>216 Jiujiang Road, Huangpu (near Henan Middle Rd)</dd>
+        <dt>Hours</dt><dd>11:00–15:00, 17:00–22:00</dd>
+        <dt>Price</dt><dd>¥311/person on Dianping; budget ~¥500/person for a full crab feast — sources disagree, so budget high</dd>
+        <dt>Nearest metro</dt><dd>East Nanjing Road (南京东路), Lines 2/10, Exit 3 — ~200 m, 2–3 min walk</dd>
+        <dt>Phone</dt><dd>021-63212010 — book ahead, evenings fill up</dd>
+      </dl>
+      <p>A Shanghai crab institution since the 1950s, with its own Yangcheng Lake crab farms. Ming–Qing dining room, red lanterns, old wood, live folk music in the evenings. Free expert crab-shelling at the table.</p>
+      <p class="warn"><b>⚠️ Call ahead:</b> mid-December is the tail end of hairy-crab season — supply drops and quality gets inconsistent. Confirm crab is still available for 14 Dec, and order male crabs (peak mid-Nov–early Dec).</p>
       <div class="must">
         <div><b>Must do:</b> let the staff shell the crab for you, and order warm yellow wine with ginger — the traditional pairing.</div>
-        <div><b>Must try:</b> 清蒸大闸蟹 — steamed hairy crab. December is past peak season (females Sep–Oct, males Oct–Nov), but they serve crab all year.</div>
+        <div><b>Must try:</b> 清蒸大闸蟹 — steamed hairy crab. December is past peak season, but they serve crab all year.</div>
         <div><b>Must eat:</b> the “four greats” — steamed crab claw, crab-leg meat with asparagus, stir-fried crab roe, crab paste with rice-noodle skins — plus 秃黄油捞饭 (rice in rich crab-roe oil; add the vinegar).</div>
       </div>
     </div>
@@ -94,9 +136,17 @@
     <div class="card rest">
       <span class="tag">Recommended by Cylin</span>
       <h2>米桃雅宴·江南苏锡菜</h2>
-      <p><b>Slotted: Tue 15 Dec, dinner — 长宁店 (Changning)</b>, near Zhongshan Park / Jiangsu Road. Suzhou/Wuxi (Jiangnan) cuisine. Branches: 长宁店 4.7★ ¥163 · 万象城店 4.8★ ¥163 · 久光中心店 4.4★ ¥132 · 静安合生MOHO店 4.6★ ¥128. Sets: ¥329 for 2, ¥559 for 3–4.</p>
+      <p><b>Slotted: Tue 15 Dec, dinner — Hongqiao Nanfeng City branch</b> (corrected location — see below).</p>
       <img src="https://img.shetu66.com/2026/04/13/177607280639219433.png?x-oss-process=image/resize,h_900/format,webp" alt="Squirrel fish (松鼠桂鱼)">
-      <p>Sweet, delicate Jiangnan cooking with beautiful plating and staff in hanfu. The seafood rice is finished with hot broth poured at the table.</p>
+      <dl class="meta">
+        <dt>Address</dt><dd>150 Zunyi Rd, Hongqiao Nanfeng City North Zone, 5F, Changning District (虹桥南丰城店)</dd>
+        <dt>Hours</dt><dd>11:00–14:00, 16:30–21:00 (confirm by phone)</dd>
+        <dt>Price</dt><dd>~¥137–200/person; set menus ~25% off</dd>
+        <dt>Nearest metro</dt><dd>Loushanguan Road (娄山关路), Lines 2/15, Exit 2 — ~600 m, 8 min walk</dd>
+        <dt>Phone</dt><dd>+86 177 9870 8896</dd>
+      </dl>
+      <p>Sweet, delicate Jiangnan cooking with beautiful plating and staff in hanfu. The seafood rice is finished with hot broth poured at the table. The mall is a parent-child mall, so it's good with kids.</p>
+      <p class="warn"><b>⚠️ Branch correction:</b> the Changning branch is at Hongqiao Nanfeng City (150 Zunyi Rd), not near Zhongshan Park / Jiangsu Road as first listed. It's on Metro Line 2 — the same line as the Science and Technology Museum that afternoon.</p>
       <div class="must">
         <div><b>Must do:</b> order a set menu for 2–4 people — it covers the signatures at about 25% off.</div>
         <div><b>Must try:</b> 松鼠桂鱼 (squirrel fish) — mandarin fish scored so it fans out like a squirrel's tail, crisp outside, snowy inside, sweet-and-sour glaze (about ¥188).</div>
@@ -106,56 +156,133 @@
 
     <div class="card">
       <h2>Also on the plan</h2>
-      <ul>
-        <li><b>Tue 15 Dec, lunch — Xiao Dadong (Nanjing West Rd)</b>: duck, between the Oriental Pearl Tower and the Natural History Museum.</li>
-        <li><b>Fri 18 Dec, dinner — Green Tea Restaurant</b>, Hangzhou.</li>
-      </ul>
+      <div class="place">
+        <h3>Xiao Dadong <span class="cn">小大董 — Nanjing West Rd branch</span></h3>
+        <p><b>Tue 15 Dec, lunch.</b> Michelin one-star Peking duck specialist.</p>
+        <dl class="meta">
+          <dt>Address</dt><dd>6F, South Building, New World City, 2–68 Nanjing West Rd, Huangpu</dd>
+          <dt>Hours</dt><dd>Mon–Fri 11:30–21:00; Sat–Sun 11:00–15:30, 17:00–21:00</dd>
+          <dt>Price</dt><dd>¥100–250/person; roast duck ~¥199/piece</dd>
+          <dt>Nearest metro</dt><dd>People's Square (人民广场), Lines 1/2/8, Exit 7 or 19 — 1–3 min walk</dd>
+          <dt>Booking</dt><dd>Does not accept phone reservations — walk in, arrive at 11:30 opening to avoid the queue</dd>
+        </dl>
+        <p>Signature: tableside-carved crispy roast duck (half-duck set for 2 includes pancakes and duck-bone soup). Also braised sea cucumber in scallion sauce and Xiao Dadong stuffed skin. Window tables look over Nanjing Road Pedestrian Street.</p>
+        <p class="src">Listing: <a href="https://www.trip.com/restaurant/china/shanghai/detail/restaurant-79467070/">Trip.com</a></p>
+      </div>
+      <div class="place">
+        <h3>Green Tea Restaurant <span class="cn">绿茶餐厅</span></h3>
+        <p><b>Fri 18 Dec, dinner.</b> Two good branches — pick the Longjing flagship after the Yongfu Temple day (both on the west side), or the Yintai branch near the hotel.</p>
+        <dl class="meta">
+          <dt>Flagship</dt><dd>绿茶餐厅(龙井船宴·品牌总店), 83 Longjing Road — lotus pond, boat seating, guzheng; calmer and more scenic</dd>
+          <dt>Near hotel</dt><dd>绿茶餐厅(西湖银泰店), 3F, 98 Yan'an South Road (Lakeside Yintai IN77) — expect a queue</dd>
+          <dt>Hours</dt><dd>10:30–22:00 both branches</dd>
+          <dt>Price</dt><dd>~¥88–104/person</dd>
+        </dl>
+        <p>Must-order: 面包诱惑 Bread Temptation ¥35 (signature, with Häagen-Dazs ice cream), 粉丝裹虾 vermicelli-wrapped prawns ¥52, roast chicken + spring-onion roast pork combo ¥68, Song Sao fish soup, Longjing shrimp, Dongpo pork.</p>
+      </div>
     </div>
   </section>
 
-  <!-- ============ INFO ============ -->
   <section class="page" id="page-info">
     <div class="card">
       <h2>🏨 Hotels</h2>
       <ul>
-        <li><b>11–14 Dec — Holiday Inn Hangzhou West Lake</b> (3 nights, 2 rooms, King Premium City View). Check in after 14:00, check out before 12:00.</li>
-        <li><b>14–17 Dec — Jianguo Hidden Hotel, Shanghai</b> (Bund Jinling East Road), No. 531 Jinling East Road, Huangpu. Check in from 15:00, check out before 12:00. Tel +86-21-55698858.</li>
+        <li><b>11–14 Dec — Holiday Inn Hangzhou West Lake</b> (3 nights, 2 rooms, King Premium City View). Check in after 14:00, check out before 12:00. Nearest metro: Fengqi Road (凤起路), Lines 1/2 — ~80 m, 2 min walk.</li>
+        <li><b>14–17 Dec — Jianguo Hidden Hotel, Shanghai</b> (Bund Jinling East Road), No. 531 Jinling East Road, Huangpu. Check in from 15:00, check out before 12:00. Tel +86-21-55698858. Nearest metro: Dashijie (大世界), Lines 8/14 — ~100 m across the street.</li>
         <li><b>17–20 Dec — Holiday Inn Hangzhou West Lake</b> again.</li>
       </ul>
-      <h2>🚄 Trains (not booked yet)</h2>
+      <h2>🚄 High-speed trains (not booked yet)</h2>
       <ul>
-        <li><b>Mon 14 Dec:</b> Hangzhou → Shanghai high-speed train, ~1 hour.</li>
-        <li><b>Thu 17 Dec:</b> Shanghai → Hangzhou high-speed train, ~1 hour.</li>
+        <li><b>Hangzhou East ↔ Shanghai Hongqiao:</b> G-train 45–60 min, ¥73 second class. 150–300+ trains a day, roughly every 5–20 min, ~06:00–23:00. Book on 12306 or Trip.com. Use <b>Hongqiao</b>, not Shanghai station — different station across town.</li>
+        <li><b>Mon 14 Dec:</b> book a train around <b>13:00</b>. Hotel → Hangzhou East ~25 min by metro (Line 1 to Fengqi Road is direct), then ~1 h train, then Hongqiao → hotel ~50 min by metro (Line 2 to People's Square, change to Line 8 to Dashijie). Expect the hotel ~15:30.</li>
+        <li><b>Thu 17 Dec:</b> hotel → Hongqiao ~50 min + ~40 min inside the huge station before departure. Train ~1 h, Hangzhou East → Songcheng ~30 min by taxi. Allow the whole afternoon.</li>
+      </ul>
+      <h2>✈️ Airport — Hangzhou Xiaoshan (HGH)</h2>
+      <ul>
+        <li><b>Fri 11 Dec, landing 21:55:</b> take a taxi/DiDi, not the metro — the last metro time is disputed (22:30 vs 23:14) and you'd likely miss it after immigration and bags. Taxi ~¥100–130 + ¥20 toll, 50–60 min.</li>
+        <li><b>Sun 20 Dec, SQ839 02:15:</b> metro is closed. Leave the hotel ~23:00–23:30 Sat by taxi/DiDi (~40–50 min at night, arrive ~00:15–00:30 for a 2-hour international check-in).</li>
       </ul>
       <h2>🎭 Songcheng — Thu 17 Dec</h2>
-      <p>Half an afternoon: straight from Hangzhou East station (~30 min by taxi), arrive ~3:30pm. Explore the Song-dynasty streets, then the <b>7pm Romance of the Song Dynasty show</b> (about 1 hour). The show itself is 60 minutes; allow 3–4 hours for park + show. Back to the hotel ~9pm. (The 2pm show is too early on a travel day.)</p>
+      <p>Half an afternoon: straight from Hangzhou East station (~30 min by taxi), arrive ~3:30pm. Explore the Song-dynasty streets, then the <b>Romance of the Song Dynasty show</b> (about 1 hour). The evening show is usually <b>19:30</b> — confirm the exact time when booking, as sources disagree (19:00 / 19:30). Back at the hotel ~21:00–21:30.</p>
+      <p><b>Luggage:</b> you check out of Shanghai with bags and only check into the Holiday Inn after the show. Either use left-luggage at Hangzhou East, or drop bags at the hotel first (adds ~1 h round trip; still leaves you at Songcheng ~16:00, fine for a 19:30 show).</p>
       <h2>🧖 Family spa — Sat 19 Dec</h2>
-      <p><b>Yunman Hot Spring</b>, inside the First World Hotel, 2555 Fengqing Avenue, Xiaoshan District — right next to Hangzhou Paradise. 33 pools, children's splash pool with slides. ~¥168 adult / ¥108 child, under 1.2m free. Saturdays 10:30–22:30. Also considered: West Lake State Guesthouse spa and the Spa at Four Seasons Hotel Hangzhou at West Lake.</p>
+      <p><b>Yunman Hot Spring</b>, inside the First World Hotel, 2555 Fengqing Avenue, Xiaoshan District. 33 pools, children's splash pool with slides. ~¥168 adult / ¥108 child, under 1.2m free. Saturdays 10:30–22:30. Metro Line 1 Xianghu (湘湖), then bus/taxi ~10 min. Open-air pools in December feel cold between pools — bring thick towels and swimwear (sold on site ~¥200/set).</p>
       <h2>⏭️ Skipped from the list</h2>
-      <p>Hangzhou Zoo, Shanghai Disneyland Park, Chuiyun Tongtian River, Hengdian World Studios, Shanghai Astronomy Museum (replaced by the Shanghai Science and Technology Museum).</p>
+      <p>Hangzhou Zoo, Shanghai Disneyland Park, Chuiyun Tongtian River, Hengdian World Studios, Shanghai Astronomy Museum (replaced by the Science and Technology Museum), and now the Shanghai Natural History Museum (closed Tuesdays, doesn't fit Mon or Thu).</p>
+    </div>
+  </section>
+
+  <section class="page" id="page-book">
+    <div class="card">
+      <h2>✅ Book before you go</h2>
+      <p>Most of these use real-name timed booking, released 7 days ahead. Trip.com sells foreigner-friendly tickets for several of them if a WeChat mini-program won't accept a passport.</p>
+      <ul class="book">
+        <li><b>Shanghai Science and Technology Museum</b> — tickets released <b>7 days ahead at 10:00</b>, real-name booking only, no on-site ticket office. Book on Tue 8 Dec. <a href="https://en.sstm.org.cn/tickets/policy">Tickets</a></li>
+        <li><b>Yongfu Temple (Fri 18 Dec)</b> — free, but a real-name reservation is <b>mandatory, 1–7 days ahead</b>, via the “Hangzhou Lingyin Feilai Peak” mini-program. No same-day booking. Book by Thu 17 Dec at the latest.</li>
+        <li><b>Songcheng show (Thu 17 Dec)</b> — book the dated combo ticket (park + show) in advance, ~¥320 standard / ¥350 VIP. Confirm whether the 17 Dec show is 19:00 or 19:30. Don't buy the cheaper night-tour-only ticket by mistake.</li>
+        <li><b>Xixi Wetland Park</b> — real-name booking, opens 7 days ahead; ¥80 adult (¥70 if booked a day ahead on official WeChat), electric boat ¥60 extra.</li>
+        <li><b>成隆行·蟹王府 dinner (Mon 14 Dec)</b> — call <b>021-63212010</b> to book and confirm hairy crab is still available in mid-December.</li>
+        <li><b>High-speed trains (14 &amp; 17 Dec)</b> — book on 12306 or Trip.com; Hangzhou East ↔ Shanghai Hongqiao, ~¥73 second class.</li>
+        <li><b>Impression West Lake show (Sat 12 Dec, optional)</b> — only if you want the evening show (~19:15 in Dec, ¥360 standard). It would replace the night market or dinner, not sit alongside both. Season ends mid-December.</li>
+      </ul>
     </div>
   </section>
 </main>
-<footer>Hangzhou 11–14 Dec · Shanghai 14–17 Dec · Hangzhou 17–20 Dec · Built for the family trip</footer>
+<footer>Hangzhou 11–14 Dec · Shanghai 14–17 Dec · Hangzhou 17–20 Dec · Prices and hours checked 14 Nov 2026 — confirm on the day, December schedules can change</footer>
 <script>
+const P = {
+  westlake: { n:"West Lake", cn:"西湖", addr:"West Lake Scenic Area, Xihu District (east shore at Hubin)", hours:"Open 24h, free", price:"Free — boat to Three Pools island ¥55–70; Leifeng Pagoda ¥40; Yue Fei Temple ¥25", station:"Line 1 Longxiangqiao (龙翔桥), Exit C — 3–10 min walk to the east shore", link:"https://www.chinatravel.com/hangzhou/attraction/west-lake", tip:"Go weekday morning. Free music fountain at Hubin Park No. 3, 19:30 daily." },
+  impression: { n:"West Lake Impression", cn:"最忆是杭州", addr:"No. 82 Beishan Road, Xihu District (Yue Lake, opposite Yue Fei Temple)", hours:"Evening show only, ~55–60 min — usual slot 19:40 (Dec ~19:15); season runs Mar–mid-Dec", price:"Standard ¥360; VIP ¥430–450; premium ¥680–960", station:"No metro at the gate — Line 1 Longxiangqiao or Line 3 Huanglongdong, then bus/taxi ~10–15 min", link:"https://www.chinadiscovery.com/zhejiang/hangzhou/west-lake/impression-west-lake.html", tip:"The afternoon slot in the plan is the lakeside/ticket office only — the show is evening-only. 12 Dec is near the end of the season; book ahead and bring a jacket." },
+  hefang: { n:"He Fang Jie", cn:"河坊街 · Qinghefang", addr:"Hefang Street, Shangcheng District (No. 180 Hefang St, at the foot of Wu Hill)", hours:"Street open 24h, free; shops ~09:00/10:00–21:30/22:00. Best 17:00–21:00 for lanterns and street food", price:"Free to walk. Hu Qing Yu Tang Chinese Medicine Museum ¥10", station:"Line 7 Wushan Square (吴山广场), Exit C/D — 3 min walk. Or Line 1 Ding'an Road, ~10 min", link:"https://www.nihaovisit.com/attractions/hangzhou/hefang-street/", tip:"~15 min walk south from West Lake along Nanshan Rd." },
+  wulin: { n:"Wulin Night Market", cn:"武林夜市", addr:"40 Longyou Road, Gongshu District", hours:"Mon–Fri 17:00–23:00; Sat–Sun 14:00–23:00. ~200 stalls", price:"Free entry; food pay-as-you-go", station:"Lines 1/2 Fengqi Road (凤起路), Exit E — 320 m, ~5 min walk", link:"https://en.hangzhou.com.cn/News/content/2024-11/01/content_8808171.html", tip:"Sat 12 Dec is a Saturday, so stalls start at 14:00. A few minutes' walk from the hotel." },
+  xixi: { n:"Xixi Wetland Park", cn:"西溪国家湿地公园", addr:"No. 518 Tianmushan Road, Xihu District — main ticketed entrance Zhoujiacun (周家村)", hours:"Winter (8 Oct–31 Mar): 08:00–17:30, ticket sales to 16:30, last entry 17:00", price:"Adult ¥80 (¥70 if booked a day ahead on official WeChat); half ¥40; free under-6 / under 1.2 m. Electric boat ¥60 extra", station:"Line 3 Xixi Wetland South (西溪湿地南), Exit A — ~200 m to Zhoujiacun", link:"https://www.ehangzhou.gov.cn/2020-04/22/c_271679.htm", tip:"Reeds peak mid-Nov–early Dec — good timing. Allow 3–4 hrs. Bookings open 7 days ahead, real-name." },
+  wetlandmuseum: { n:"National Wetland Museum of China", cn:"中国湿地博物馆", addr:"No. 402 Tianmushan Road, Xihu District (SE corner of Xixi Wetland Park)", hours:"Tue–Sun 09:00–16:30, last entry 16:00. Closed Mondays", price:"Free", station:"Line 3 Dongyue (东岳), Exit A/B — ~300 m, 5 min walk", link:"https://www.ehangzhou.gov.cn/2024-04/29/c_289415.htm", tip:"32.5 m curved giant screen in the B1 Wetland Cave Hall is the highlight; ~1–1.5 hrs, very family-friendly. Reserve via the museum's official WeChat." },
+  airobox: { n:"Airobox Tech — Robot Dream Factory", cn:"AIROBOX机器人梦工厂", addr:"Halls A/B, Art Exhibition Centre, Zhijiang Cultural Centre, No. 300 Jianghan Road, Xihu District", hours:"Tue–Sun 10:00–18:00 (some listings 09:00), last entry 17:00. Closed Mondays", price:"¥69/person; ¥119 for 1 adult + 1 child. Under 90 cm free", station:"Line 6 Zhijiang Cultural Centre Station (之江文化中心站) — at the complex", link:"https://www.trip.com/travel-guide/attraction/hangzhou/airobox-robot-dream-factory-153110164/", tip:"China's first human–machine future space: 90+ robots, 30+ interactive installations, robot band and robot dogs. Book via the AIROBOX WeChat mini-program or Ctrip. The Zhejiang Literature Museum in the same complex is free, Tue–Sun 09:00–17:00." },
+  animation: { n:"China Animation Museum", cn:"中国动漫博物馆", addr:"No. 375 Baimahu Road, Binjiang District (White Horse Lake) — south across the Qiantang River", hours:"Wed–Sun 09:30–16:30, last entry 16:00. Closed Mon AND Tue", price:"Free", station:"No direct metro — Line 5 to Jucai Road, then bus 522M to Tangjiaqiao East; or taxi ~40–60 min from Xixi", link:"https://ccam.hzxcw.gov.cn/guide.html", tip:"Moved here from Sun 13 Dec — it was too far to fit that afternoon. Allow a full morning." },
+  chenghuang: { n:"Chenghuangmiao (City God Temple) + bazaar", cn:"上海城隍庙", addr:"249 Fangbang Middle Road, Huangpu District", hours:"Temple 08:30–16:30. Yuyuan Bazaar ~10:00–22:00; lanterns on ~17:30", price:"Temple interior ~¥10. Bazaar, Nine-Turn Bridge and Huxinting: free. Yu Garden (separate): ¥30 in Dec, closed Mondays", station:"Yuyuan Garden (豫园), Lines 10/14, Exits 1/7 — ~5 min walk", link:"https://localshanghai.com/city-god-temple-shanghai-chenghuangmiao/", tip:"The evening visit is the lit bazaar, not the temple halls — the temple closes at 16:30. Yu Garden is closed on Mon 14 Dec, so save it for another trip." },
+  wukang: { n:"Wu Kang Lu", cn:"武康路", addr:"Wukang Road, Xuhui District, former French Concession (1.18 km, Huashan Rd to Huaihai Middle Rd)", hours:"Street always open, free", price:"Free to walk. Soong Ching-ling Residence ¥20; Ba Jin Residence free — both closed Mondays", station:"Jiaotong University (交通大学), Lines 10/11, Exit 3 — ~8 min walk. Or Shanghai Library, Line 10, Exit 3 (~5 min)", link:"https://askthecity.com/shanghai/landmarks/wukang-road", tip:"Start at Wukang Mansion (south end, the classic ship-bow photo), walk north, then Anfu Road east for cafés. Mon 14 Dec: both house museums closed — street and café walk only." },
+  bund: { n:"The Bund", cn:"外滩", addr:"Zhongshan East 1st Road, Huangpu District — promenade ~1.5 km, Yan'an East Rd to Waibaidu Bridge", hours:"Free, open 24h", price:"Free walk. Huangpu River night cruise ~¥150; public ferry ~¥2", station:"East Nanjing Road (南京东路), Lines 2/10 — 5–10 min walk east down Nanjing Rd", link:"https://www.shanghaitourism.org/the-bund-at-night/", tip:"Sunset 14 Dec ~16:52. Arrive ~30 min before sunset for blue hour; lights winter nights ~18:00–22:00. Dress warm — river wind is cold in December." },
+  pearl: { n:"Oriental Pearl TV Tower", cn:"东方明珠", addr:"1 Century Avenue, Lujiazui, Pudong", hours:"09:00–21:00, last entry 20:30", price:"Two-Sphere ¥199 adult / ¥99 child; Three-Sphere ¥220 / ¥110. Under 1 m free", station:"Lujiazui (陆家嘴), Line 2, Exit 1 — at the tower plaza", link:"https://www.trip.com/guide/attraction/oriental-pearl-tower.html", tip:"Best value is Two-Sphere (lower + 263 m deck + 259 m glass walkway + History Exhibition Hall). Book 1–3 days ahead; weekday morning first hour is quietest. Allow 2–3 hrs." },
+  sstm: { n:"Shanghai Science and Technology Museum", cn:"上海科技馆", addr:"2000 Century Avenue, Pudong", hours:"Tue–Sun 09:00–17:00, last entry 16:00. Closed Mondays", price:"Adult ¥45; students ¥22; under 1.3 m free. IMAX 3D ¥40 extra", station:"Line 2, Shanghai Science and Technology Museum Station (上海科技馆站), Exit 7/8 — exits lead to the museum plaza", link:"https://en.sstm.org.cn/tickets/policy", tip:"No on-site ticket office — real-name online booking only, released 7 days ahead at 10:00. Book on Tue 8 Dec; tickets sell out. Allow 3–4 hrs." },
+  animalpark: { n:"Shanghai Wild Animal Park", cn:"上海野生动物园", addr:"178 Nanliu Highway, Pudong (~35 km from central Shanghai)", hours:"December: 09:00–16:30, last entry 15:30. Open daily", price:"Adult ¥190; free ≤6 yrs or ≤1.3 m; half price 6–18 and students", station:"Line 16 to Wild Animal Park Station (野生动物园站), then free park shuttle ~5 min. From People's Square ~55–70 min each way", link:"http://www.shwzoo.com/", tip:"A full day — 4–6 hrs. Arrive at opening and do the drive-through safari bus first; animals are most active in the morning. December is cold and mostly outdoors — dress warmly." },
+  songcheng: { n:"Songcheng", cn:"宋城", addr:"No. 148 Zhijiang Road, Xihu District", hours:"Park 09:30–21:00 daily. Romance of the Song Dynasty show ~60 min, usually 14:00 and 19:30", price:"Combo ticket (park + show): ~¥320 standard / ¥350 VIP booked online. Night-tour-only ticket from ~¥70 — do NOT buy by mistake", station:"From Hangzhou East: taxi/Didi ~30 min (~15 km). Or Metro Line 6 to Fenghua West Road then 10-min taxi", link:"https://www.greentourasia.com/en/video/songchengqianguqing", tip:"Confirm the exact 17 Dec showtime (19:00 vs 19:30) on the dated booking page. Book show tickets in advance." },
+  yongfu: { n:"Yongfu Temple", cn:"永福寺", addr:"No. 16 Fayun Lane, Lingyin Road, Xihu District (inside Lingyin–Feilai Peak scenic area)", hours:"07:30–17:30, last entry 17:00, open daily", price:"Free since 1 Dec 2025 — BUT real-name reservation mandatory, at least 1 day in advance, via the “Hangzhou Lingyin Feilai Peak” mini-program. No same-day booking", station:"Line 3 Huanglongdong (黄龙洞), Exit B, then bus 7/27/103/278/505 to Lingyin stop, ~10 min walk", link:"https://en.lingyinsi.org/detail_15105.html", tip:"Book by Thu 17 Dec at the latest (slots released 7 days ahead at 08:00; passport accepted). Quieter than Lingyin Temple; arrive before 09:00 or after 15:00. Allow 1–1.5 hrs." },
+  polar: { n:"Hangzhou Polar Ocean Park", cn:"杭州长乔极地海洋公园", addr:"No. 777 Xianghu Road, Xiaoshan District (Xianghu Lake resort area)", hours:"09:00–17:00, last entry 16:30, daily", price:"Adult ~¥350–360 (list ¥460); concession ¥299; under 1.0 m free. Beluga show typically 10:30 and 14:30", station:"Line 1 Xianghu (湘湖), then bus 405/706 or taxi ~10 min. Taxi from West Lake ~30 min", link:"https://www.trip.com/travel-guide/attraction/hangzhou/hangzhou-changqiao-polar-ocean-park-91606/", tip:"December-birthday promo: anyone born in December pays ¥0.1 (ID checked, runs to 31 Dec). Allow 3–6 hrs; check at the gate whether the beluga/dolphin shows are running that day." },
+  yunman: { n:"Yunman Hot Spring", cn:"云曼温泉", addr:"Inside Songcheng First World Hotel, No. 2555 Fengqing Avenue, Xiaoshan District", hours:"Sat 19 Dec: 10:30–22:30", price:"Adult ¥168, child ¥108; under 1.2 m free. Hotel guests ~¥100", station:"Line 1 Xianghu (湘湖), then bus/taxi ~10 min (same as Hangzhou Paradise area)", link:"http://m.hz.bendibao.com/jingdian/yunmanwenquan/", tip:"33 pools in 4 themed zones, children's splash pool with slides, cartoon parade daily 15:30. Open-air pools in December feel cold between pools — bring thick towels and swimwear (sold on site ~¥200/set)." },
+  xianghu: { n:"Xianghu Lake", cn:"湘湖", addr:"Xianghu Lake resort area, Xiaoshan District", hours:"Open park, free", price:"Free", station:"Line 1 Xianghu (湘湖)", link:"", tip:"Free lakeside alternative near the Polar Ocean Park and Yunman if the afternoon needs a breather." }
+};
+function placeHTML(id){
+  const p = P[id]; if(!p) return "";
+  return `<div class="place"><h3>${p.n} <span class="cn">${p.cn}</span></h3>
+  <dl class="meta"><dt>Address</dt><dd>${p.addr}</dd><dt>Hours</dt><dd>${p.hours}</dd><dt>Price</dt><dd>${p.price}</dd><dt>Nearest station</dt><dd>${p.station}</dd>${p.link?`<dt>Link</dt><dd><a href="${p.link}">${p.link.replace(/^https?:\/\//,"").split("/")[0]}</a></dd>`:""}</dl>
+  <p class="tip">💡 ${p.tip}</p></div>`;
+}
 const DAYS = [
- {d:"Fri 11 Dec", c:"hz", t:"Arrive Hangzhou", items:["Land 21:55 on TR188 from Singapore.","Straight to the Holiday Inn Hangzhou West Lake and rest."]},
- {d:"Sat 12 Dec", c:"hz", t:"West Lake, Hangzhou", items:["Morning: West Lake (Xihu), lakeside walk.","Afternoon: West Lake Impression area, then He Fang Jie.","Evening: Wulin Night Market."], meal:"Dinner: 榆园·甬绍荟馆 (杭州嘉里中心店) — Recommended by Cylin. Kerry Centre, Yan'an Road."},
- {d:"Sun 13 Dec", c:"hz", t:"Wetlands & museums", items:["Morning: Xixi Wetland Park (Southeast Gate 1).","Afternoon: National Wetland Museum of China, then China Animation Museum.","Evening: Airobox Tech (listed as “Coral Farm” on Google Maps — a museum-like tech experience, not a restaurant), 300 Jianghan Road, Zhijiang Cultural Centre."]},
- {d:"Mon 14 Dec", c:"sh", t:"Hangzhou → Shanghai", items:["Morning: free, check out by 12:00. High-speed train to Shanghai (~1 hour).","Afternoon: check in at Jianguo Hidden Hotel from 15:00.","Evening: Shanghai Chenghuangmiao (City God Temple) area, then Wu Kang Lu."], meal:"Dinner: 成隆行·蟹王府 (九江路店) — Recommended by Cylin. 216 Jiujiang Road, near Nanjing East Road Metro. Book ahead — evenings fill up."},
- {d:"Tue 15 Dec", c:"sh", t:"Central Shanghai", items:["Morning: Oriental Pearl TV Tower.","Lunch: Xiao Dadong (Nanjing West Rd) — duck.","Afternoon: Shanghai Natural History Museum.","Evening: MeLand Club (indoor playground), or a quiet evening near the Bund."], meal:"Dinner: 米桃雅宴·江南苏锡菜 (长宁店) — Recommended by Cylin. Near Zhongshan Park / Jiangsu Road."},
- {d:"Wed 16 Dec", c:"sh", t:"Pudong, Shanghai", items:["Morning: Shanghai Wild Animal Park.","Afternoon: Shanghai Science and Technology Museum (replaces the Astronomy Museum)."]},
- {d:"Thu 17 Dec", c:"hz", t:"Shanghai → Hangzhou · Songcheng", items:["Morning: free, check out by 12:00. Train back to Hangzhou.","Afternoon: Songcheng (宋城) — half an afternoon there. Straight from Hangzhou East station (~30 min by taxi), arrive ~3:30pm. Explore the Song-dynasty streets and smaller shows.","7pm: Romance of the Song Dynasty show (about 1 hour). Back to the hotel ~9pm to check in and rest.","Note: the 2pm show is too early on this travel day — the 7pm show is the one that works."]},
- {d:"Fri 18 Dec", c:"hz", t:"Temples & the west side", items:["Morning: Yongfu Temple.","Afternoon: Hangzhou Polar Ocean Park."], meal:"Dinner: Green Tea Restaurant."},
- {d:"Sat 19 Dec", c:"hz", t:"Last full day", items:["Morning/afternoon: Hangzhou Paradise.","Afternoon/evening: Yunman Hot Spring (family spa, next to Hangzhou Paradise) — 33 pools, children's splash pool. ~¥168 adult / ¥108 child.","Evening: early night and pack. Leave for the airport late tonight for the 02:15 flight."]},
- {d:"Sun 20 Dec", c:"hz", t:"Fly home", items:["SQ839 Hangzhou → Singapore, 02:15–07:15."]}
+ {d:"Fri 11 Dec", c:"hz", t:"Arrive Hangzhou", v:"ok", vt:"Works", items:[{t:"Land 21:55 on TR188 from Singapore.", p:null, note:"Take a taxi/DiDi to the hotel (~¥100–130 + ¥20 toll, 50–60 min) — the last metro time is disputed (22:30 vs 23:14), don't gamble on it."},{t:"Straight to the Holiday Inn Hangzhou West Lake and rest.", p:null, note:"Hotel is ~80 m from Fengqi Road metro (Lines 1/2) for the next morning."}]},
+ {d:"Sat 12 Dec", c:"hz", t:"West Lake, Hangzhou", v:"ok", vt:"Works", items:[{t:"Morning: West Lake (Xihu), lakeside walk.", p:"westlake"},{t:"Afternoon: West Lake Impression area, then He Fang Jie.", p:"impression"},{t:"", p:"hefang"},{t:"Evening: Wulin Night Market.", p:"wulin"}], meal:"Dinner: 榆园·甬绍荟馆 (杭州嘉里中心店) — Recommended by Cylin. Kerry Centre, Yan'an Road. Metro Line 1 Fengqi Road, Exit C1, ~30 m. ¥169/person."},
+ {d:"Sun 13 Dec", c:"hz", t:"Wetlands & museums", v:"fixed", vt:"Fixed", items:[{t:"Morning: Xixi Wetland Park (enter by ~09:00).", p:"xixi"},{t:"Early afternoon: National Wetland Museum of China (~13:00–14:30).", p:"wetlandmuseum"},{t:"Afternoon: Airobox Tech, 15:30–18:00.", p:"airobox", note:"Airobox closes at 18:00 — it is not an evening visit. The China Animation Museum moved to Sat 19 Dec morning: three venues across town could not all fit in one afternoon."}]},
+ {d:"Mon 14 Dec", c:"hz", t:"Hangzhou → Shanghai", v:"tight", vt:"Tight", items:[{t:"Morning: free, check out by 12:00. Book a train around 13:00 — Hangzhou East ↔ Shanghai Hongqiao, G-train 45–60 min, ¥73 second class.", p:null, note:"Hotel → Hangzhou East ~25 min by metro; Hongqiao → hotel ~50 min by metro (Line 2 to People's Square, change to Line 8 to Dashijie). Expect the hotel ~15:30, not 15:00."},{t:"Evening: Chenghuangmiao bazaar, then Wu Kang Lu.", p:"chenghuang"},{t:"", p:"wukang", note:"Yu Garden is closed on Mondays and the temple closes at 16:30 — the evening is the lit bazaar and the street walk, not the interiors."}], meal:"Dinner: 成隆行·蟹王府 (九江路店) — Recommended by Cylin. 216 Jiujiang Road, ~250 m from Nanjing East Road Metro. Call 021-63212010 first to confirm hairy crab is still available — mid-December is the tail end of the season."},
+ {d:"Tue 15 Dec", c:"sh", t:"Central Shanghai", v:"fixed", vt:"Fixed", items:[{t:"Morning: Oriental Pearl TV Tower.", p:"pearl"},{t:"Lunch: Xiao Dadong (Nanjing West Rd) — duck. No phone reservations; arrive at 11:30 opening.", p:null, note:"6F, New World City, 2–68 Nanjing West Rd. People's Square metro, Lines 1/2/8, Exit 7 or 19 — 1–3 min walk. ¥100–250/person; roast duck ~¥199."},{t:"Afternoon: Shanghai Science and Technology Museum (moved here from Wed — the Natural History Museum is closed on Tuesdays).", p:"sstm"},{t:"Evening: the Bund walk.", p:"bund", note:"MeLand Club after dinner was dropped — arriving ~20:00 would leave ~1 hour for a ~¥298 ticket. The Bund is free and suits the hour."}], meal:"Dinner: 米桃雅宴·江南苏锡菜 (Hongqiao Nanfeng City branch) — Recommended by Cylin. 150 Zunyi Rd, 5F. Metro Loushanguan Road (Lines 2/15), Exit 2, ~8 min walk. ~¥137–200/person. Note the corrected branch — not near Zhongshan Park."},
+ {d:"Wed 16 Dec", c:"sh", t:"Pudong — Wild Animal Park, full day", v:"fixed", vt:"Fixed", items:[{t:"Full day: Shanghai Wild Animal Park (09:00–16:30).", p:"animalpark", note:"The Science and Technology Museum moved to Tue afternoon — the two venues could not fit in one day (the animal park needs 4–6 hrs and the museum's last entry is 16:00)."}]},
+ {d:"Thu 17 Dec", c:"hz", t:"Shanghai → Hangzhou · Songcheng", v:"tight", vt:"Tight", items:[{t:"Morning: free, check out by 12:00. Train back to Hangzhou (Hongqiao → Hangzhou East, ~1 h).", p:null, note:"Hotel → Hongqiao ~50 min by metro + ~40 min inside the huge station before departure."},{t:"Afternoon: Songcheng (宋城) — half an afternoon there. Go straight from Hangzhou East station (~30 min by taxi) instead of checking in first — you'll reach Songcheng about 3:30pm.", p:"songcheng"},{t:"Evening: Romance of the Song Dynasty show (about 1 hour). Back to the hotel about 9:30pm.", p:null, note:"The show is usually 19:30, not 19:00 — confirm when booking. Luggage: use left-luggage at Hangzhou East, or drop bags at the hotel first (arrive Songcheng ~16:00, still fine)."}],},
+ {d:"Fri 18 Dec", c:"hz", t:"Temples & the west side", v:"tight", vt:"Tight", items:[{t:"Morning: Yongfu Temple.", p:"yongfu"},{t:"Afternoon: Hangzhou Polar Ocean Park.", p:"polar", note:"~45–60 min by taxi from Lingyin, so an afternoon arrival ~13:30–14:00 gives ~3 hrs — catch the 14:30 beluga show. If that feels too rushed for ¥360/adult, swap for free Xianghu Lake nearby."},{t:"", p:"xianghu"}], meal:"Dinner: Green Tea Restaurant — Longjing flagship branch (83 Longjing Road) suits this west-side day; the Yintai branch (98 Yan'an South Road) is nearer the hotel but queues. ~¥88–104/person. Must-order: 面包诱惑 Bread Temptation ¥35, 粉丝裹虾 ¥52."},
+ {d:"Sat 19 Dec", c:"hz", t:"Last full day", v:"fixed", vt:"Fixed", items:[{t:"Morning: China Animation Museum (09:30–12:00).", p:"animation", note:"Hangzhou Paradise is closed all winter (30 Nov–5 Mar) — the theme-park plan for this day cannot happen. The Animation Museum moved here from Sun 13 Dec."},{t:"Afternoon/evening: Yunman Hot Spring (family spa).", p:"yunman"},{t:"Evening: early night and pack. Leave for the airport ~23:00–23:30 by taxi for the 02:15 flight.", p:null, note:"Metro is closed at that hour. Taxi ~40–50 min at night."}]},
+ {d:"Sun 20 Dec", c:"hz", t:"Fly home", v:"ok", vt:"Works", items:[{t:"SQ839 Hangzhou → Singapore, 02:15–07:15.", p:null, note:""}]}
 ];
 const nav = document.getElementById('daynav'), wrap = document.getElementById('days');
 DAYS.forEach((day,i)=>{
   const b=document.createElement('button'); b.textContent=day.d; b.onclick=()=>showDay(i);
   nav.appendChild(b);
   const div=document.createElement('div'); div.className='day'; div.id='day-'+i;
-  div.innerHTML = `<div class="card"><span class="city ${day.c==='sh'?'sh':''}">${day.c==='sh'?'Shanghai':'Hangzhou'}</span><h2>${day.d} — ${day.t}</h2><ul>${day.items.map(x=>`<li>${x}</li>`).join('')}</ul>${day.meal?`<div class="meal">🍜 ${day.meal}</div>`:''}<ul class="check">${day.items.map((x,j)=>`<li data-k="${i}-${j}"><input type="checkbox"> <span>${x}</span></li>`).join('')}</ul></div>`;
+  let html = `<div class="card"><span class="city ${day.c==='sh'?'sh':''}">${day.c==='sh'?'Shanghai':'Hangzhou'}</span><h2>${day.d} — ${day.t}<span class="verdict ${day.v}">${day.vt}</span></h2>`;
+  day.items.forEach((it,j)=>{
+    if(it.t) html += `<p><b>${it.t}</b></p>`;
+    if(it.p) html += placeHTML(it.p);
+    if(it.note) html += `<p class="tip">💡 ${it.note}</p>`;
+  });
+  if(day.meal) html += `<div class="meal">🍜 ${day.meal}</div>`;
+  html += `<ul class="check">${day.items.filter(x=>x.t).map((x,j)=>`<li data-k="${i}-${j}"><input type="checkbox"> <span>${x.t}</span></li>`).join('')}</ul></div>`;
+  div.innerHTML = html;
   wrap.appendChild(div);
 });
 function showDay(i){
