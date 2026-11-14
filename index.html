@@ -331,7 +331,7 @@ const DAYS = [
 ];
 const nav = document.getElementById('daynav'), wrap = document.getElementById('days');
 DAYS.forEach((day,i)=>{
-  const b=document.createElement('button'); b.textContent=day.d; b.onclick=()=>showDay(i);
+  const b=document.createElement('button'); b.textContent=day.d.replace(' Dec',''); b.onclick=()=>showDay(i);
   nav.appendChild(b);
   const div=document.createElement('div'); div.className='day'; div.id='day-'+i;
   let html = `<div class="card"><span class="city ${day.c==='sh'?'sh':''}">${day.c==='sh'?'Shanghai':'Hangzhou'}</span><h2>${day.d} — ${day.t}<span class="verdict ${day.v}">${day.vt}</span></h2>`;
@@ -349,7 +349,14 @@ function showDay(i){
   document.querySelectorAll('.day').forEach((el,j)=>el.classList.toggle('active', j===i));
   nav.querySelectorAll('button').forEach((el,j)=>el.classList.toggle('active', j===i));
 }
-showDay(0);
+// Default to the current day of the trip (first day before it, last day after it).
+const _today = new Date();
+const _start = new Date(2026, 11, 11), _end = new Date(2026, 11, 20);
+let _startIdx = 0;
+if (_today >= _start && _today <= _end) _startIdx = _today.getDate() - 11;
+else if (_today > _end) _startIdx = DAYS.length - 1;
+showDay(_startIdx);
+nav.querySelectorAll('button')[_startIdx].scrollIntoView({inline:'center', block:'nearest'});
 document.querySelectorAll('.check li').forEach(li=>{
   li.addEventListener('click', e=>{ if(e.target.tagName!=='INPUT'){ const cb=li.querySelector('input'); cb.checked=!cb.checked; } li.classList.toggle('done', li.querySelector('input').checked); localStorage.setItem('hz-'+li.dataset.k, li.querySelector('input').checked?'1':'0'); });
   if(localStorage.getItem('hz-'+li.dataset.k)==='1'){ li.querySelector('input').checked=true; li.classList.add('done'); }
