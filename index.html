@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hangzhou &amp; Shanghai — 11–20 Dec 2026</title>
+<style>
+  :root { --ink:#1f2a33; --muted:#5b6b76; --accent:#b3541e; --accent2:#0f766e; --bg:#faf7f2; --card:#fff; --line:#e8dfd3; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; }
+  header { background:linear-gradient(135deg,#7c2d12,#b3541e 55%,#0f766e); color:#fff; padding:2.2rem 1.2rem 1.6rem; text-align:center; }
+  header h1 { margin:0 0 .3rem; font-size:1.7rem; }
+  header p { margin:.2rem 0; opacity:.95; }
+  .countdown { display:inline-block; margin-top:.7rem; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35); padding:.35rem .9rem; border-radius:999px; font-weight:600; }
+  main { max-width:860px; margin:0 auto; padding:1rem 1rem 3rem; }
+  nav.days { display:flex; gap:.4rem; overflow-x:auto; padding:.4rem 0 1rem; position:sticky; top:0; background:var(--bg); z-index:5; }
+  nav.days button { flex:0 0 auto; border:1px solid var(--line); background:#fff; border-radius:999px; padding:.45rem .8rem; font-size:.9rem; cursor:pointer; }
+  nav.days button.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .day { display:none; }
+  .day.active { display:block; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1.1rem 1.2rem; margin-bottom:1rem; }
+  .card h2 { margin:0 0 .2rem; font-size:1.25rem; }
+  .city { display:inline-block; font-size:.75rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent2); }
+  .city.sh { color:#9a3412; }
+  ul { padding-left:1.2rem; margin:.5rem 0; }
+  li { margin:.35rem 0; }
+  .tag { display:inline-block; background:#fef3c7; color:#92400e; border-radius:6px; padding:.1rem .45rem; font-size:.8rem; font-weight:600; }
+  .meal { border-left:4px solid var(--accent); background:#fff7ed; padding:.6rem .8rem; border-radius:0 10px 10px 0; margin:.6rem 0; }
+  .check { list-style:none; padding-left:0; }
+  .check li { display:flex; gap:.6rem; align-items:flex-start; cursor:pointer; }
+  .check input { margin-top:.3rem; accent-color:var(--accent2); }
+  .check li.done { text-decoration:line-through; color:var(--muted); }
+  .rest img { width:100%; border-radius:10px; margin:.5rem 0; object-fit:cover; max-height:280px; }
+  .must { display:grid; gap:.5rem; }
+  .must div { background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:.6rem .8rem; }
+  .must b { color:var(--accent); }
+  .tabs2 { display:flex; gap:.4rem; margin-bottom:1rem; flex-wrap:wrap; }
+  .tabs2 button { border:1px solid var(--line); background:#fff; border-radius:999px; padding:.45rem .9rem; cursor:pointer; font-size:.9rem; }
+  .tabs2 button.active { background:var(--ink); color:#fff; border-color:var(--ink); }
+  section.page { display:none; }
+  section.page.active { display:block; }
+  footer { text-align:center; color:var(--muted); font-size:.85rem; padding:1rem; }
+  a { color:var(--accent2); }
+</style>
+</head>
+<body>
+<header>
+  <h1>🏮 Hangzhou &amp; Shanghai</h1>
+  <p>11–20 December 2026 · Relaxed pace, 2–3 places a day</p>
+  <p>✈️ TR188 SIN → Hangzhou, Fri 11 Dec 16:45–21:55 &nbsp;·&nbsp; ✈️ SQ839 Hangzhou → SIN, Sun 20 Dec 02:15–07:15</p>
+  <span class="countdown" id="countdown"></span>
+</header>
+<main>
+  <div class="tabs2">
+    <button class="active" data-page="days">📅 Day by day</button>
+    <button data-page="food">🍜 Restaurants — recommended by Cylin</button>
+    <button data-page="info">🧳 Travel &amp; hotels</button>
+  </div>
+
+  <!-- ============ DAYS ============ -->
+  <section class="page active" id="page-days">
+    <nav class="days" id="daynav"></nav>
+    <div id="days"></div>
+  </section>
+
+  <!-- ============ FOOD ============ -->
+  <section class="page" id="page-food">
+    <div class="card rest">
+      <span class="tag">Recommended by Cylin</span>
+      <h2>榆园·甬绍荟馆 (杭州嘉里中心店)</h2>
+      <p><b>Slotted: Sat 12 Dec, dinner</b> — after Wulin Night Market, same Wulin area. Kerry Centre, Yan'an Road, North Zone Commercial 1F. Metro Line 1, Fengqi Road Station, Exit C1. Hours 11:00–22:30. Mon–Thu 14:00–17:00 afternoon tea only. 4.6★ · ¥169/person · Zhejiang cuisine (甬绍菜 — Ningbo + Shaoxing).</p>
+      <img src="https://img.alicdn.com/i1/2673015014/O1CN01gWrHFQ1muSQgjIXsu_!!2673015014.jpg_400x400.jpg" alt="Marinated red-paste crab">
+      <p>A dark, elegant new-Chinese “garden” dining room — old stone slabs, pine and water features, semi-private booths. Ningbo's salty-fresh seafood meets Shaoxing's wine-soaked, fermented flavours. Named in the 2026 Michelin Guide, Hangzhou.</p>
+      <div class="must">
+        <div><b>Must do:</b> order the signature raw-marinated crab and let the staff shuck it at the table.</div>
+        <div><b>Must try:</b> 十八斩生腌膏蟹 — Zhoushan red-paste crab cured 24 hours in Shaoxing yellow wine; sweet, silky, melts in the mouth.</div>
+        <div><b>Must eat:</b> 臭豆腐烧白蟹 (stinky tofu braised with white crab), 蒋氏干菜焖肉 (braised pork belly with dried mustard greens, in a bun), and fresh-baked 榨菜月饼.</div>
+      </div>
+    </div>
+
+    <div class="card rest">
+      <span class="tag">Recommended by Cylin</span>
+      <h2>成隆行·蟹王府 (九江路店)</h2>
+      <p><b>Slotted: Mon 14 Dec, dinner</b> — your first night in Shanghai. 216 Jiujiang Road, Huangpu, ~250m from Nanjing East Road Metro. Hours 11:00–15:00, 17:00–22:00. Tel 021-63212010. ¥311/person on Dianping; budget ¥400–600 for a full crab feast. Michelin 1 star.</p>
+      <img src="https://zwz66.cn/uploads/allimg/20251010/5c5b38820862c52293ea0cee65c503c9.jpg" alt="Steamed hairy crab">
+      <p>A Shanghai crab institution since the 1950s, with its own 50,000-mu crab farm. Ming–Qing dining room, red lanterns, old wood, live folk music in the evenings. Free expert crab-shelling at the table.</p>
+      <div class="must">
+        <div><b>Must do:</b> let the staff shell the crab for you, and order warm yellow wine with ginger — the traditional pairing.</div>
+        <div><b>Must try:</b> 清蒸大闸蟹 — steamed hairy crab. December is past peak season (females Sep–Oct, males Oct–Nov), but they serve crab all year.</div>
+        <div><b>Must eat:</b> the “four greats” — steamed crab claw, crab-leg meat with asparagus, stir-fried crab roe, crab paste with rice-noodle skins — plus 秃黄油捞饭 (rice in rich crab-roe oil; add the vinegar).</div>
+      </div>
+    </div>
+
+    <div class="card rest">
+      <span class="tag">Recommended by Cylin</span>
+      <h2>米桃雅宴·江南苏锡菜</h2>
+      <p><b>Slotted: Tue 15 Dec, dinner — 长宁店 (Changning)</b>, near Zhongshan Park / Jiangsu Road. Suzhou/Wuxi (Jiangnan) cuisine. Branches: 长宁店 4.7★ ¥163 · 万象城店 4.8★ ¥163 · 久光中心店 4.4★ ¥132 · 静安合生MOHO店 4.6★ ¥128. Sets: ¥329 for 2, ¥559 for 3–4.</p>
+      <img src="https://img.shetu66.com/2026/04/13/177607280639219433.png?x-oss-process=image/resize,h_900/format,webp" alt="Squirrel fish (松鼠桂鱼)">
+      <p>Sweet, delicate Jiangnan cooking with beautiful plating and staff in hanfu. The seafood rice is finished with hot broth poured at the table.</p>
+      <div class="must">
+        <div><b>Must do:</b> order a set menu for 2–4 people — it covers the signatures at about 25% off.</div>
+        <div><b>Must try:</b> 松鼠桂鱼 (squirrel fish) — mandarin fish scored so it fans out like a squirrel's tail, crisp outside, snowy inside, sweet-and-sour glaze (about ¥188).</div>
+        <div><b>Must eat:</b> 招牌无锡蟹粉小笼包 (crab-roe soup dumplings), 活杀响油鳝糊 (sizzling eel paste), 海鲜乌米泡饭 (seafood black-rice soup rice), and 阳山桃胶酒酿圆子 for dessert.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Also on the plan</h2>
+      <ul>
+        <li><b>Tue 15 Dec, lunch — Xiao Dadong (Nanjing West Rd)</b>: duck, between the Oriental Pearl Tower and the Natural History Museum.</li>
+        <li><b>Fri 18 Dec, dinner — Green Tea Restaurant</b>, Hangzhou.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ INFO ============ -->
+  <section class="page" id="page-info">
+    <div class="card">
+      <h2>🏨 Hotels</h2>
+      <ul>
+        <li><b>11–14 Dec — Holiday Inn Hangzhou West Lake</b> (3 nights, 2 rooms, King Premium City View). Check in after 14:00, check out before 12:00.</li>
+        <li><b>14–17 Dec — Jianguo Hidden Hotel, Shanghai</b> (Bund Jinling East Road), No. 531 Jinling East Road, Huangpu. Check in from 15:00, check out before 12:00. Tel +86-21-55698858.</li>
+        <li><b>17–20 Dec — Holiday Inn Hangzhou West Lake</b> again.</li>
+      </ul>
+      <h2>🚄 Trains (not booked yet)</h2>
+      <ul>
+        <li><b>Mon 14 Dec:</b> Hangzhou → Shanghai high-speed train, ~1 hour.</li>
+        <li><b>Thu 17 Dec:</b> Shanghai → Hangzhou high-speed train, ~1 hour.</li>
+      </ul>
+      <h2>🎭 Songcheng — Thu 17 Dec</h2>
+      <p>Half an afternoon: straight from Hangzhou East station (~30 min by taxi), arrive ~3:30pm. Explore the Song-dynasty streets, then the <b>7pm Romance of the Song Dynasty show</b> (about 1 hour). The show itself is 60 minutes; allow 3–4 hours for park + show. Back to the hotel ~9pm. (The 2pm show is too early on a travel day.)</p>
+      <h2>🧖 Family spa — Sat 19 Dec</h2>
+      <p><b>Yunman Hot Spring</b>, inside the First World Hotel, 2555 Fengqing Avenue, Xiaoshan District — right next to Hangzhou Paradise. 33 pools, children's splash pool with slides. ~¥168 adult / ¥108 child, under 1.2m free. Saturdays 10:30–22:30. Also considered: West Lake State Guesthouse spa and the Spa at Four Seasons Hotel Hangzhou at West Lake.</p>
+      <h2>⏭️ Skipped from the list</h2>
+      <p>Hangzhou Zoo, Shanghai Disneyland Park, Chuiyun Tongtian River, Hengdian World Studios, Shanghai Astronomy Museum (replaced by the Shanghai Science and Technology Museum).</p>
+    </div>
+  </section>
+</main>
+<footer>Hangzhou 11–14 Dec · Shanghai 14–17 Dec · Hangzhou 17–20 Dec · Built for the family trip</footer>
+<script>
+const DAYS = [
+ {d:"Fri 11 Dec", c:"hz", t:"Arrive Hangzhou", items:["Land 21:55 on TR188 from Singapore.","Straight to the Holiday Inn Hangzhou West Lake and rest."]},
+ {d:"Sat 12 Dec", c:"hz", t:"West Lake, Hangzhou", items:["Morning: West Lake (Xihu), lakeside walk.","Afternoon: West Lake Impression area, then He Fang Jie.","Evening: Wulin Night Market."], meal:"Dinner: 榆园·甬绍荟馆 (杭州嘉里中心店) — Recommended by Cylin. Kerry Centre, Yan'an Road."},
+ {d:"Sun 13 Dec", c:"hz", t:"Wetlands & museums", items:["Morning: Xixi Wetland Park (Southeast Gate 1).","Afternoon: National Wetland Museum of China, then China Animation Museum.","Evening: Airobox Tech (listed as “Coral Farm” on Google Maps — a museum-like tech experience, not a restaurant), 300 Jianghan Road, Zhijiang Cultural Centre."]},
+ {d:"Mon 14 Dec", c:"sh", t:"Hangzhou → Shanghai", items:["Morning: free, check out by 12:00. High-speed train to Shanghai (~1 hour).","Afternoon: check in at Jianguo Hidden Hotel from 15:00.","Evening: Shanghai Chenghuangmiao (City God Temple) area, then Wu Kang Lu."], meal:"Dinner: 成隆行·蟹王府 (九江路店) — Recommended by Cylin. 216 Jiujiang Road, near Nanjing East Road Metro. Book ahead — evenings fill up."},
+ {d:"Tue 15 Dec", c:"sh", t:"Central Shanghai", items:["Morning: Oriental Pearl TV Tower.","Lunch: Xiao Dadong (Nanjing West Rd) — duck.","Afternoon: Shanghai Natural History Museum.","Evening: MeLand Club (indoor playground), or a quiet evening near the Bund."], meal:"Dinner: 米桃雅宴·江南苏锡菜 (长宁店) — Recommended by Cylin. Near Zhongshan Park / Jiangsu Road."},
+ {d:"Wed 16 Dec", c:"sh", t:"Pudong, Shanghai", items:["Morning: Shanghai Wild Animal Park.","Afternoon: Shanghai Science and Technology Museum (replaces the Astronomy Museum)."]},
+ {d:"Thu 17 Dec", c:"hz", t:"Shanghai → Hangzhou · Songcheng", items:["Morning: free, check out by 12:00. Train back to Hangzhou.","Afternoon: Songcheng (宋城) — half an afternoon there. Straight from Hangzhou East station (~30 min by taxi), arrive ~3:30pm. Explore the Song-dynasty streets and smaller shows.","7pm: Romance of the Song Dynasty show (about 1 hour). Back to the hotel ~9pm to check in and rest.","Note: the 2pm show is too early on this travel day — the 7pm show is the one that works."]},
+ {d:"Fri 18 Dec", c:"hz", t:"Temples & the west side", items:["Morning: Yongfu Temple.","Afternoon: Hangzhou Polar Ocean Park."], meal:"Dinner: Green Tea Restaurant."},
+ {d:"Sat 19 Dec", c:"hz", t:"Last full day", items:["Morning/afternoon: Hangzhou Paradise.","Afternoon/evening: Yunman Hot Spring (family spa, next to Hangzhou Paradise) — 33 pools, children's splash pool. ~¥168 adult / ¥108 child.","Evening: early night and pack. Leave for the airport late tonight for the 02:15 flight."]},
+ {d:"Sun 20 Dec", c:"hz", t:"Fly home", items:["SQ839 Hangzhou → Singapore, 02:15–07:15."]}
+];
+const nav = document.getElementById('daynav'), wrap = document.getElementById('days');
+DAYS.forEach((day,i)=>{
+  const b=document.createElement('button'); b.textContent=day.d; b.onclick=()=>showDay(i);
+  nav.appendChild(b);
+  const div=document.createElement('div'); div.className='day'; div.id='day-'+i;
+  div.innerHTML = `<div class="card"><span class="city ${day.c==='sh'?'sh':''}">${day.c==='sh'?'Shanghai':'Hangzhou'}</span><h2>${day.d} — ${day.t}</h2><ul>${day.items.map(x=>`<li>${x}</li>`).join('')}</ul>${day.meal?`<div class="meal">🍜 ${day.meal}</div>`:''}<ul class="check">${day.items.map((x,j)=>`<li data-k="${i}-${j}"><input type="checkbox"> <span>${x}</span></li>`).join('')}</ul></div>`;
+  wrap.appendChild(div);
+});
+function showDay(i){
+  document.querySelectorAll('.day').forEach((el,j)=>el.classList.toggle('active', j===i));
+  nav.querySelectorAll('button').forEach((el,j)=>el.classList.toggle('active', j===i));
+}
+showDay(0);
+document.querySelectorAll('.check li').forEach(li=>{
+  li.addEventListener('click', e=>{ if(e.target.tagName!=='INPUT'){ const cb=li.querySelector('input'); cb.checked=!cb.checked; } li.classList.toggle('done', li.querySelector('input').checked); localStorage.setItem('hz-'+li.dataset.k, li.querySelector('input').checked?'1':'0'); });
+  if(localStorage.getItem('hz-'+li.dataset.k)==='1'){ li.querySelector('input').checked=true; li.classList.add('done'); }
+});
+document.querySelectorAll('.tabs2 button').forEach(b=>{
+  b.onclick=()=>{ document.querySelectorAll('.tabs2 button').forEach(x=>x.classList.toggle('active',x===b)); document.querySelectorAll('section.page').forEach(s=>s.classList.toggle('active', s.id==='page-'+b.dataset.page)); };
+});
+const dep=new Date('2026-12-11T16:45:00+08:00'), now=new Date();
+const daysLeft=Math.ceil((dep-now)/86400000);
+document.getElementById('countdown').textContent = daysLeft>0 ? `✈️ ${daysLeft} days to go` : '✈️ Trip time!';
+</script>
+</body>
+</html>
