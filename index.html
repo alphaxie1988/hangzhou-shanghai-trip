@@ -72,7 +72,12 @@
   .book b { color:var(--red); }
   /* Bottom tab bar: big touch targets */
   .toolbar.tabbar .tab-link { min-height:56px; padding-top:6px; }
-  .toolbar.tabbar .tab-link .tab-ico { font-size:22px; line-height:1; display:block; }
+  .toolbar.tabbar .tab-link .tab-ico { line-height:1; display:block; }
+  .toolbar.tabbar .tab-link .tab-ico svg { width:22px; height:22px; }
+  .ic { width:20px; height:20px; vertical-align:-4px; }
+  .ic-sm { width:16px; height:16px; vertical-align:-3px; }
+  .ic-lg { width:26px; height:26px; vertical-align:-5px; }
+  .navbar .badge svg { vertical-align:-2px; }
   .toolbar.tabbar .tabbar-label { font-size:11px; margin-top:2px; }
   .tabs .page-content { padding-bottom:88px; }
   .navbar .title { font-weight:700; }
@@ -86,29 +91,29 @@
       <div class="navbar">
         <div class="navbar-bg"></div>
         <div class="navbar-inner">
-          <div class="title">🏮 Hangzhou &amp; Shanghai</div>
+          <div class="title"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Hangzhou &amp; Shanghai</div>
           <div class="right"><span class="badge color-orange" id="countdown"></span></div>
         </div>
       </div>
       <div class="toolbar tabbar toolbar-bottom">
         <div class="toolbar-inner">
-          <a href="#tab-days" class="tab-link tab-link-active"><span class="tab-ico">📅</span><span class="tabbar-label">Days</span></a>
-          <a href="#tab-food" class="tab-link"><span class="tab-ico">🍜</span><span class="tabbar-label">Food</span></a>
-          <a href="#tab-info" class="tab-link"><span class="tab-ico">🧳</span><span class="tabbar-label">Travel</span></a>
-          <a href="#tab-book" class="tab-link"><span class="tab-ico">✅</span><span class="tabbar-label">Book</span></a>
+          <a href="#tab-days" class="tab-link tab-link-active"><span class="tab-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span class="tabbar-label">Days</span></a>
+          <a href="#tab-food" class="tab-link"><span class="tab-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></span><span class="tabbar-label">Food</span></a>
+          <a href="#tab-info" class="tab-link"><span class="tab-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></span><span class="tabbar-label">Travel</span></a>
+          <a href="#tab-book" class="tab-link"><span class="tab-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span><span class="tabbar-label">Book</span></a>
         </div>
       </div>
       <div class="tabs">
 
   <div id="tab-days" class="page-content tab tab-active">
     <div class="hero">
-      <h1>🏮 Hangzhou &amp; Shanghai</h1>
+      <h1><svg class="ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Hangzhou &amp; Shanghai</h1>
       <p>11–20 December 2026 · Relaxed pace, 2–3 places a day</p>
-      <p>✈️ TR188 SIN → Hangzhou, Fri 11 Dec 16:45–21:55 · ✈️ SQ839 Hangzhou → SIN, Sun 20 Dec 02:15–07:15</p>
-      <p>🌡️ December: highs ~11°C, lows ~3–4°C — pack warm layers, hats and gloves for the kids</p>
+      <p><svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg> TR188 SIN → Hangzhou, Fri 11 Dec 16:45–21:55 · <svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg> SQ839 Hangzhou → SIN, Sun 20 Dec 02:15–07:15</p>
+      <p><svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg> December: highs ~11°C, lows ~3–4°C — pack warm layers, hats and gloves for the kids</p>
     </div>
     <div class="card">
-      <h2>🔍 What the sense-check changed</h2>
+      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> What the sense-check changed</h2>
       <p>Every stop was checked for opening hours, closing days, prices and travel time. Four things in the original plan would not have worked — all fixed below:</p>
       <ul>
         <li><b>Hangzhou Paradise is closed all winter</b> (30 Nov–5 Mar). Sat 19 Dec is now the China Animation Museum in the morning, then Yunman Hot Spring in the afternoon.</li>
@@ -156,7 +161,7 @@
         <dt>Phone</dt><dd>021-63212010 — book ahead, evenings fill up</dd>
       </dl>
       <p>A Shanghai crab institution since the 1950s, with its own Yangcheng Lake crab farms. Ming–Qing dining room, red lanterns, old wood, live folk music in the evenings. Free expert crab-shelling at the table.</p>
-      <p class="warn"><b>⚠️ Call ahead:</b> mid-December is the tail end of hairy-crab season — supply drops and quality gets inconsistent. Confirm crab is still available for 14 Dec, and order male crabs (peak mid-Nov–early Dec).</p>
+      <p class="warn"><b><svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Call ahead:</b> mid-December is the tail end of hairy-crab season — supply drops and quality gets inconsistent. Confirm crab is still available for 14 Dec, and order male crabs (peak mid-Nov–early Dec).</p>
       <div class="must">
         <div><b>Must do:</b> let the staff shell the crab for you, and order warm yellow wine with ginger — the traditional pairing.</div>
         <div><b>Must try:</b> 清蒸大闸蟹 — steamed hairy crab. December is past peak season, but they serve crab all year.</div>
@@ -177,7 +182,7 @@
         <dt>Phone</dt><dd>+86 177 9870 8896</dd>
       </dl>
       <p>Sweet, delicate Jiangnan cooking with beautiful plating and staff in hanfu. The seafood rice is finished with hot broth poured at the table. The mall is a parent-child mall, so it's good with kids.</p>
-      <p class="warn"><b>⚠️ Branch correction:</b> the Changning branch is at Hongqiao Nanfeng City (150 Zunyi Rd), not near Zhongshan Park / Jiangsu Road as first listed. It's on Metro Line 2 — the same line as the Science and Technology Museum that afternoon.</p>
+      <p class="warn"><b><svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Branch correction:</b> the Changning branch is at Hongqiao Nanfeng City (150 Zunyi Rd), not near Zhongshan Park / Jiangsu Road as first listed. It's on Metro Line 2 — the same line as the Science and Technology Museum that afternoon.</p>
       <div class="must">
         <div><b>Must do:</b> order a set menu for 2–4 people — it covers the signatures at about 25% off.</div>
         <div><b>Must try:</b> 松鼠桂鱼 (squirrel fish) — mandarin fish scored so it fans out like a squirrel's tail, crisp outside, snowy inside, sweet-and-sour glaze (about ¥188).</div>
@@ -191,7 +196,7 @@
         <h3>Xiao Dadong <span class="cn">小大董 — Nanjing West Rd branch</span></h3>
         <p><b>Tue 15 Dec, lunch.</b> Michelin one-star Peking duck specialist.</p>
       <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/%E7%89%87%E7%9A%AE%E9%B4%A8.jpg" alt="Sliced Peking duck" loading="lazy" onerror="this.style.display='none'">
-      <p class="src">📷 Sliced Peking duck (representative photo) — Wikimedia Commons</p>
+      <p class="src"><svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg> Sliced Peking duck (representative photo) — Wikimedia Commons</p>
         <dl class="meta">
           <dt>Address</dt><dd>6F, South Building, New World City, 2–68 Nanjing West Rd, Huangpu</dd>
           <dt>Hours</dt><dd>Mon–Fri 11:30–21:00; Sat–Sun 11:00–15:30, 17:00–21:00</dd>
@@ -218,36 +223,36 @@
 
   <div id="tab-info" class="page-content tab">
     <div class="card">
-      <h2>🏨 Hotels</h2>
+      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg> Hotels</h2>
       <ul>
         <li><b>11–14 Dec — Holiday Inn Hangzhou West Lake</b> (3 nights, 2 rooms, King Premium City View). Check in after 14:00, check out before 12:00. Nearest metro: Fengqi Road (凤起路), Lines 1/2 — ~80 m, 2 min walk.</li>
         <li><b>14–17 Dec — Jianguo Hidden Hotel, Shanghai</b> (Bund Jinling East Road), No. 531 Jinling East Road, Huangpu. Check in from 15:00, check out before 12:00. Tel +86-21-55698858. Nearest metro: Dashijie (大世界), Lines 8/14 — ~100 m across the street.</li>
         <li><b>17–20 Dec — Holiday Inn Hangzhou West Lake</b> again.</li>
       </ul>
-      <h2>🚄 High-speed trains (not booked yet)</h2>
+      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="13" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m18 22-2-3"/><circle cx="8.5" cy="14.5" r=".5"/><circle cx="15.5" cy="14.5" r=".5"/></svg> High-speed trains (not booked yet)</h2>
       <ul>
         <li><b>Hangzhou East ↔ Shanghai Hongqiao:</b> G-train 45–60 min, ¥73 second class. 150–300+ trains a day, roughly every 5–20 min, ~06:00–23:00. Book on 12306 or Trip.com. Use <b>Hongqiao</b>, not Shanghai station — different station across town.</li>
         <li><b>Mon 14 Dec:</b> book a train around <b>13:00</b>. Hotel → Hangzhou East ~25 min by metro (Line 1 to Fengqi Road is direct), then ~1 h train, then Hongqiao → hotel ~50 min by metro (Line 2 to People's Square, change to Line 8 to Dashijie). Expect the hotel ~15:30.</li>
         <li><b>Thu 17 Dec:</b> hotel → Hongqiao ~50 min + ~40 min inside the huge station before departure. Train ~1 h, Hangzhou East → Songcheng ~30 min by taxi. Allow the whole afternoon.</li>
       </ul>
-      <h2>✈️ Airport — Hangzhou Xiaoshan (HGH)</h2>
+      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg> Airport — Hangzhou Xiaoshan (HGH)</h2>
       <ul>
         <li><b>Fri 11 Dec, landing 21:55:</b> take a taxi/DiDi, not the metro — the last metro time is disputed (22:30 vs 23:14) and you'd likely miss it after immigration and bags. Taxi ~¥100–130 + ¥20 toll, 50–60 min.</li>
         <li><b>Sun 20 Dec, SQ839 02:15:</b> metro is closed. Leave the hotel ~23:00–23:30 Sat by taxi/DiDi (~40–50 min at night, arrive ~00:15–00:30 for a 2-hour international check-in).</li>
       </ul>
-      <h2>🎭 Songcheng — Thu 17 Dec</h2>
+      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Songcheng — Thu 17 Dec</h2>
       <p>Half an afternoon: straight from Hangzhou East station (~30 min by taxi), arrive ~3:30pm. Explore the Song-dynasty streets, then the <b>Romance of the Song Dynasty show</b> (about 1 hour). The evening show is usually <b>19:30</b> — confirm the exact time when booking, as sources disagree (19:00 / 19:30). Back at the hotel ~21:00–21:30.</p>
       <p><b>Luggage:</b> you check out of Shanghai with bags and only check into the Holiday Inn after the show. Either use left-luggage at Hangzhou East, or drop bags at the hotel first (adds ~1 h round trip; still leaves you at Songcheng ~16:00, fine for a 19:30 show).</p>
-      <h2>🧖 Family spa — Sat 19 Dec</h2>
+      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg> Family spa — Sat 19 Dec</h2>
       <p><b>Yunman Hot Spring</b>, inside the First World Hotel, 2555 Fengqing Avenue, Xiaoshan District. 33 pools, children's splash pool with slides. ~¥168 adult / ¥108 child, under 1.2m free. Saturdays 10:30–22:30. Metro Line 1 Xianghu (湘湖), then bus/taxi ~10 min. Open-air pools in December feel cold between pools — bring thick towels and swimwear (sold on site ~¥200/set).</p>
-      <h2>⏭️ Skipped from the list</h2>
+      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg> Skipped from the list</h2>
       <p>Hangzhou Zoo, Shanghai Disneyland Park, Chuiyun Tongtian River, Hengdian World Studios, Shanghai Astronomy Museum (replaced by the Science and Technology Museum), and now the Shanghai Natural History Museum (closed Tuesdays, doesn't fit Mon or Thu).</p>
     </div>
   </div>
 
   <div id="tab-book" class="page-content tab">
     <div class="card">
-      <h2>✅ Book before you go</h2>
+      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg> Book before you go</h2>
       <p>Most of these use real-name timed booking, released 7 days ahead. Trip.com sells foreigner-friendly tickets for several of them if a WeChat mini-program won't accept a passport.</p>
       <ul class="book">
         <li><b>Shanghai Science and Technology Museum</b> — tickets released <b>7 days ahead at 10:00</b>, real-name booking only, no on-site ticket office. Book on Tue 8 Dec. <a href="https://en.sstm.org.cn/tickets/policy">Tickets</a></li>
@@ -265,6 +270,24 @@
   </div>
 </div>
 <script>
+const ICONS = {
+  compass: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+  calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+  utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
+  luggage: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/>',
+  clipboard: '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+  plane: '<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>',
+  thermometer: '<path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>',
+  bulb: '<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>',
+  camera: '<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>',
+  info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+  building: '<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>',
+  train: '<rect x="4" y="3" width="16" height="13" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m18 22-2-3"/><circle cx="8.5" cy="14.5" r=".5"/><circle cx="15.5" cy="14.5" r=".5"/>',
+  landmark: '<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>',
+  droplets: '<path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/>',
+  ban: '<circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/>'
+};
+function ic(name, cls){ return '<svg class="ic '+(cls||'')+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+ICONS[name]+'</svg>'; }
 const P = {
   westlake: { n:"West Lake", cn:"西湖", addr:"West Lake Scenic Area, Xihu District (east shore at Hubin)", hours:"Open 24h, free", price:"Free — boat to Three Pools island ¥55–70; Leifeng Pagoda ¥40; Yue Fei Temple ¥25", station:"Line 1 Longxiangqiao (龙翔桥), Exit C — 3–10 min walk to the east shore", link:"https://www.chinatravel.com/hangzhou/attraction/west-lake", img:"https://upload.wikimedia.org/wikipedia/commons/b/b4/Hangzhou-Westsee-42-Bruecke-2012-gje.jpg", official:"https://westlake.hangzhou.gov.cn/", imgcap:"Bridge over West Lake — Gerd Eichmann, Wikimedia Commons", tip:"Go weekday morning. Free music fountain at Hubin Park No. 3, 19:30 daily." },
   impression: { n:"West Lake Impression", cn:"最忆是杭州", addr:"No. 82 Beishan Road, Xihu District (Yue Lake, opposite Yue Fei Temple)", hours:"Evening show only, ~55–60 min — usual slot 19:40 (Dec ~19:15); season runs Mar–mid-Dec", price:"Standard ¥360; VIP ¥430–450; premium ¥680–960", station:"No metro at the gate — Line 1 Longxiangqiao or Line 3 Huanglongdong, then bus/taxi ~10–15 min", link:"https://www.chinadiscovery.com/zhejiang/hangzhou/west-lake/impression-west-lake.html", img:"https://media.tacdn.com/media/attractions-splice-spp-674x446/0a/77/46/bb.jpg", official:"", imgcap:"Nighttime water performance — Tripadvisor", tip:"The afternoon slot in the plan is the lakeside/ticket office only — the show is evening-only. 12 Dec is near the end of the season; book ahead and bring a jacket." },
@@ -288,11 +311,11 @@ const P = {
 };
 function placeHTML(id){
   const p = P[id]; if(!p) return "";
-  const img = p.img ? `<img src="${p.img}" alt="${p.n}" loading="lazy" onerror="this.style.display='none'">${p.imgcap?`<p class="src">📷 ${p.imgcap}</p>`:""}` : "";
+  const img = p.img ? `<img src="${p.img}" alt="${p.n}" loading="lazy" onerror="this.style.display='none'">${p.imgcap?`<p class="src">${ic('camera','ic-sm')} ${p.imgcap}</p>`:""}` : "";
   const off = p.official ? `<dt>Official site</dt><dd><a href="${p.official}">${p.official.replace(/^https?:\/\//,"").split("/")[0]}</a></dd>` : "";
   return `<div class="place"><h3>${p.n} <span class="cn">${p.cn}</span></h3>${img}
   <dl class="meta"><dt>Address</dt><dd>${p.addr}</dd><dt>Hours</dt><dd>${p.hours}</dd><dt>Price</dt><dd>${p.price}</dd><dt>Nearest station</dt><dd>${p.station}</dd>${off}${p.link?`<dt>More info</dt><dd><a href="${p.link}">${p.link.replace(/^https?:\/\//,"").split("/")[0]}</a></dd>`:""}</dl>
-  <p class="tip">💡 ${p.tip}</p></div>`;
+  <p class="tip">${ic('bulb','ic-sm')} ${p.tip}</p></div>`;
 }
 const DAYS = [
  {d:"Fri 11 Dec", c:"hz", t:"Arrive Hangzhou", v:"ok", vt:"Works", items:[{t:"Land 21:55 on TR188 from Singapore.", p:null, note:"Take a taxi/DiDi to the hotel (~¥100–130 + ¥20 toll, 50–60 min) — the last metro time is disputed (22:30 vs 23:14), don't gamble on it."},{t:"Straight to the Holiday Inn Hangzhou West Lake and rest.", p:null, note:"Hotel is ~80 m from Fengqi Road metro (Lines 1/2) for the next morning."}]},
@@ -315,9 +338,9 @@ DAYS.forEach((day,i)=>{
   day.items.forEach((it,j)=>{
     if(it.t) html += `<p><b>${it.t}</b></p>`;
     if(it.p) html += placeHTML(it.p);
-    if(it.note) html += `<p class="tip">💡 ${it.note}</p>`;
+    if(it.note) html += `<p class="tip">${ic('bulb','ic-sm')} ${it.note}</p>`;
   });
-  if(day.meal) html += `<div class="meal">🍜 ${day.meal}</div>`;
+  if(day.meal) html += `<div class="meal">${ic('utensils','ic-sm')} ${day.meal}</div>`;
   html += `<ul class="check">${day.items.filter(x=>x.t).map((x,j)=>`<li data-k="${i}-${j}"><input type="checkbox"> <span>${x.t}</span></li>`).join('')}</ul></div>`;
   div.innerHTML = html;
   wrap.appendChild(div);
@@ -334,7 +357,7 @@ document.querySelectorAll('.check li').forEach(li=>{
 
 const dep=new Date('2026-12-11T16:45:00+08:00'), now=new Date();
 const daysLeft=Math.ceil((dep-now)/86400000);
-document.getElementById('countdown').textContent = daysLeft>0 ? `✈️ ${daysLeft} days to go` : '✈️ Trip time!';
+document.getElementById('countdown').innerHTML = daysLeft>0 ? ic('plane','ic-sm') + ' ' + daysLeft + ' days to go' : ic('plane','ic-sm') + ' Trip time!';
 
 // Framework7: native-feel mobile app shell (iOS / Material auto theme).
 // If the CDN fails, fall back to plain tab switching so the page still works.
