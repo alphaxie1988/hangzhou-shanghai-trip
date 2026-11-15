@@ -3,387 +3,819 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#b3541e">
+<meta name="theme-color" content="#1b2421">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7@8/framework7-bundle.min.css">
-<script src="https://cdn.jsdelivr.net/npm/framework7@8/framework7-bundle.min.js"></script>
-<title>Hangzhou &amp; Shanghai — 11–20 Dec 2026</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect x=%224%22 y=%224%22 width=%2256%22 height=%2256%22 rx=%228%22 fill=%22%23c8372d%22/%3E%3Ctext x=%2232%22 y=%2244%22 font-size=%2232%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22serif%22 font-weight=%22900%22%3E%E6%9D%AD%3C/text%3E%3C/svg%3E">
+<title>Hangzhou &amp; Shanghai · Dec 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
-  :root {
-    --f7-theme-color:#b3541e;
-    --f7-theme-color-rgb:179,84,30;
-    --f7-page-bg-color:#faf7f2;
-    --f7-bars-bg-color:#ffffff;
-    --ink:#1f2a33; --muted:#5b6b76; --accent:#b3541e; --accent2:#0f766e;
-    --card:#fff; --line:#e8dfd3; --red:#b91c1c; --amber:#92400e; --green:#166534;
-  }
-  html, body { height:100%; }
-  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",sans-serif; color:var(--ink); line-height:1.55; }
-  a { color:var(--accent2); }
-  /* Hero banner at top of Days tab */
-  .hero { background:#134e4a; color:#fff; border-radius:20px; padding:1.4rem 1.2rem 1.2rem; margin:0 0 1rem; }
-  .hero h1 { margin:0 0 .3rem; font-size:1.5rem; }
-  .hero p { margin:.25rem 0; opacity:.95; font-size:.95rem; }
-  .hero .wx { margin:.25rem .9rem; }
-  .hero .countdown { display:inline-block; margin-top:.6rem; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35); padding:.35rem .9rem; border-radius:999px; font-weight:600; }
-  /* Day chips: horizontal scroll, thumb-friendly */
-  .card a, .place a { overflow-wrap:anywhere; }
-  nav.days { display:flex; gap:.45rem; flex-wrap:wrap; padding:.5rem .9rem .8rem; background:var(--f7-page-bg-color); }
-  nav.days button { flex:1 1 calc(25% - .34rem); min-height:48px; border:1px solid var(--line); background:#fff; border-radius:999px; padding:.5rem .4rem; font-size:.95rem; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,.05); text-align:center; }
-  nav.days button.active { background:var(--accent); color:#fff; border-color:var(--accent); }
-  .day { display:none; }
-  .day.active { display:block; }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:1.1rem 1.15rem; margin-bottom:1rem; box-shadow:0 1px 3px rgba(0,0,0,.06); }
-  .card h2 { margin:0 0 .2rem; font-size:1.25rem; }
-  .city { display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent2); }
-  .city.sh { color:#9a3412; }
-  ul { padding-left:1.2rem; margin:.5rem 0; }
-  li { margin:.4rem 0; }
-  .tag { display:inline-block; background:#fef3c7; color:#92400e; border-radius:6px; padding:.15rem .5rem; font-size:.8rem; font-weight:600; }
-  .meal { border-left:4px solid var(--accent); background:#fff7ed; padding:.7rem .85rem; border-radius:0 12px 12px 0; margin:.7rem 0; }
-  .check { list-style:none; padding-left:0; }
-  .check li { display:flex; gap:.7rem; align-items:center; cursor:pointer; min-height:48px; border-bottom:1px solid #f3ede4; }
-  .check li:last-child { border-bottom:none; }
-  .check input { width:22px; height:22px; flex:0 0 auto; accent-color:var(--accent2); }
-  .check li.done { text-decoration:line-through; color:var(--muted); }
-  .rest img { width:100%; border-radius:14px; margin:.5rem 0; object-fit:cover; max-height:280px; }
-  .must { display:grid; gap:.55rem; }
-  .must div { background:#f8fafc; border:1px solid var(--line); border-radius:12px; padding:.65rem .85rem; }
-  .must b { color:var(--accent); }
-  section.page, .page-content.tab { display:none; }
-  section.page.active, .page-content.tab.tab-active { display:block; }
-  /* Place cards */
-  .place { border:1px solid var(--line); border-radius:16px; padding:.85rem .95rem; margin:.75rem 0; background:#fff; }
-  .place h3 { margin:0 0 .3rem; font-size:1.08rem; }
-  .place h3 .cn { color:var(--muted); font-weight:400; font-size:.9rem; }
-  .place img { width:100%; border-radius:12px; margin:.4rem 0 .2rem; object-fit:cover; max-height:220px; }
-  .meta { display:grid; grid-template-columns:104px 1fr; gap:.2rem .6rem; font-size:.92rem; margin:.45rem 0; }
-  .meta dt { color:var(--muted); font-weight:600; }
-  .meta dd { margin:0; overflow-wrap:anywhere; }
-  .tip { background:#f0fdfa; border-left:3px solid var(--accent2); padding:.5rem .75rem; border-radius:0 10px 10px 0; font-size:.92rem; margin:.45rem 0 0; }
-  .warn { background:#fef2f2; border-left:3px solid var(--red); padding:.5rem .75rem; border-radius:0 10px 10px 0; font-size:.92rem; margin:.45rem 0 0; }
-  .verdict { display:inline-block; font-size:.78rem; font-weight:700; border-radius:999px; padding:.18rem .6rem; margin-left:.4rem; vertical-align:middle; }
-  .verdict.ok { background:#dcfce7; color:var(--green); }
-  .verdict.tight { background:#fef3c7; color:var(--amber); }
-  .verdict.fixed { background:#fee2e2; color:var(--red); }
-  .src { font-size:.8rem; color:var(--muted); }
-  .book li { margin:.6rem 0; }
-  .book b { color:var(--red); }
-  /* Bottom tab bar: big touch targets */
-  .toolbar.tabbar .tab-link { min-height:56px; padding-top:6px; }
-  .toolbar.tabbar .tab-link .tab-ico { line-height:1; display:block; }
-  .toolbar.tabbar .tab-link .tab-ico svg { width:22px; height:22px; }
-  .ic { width:20px; height:20px; vertical-align:-4px; }
-  .ic-sm { width:16px; height:16px; vertical-align:-3px; }
-  .ic-lg { width:26px; height:26px; vertical-align:-5px; }
-  .navbar .badge svg { vertical-align:-2px; }
-  .toolbar.tabbar .tabbar-label { font-size:11px; margin-top:2px; }
-  .tabs .page-content { padding-bottom:88px; }
-  .navbar .title { font-weight:700; }
-  .navbar .badge { font-size:.8rem; }
+:root{
+  --ink:#1b2421; --ink2:#4a5753; --ink3:#7d8a86;
+  --paper:#f3f5f1; --card:#ffffff; --line:#dfe5df;
+  --hz:#3f7a64; --hz-soft:#e3eee8;      /* West Lake celadon */
+  --sh:#2e4a7d; --sh-soft:#e3e9f4;      /* Shanghai blue-print indigo */
+  --seal:#c8372d; --seal-soft:#fbe9e6;  /* seal red: now, warnings */
+  --gold:#b7800e; --gold-soft:#fbf1d9;  /* osmanthus: food */
+  --city:var(--hz); --city-soft:var(--hz-soft);
+  --r:16px;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --cn:"Noto Serif SC","Songti SC","SimSun",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15.5px/1.5 var(--display);font-optical-sizing:auto;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2.5px solid var(--seal);outline-offset:2px;border-radius:6px}
+.cn{font-family:var(--cn);font-weight:600}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+svg.i{width:18px;height:18px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px}
+svg.i.sm{width:15px;height:15px;vertical-align:-2px}
+
+/* ---------- top bar ---------- */
+.top{position:sticky;top:0;z-index:500;background:var(--ink);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 10px) 16px 0}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1180px;margin:0 auto}
+.brand{display:flex;align-items:baseline;gap:8px;font-weight:800;font-size:17px;letter-spacing:-.01em}
+.brand .cn{font-weight:900;font-size:15px;opacity:.6}
+@media (max-width:440px){.brand .cn{display:none}}
+.pill{font:600 12px/1 var(--mono);padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.12);white-space:nowrap}
+.strip{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:12px 0 12px;max-width:1180px;margin:0 auto;scroll-snap-type:x proximity}
+.strip::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;scroll-snap-align:center;width:58px;padding:7px 0 8px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:transparent;color:#fff;cursor:pointer;text-align:center;line-height:1.1;position:relative}
+.chip .dw{display:block;font:600 10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;opacity:.65}
+.chip .dn{display:block;font-weight:800;font-size:21px;margin-top:4px}
+.chip .dc{display:block;width:6px;height:6px;border-radius:50%;margin:5px auto 0;background:#8fc2ac}
+.chip.sh .dc{background:#93aee0}
+.chip[aria-current="true"]{background:#fff;color:var(--ink);border-color:#fff}
+.chip.today::after{content:"";position:absolute;top:5px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--seal)}
+
+/* ---------- layout ---------- */
+main{max-width:1180px;margin:0 auto;padding:0 16px calc(96px + var(--safe-b))}
+.view{display:none}
+.view.on{display:block}
+.dayview.on{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "map" "plan"}
+.dv-head{grid-area:head}.daymap-wrap{grid-area:map}.dv-plan{grid-area:plan}
+@media (min-width:960px){
+  .dayview.on{grid-template-columns:minmax(0,1fr) 440px;grid-template-areas:"head map" "plan map";column-gap:28px;align-items:start}
+  .daymap-wrap{position:sticky;top:150px;margin-top:22px}
+}
+
+/* ---------- day header: the seal ---------- */
+.dayhead{display:flex;gap:16px;align-items:flex-start;padding:22px 0 14px}
+.dv-head .facts{margin-bottom:14px}
+.seal{flex:0 0 auto;width:74px;height:74px;border-radius:10px;background:var(--seal);color:#fff;display:grid;place-items:center;text-align:center;box-shadow:inset 0 0 0 3px var(--seal),inset 0 0 0 5px rgba(255,255,255,.85);transform:rotate(-3deg)}
+.seal b{font-family:var(--cn);font-weight:900;font-size:28px;line-height:1;letter-spacing:-.04em}
+.seal small{display:block;font:600 9.5px/1 var(--mono);letter-spacing:.12em;margin-top:5px}
+.dayhead .eyebrow{font:600 11.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--city)}
+.dayhead h1{font-size:clamp(25px,6.4vw,34px);line-height:1.05;letter-spacing:-.025em;font-weight:800;margin:6px 0 6px}
+.dayhead p{margin:0;color:var(--ink2);font-size:14.5px}
+.facts{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.fact{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;padding:5px 9px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink2)}
+.fact.warn{background:var(--seal-soft);border-color:#f2c9c3;color:#8c241c}
+
+/* ---------- maps ---------- */
+.daymap-wrap{margin:0 0 18px}
+.map{height:250px;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:#e9ece6;z-index:1}
+@media (min-width:960px){.dayview .map{height:calc(100vh - 190px);max-height:720px}}
+.maplegend{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--ink3);margin-top:6px}
+.pin{width:26px;height:26px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);display:grid;place-items:center;background:var(--city);border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.pin span{transform:rotate(45deg);color:#fff;font:700 12px/1 var(--mono)}
+.pin.hz{background:var(--hz)}
+.pin.sh{background:var(--sh)}
+.pin.food{background:var(--gold)}
+.pin.hotel{background:var(--ink)}
+.leaflet-popup-content{font:14px/1.4 var(--display);margin:10px 12px}
+.leaflet-popup-content .cn{font-size:13px;color:var(--ink2)}
+
+/* ---------- timeline ---------- */
+.tl{list-style:none;margin:0;padding:0;position:relative}
+.slot{display:grid;grid-template-columns:52px minmax(0,1fr);gap:0 10px;position:relative}
+.slot .when{text-align:right;padding-top:14px}
+.slot .when b{display:block;font:600 14px/1 var(--mono)}
+.slot .when span{display:block;font:500 11px/1.3 var(--mono);color:var(--ink3);margin-top:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px 12px;margin:4px 0;position:relative;border-left:4px solid var(--city)}
+.slot.k-food .card{border-left-color:var(--gold)}
+.slot.k-hotel .card,.slot.k-travel .card{border-left-color:var(--ink3)}
+.slot.done .card{opacity:.55}
+.slot.now .card{box-shadow:0 0 0 2px var(--seal)}
+.slot.now .when b{color:var(--seal)}
+.kind{display:flex;align-items:center;gap:6px;font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--city)}
+.slot.k-food .kind{color:var(--gold)}
+.slot.k-hotel .kind,.slot.k-travel .kind{color:var(--ink3)}
+.kind .dur{color:var(--ink3);letter-spacing:.02em;text-transform:none}
+.nowtag{background:var(--seal);color:#fff;padding:3px 6px;border-radius:5px;letter-spacing:.06em}
+.card h3{margin:7px 0 0;font-size:18px;line-height:1.2;letter-spacing:-.01em;font-weight:800}
+.card h3 .cn{display:block;font-size:14.5px;color:var(--ink2);margin-top:2px;letter-spacing:0}
+.card .what{margin:7px 0 0;font-size:14.5px}
+.order{margin:8px 0 0;padding:9px 11px;background:var(--gold-soft);border-radius:10px;font-size:14px}
+.order b{font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:4px}
+.note{margin:8px 0 0;padding:8px 11px;border-radius:10px;font-size:13.5px;background:var(--city-soft);color:var(--ink)}
+.note.warn{background:var(--seal-soft)}
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.actions .btn.primary{flex:1 1 auto}
+.kind .btn.check{width:32px;min-height:32px;height:32px;padding:0;margin:-8px -6px -8px 4px;border-radius:50%;color:var(--ink3)}
+.kind .dur{margin-left:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:7px 11px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:13.5px;font-weight:600;text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.check[aria-pressed="true"]{background:var(--city-soft);border-color:transparent;color:var(--city)}
+details.more{margin-top:8px;border-top:1px dashed var(--line);padding-top:6px}
+details.more summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--ink2);list-style:none;padding:4px 0}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:" +";font-family:var(--mono)}
+details.more[open] summary::after{content:" –"}
+.photo{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;margin:6px 0 2px;background:var(--paper)}
+.cap{font-size:11.5px;color:var(--ink3)}
+dl.meta{display:grid;grid-template-columns:86px minmax(0,1fr);gap:4px 10px;margin:8px 0 0;font-size:13.5px}
+dl.meta dt{color:var(--ink3);font-weight:600}
+dl.meta dd{margin:0;overflow-wrap:anywhere}
+
+/* transit legs between slots */
+.leg{display:grid;grid-template-columns:52px minmax(0,1fr);gap:0 10px;align-items:center}
+.leg .rail{justify-self:end;width:2px;height:100%;min-height:42px;margin-right:-7px;background:repeating-linear-gradient(var(--ink3) 0 4px,transparent 4px 8px);opacity:.5}
+.leg a,.leg div.l{display:flex;align-items:center;gap:8px;padding:6px 2px;font-size:13px;color:var(--ink2);text-decoration:none}
+.leg .mode{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--card);border:1px solid var(--line);color:var(--ink)}
+.leg .mode.metro{color:var(--city)}
+.leg .go{margin-left:auto;font-weight:600;font-size:12px;color:var(--city);white-space:nowrap}
+.leg b{color:var(--ink);font-weight:700}
+
+/* ---------- generic sections (Eat, Essentials) ---------- */
+.sect{padding:22px 0 4px}
+.sect h2{font-size:26px;letter-spacing:-.02em;line-height:1.1;margin:0 0 4px;font-weight:800}
+.sect>p.lede{margin:0 0 14px;color:var(--ink2)}
+.seg{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px;margin:6px 0 14px}
+.seg button{border:0;background:transparent;border-radius:9px;padding:8px 14px;font-weight:700;font-size:14px;cursor:pointer;color:var(--ink2)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.grid{display:grid;gap:10px}
+@media (min-width:720px){.grid.two{grid-template-columns:1fr 1fr}}
+.dish{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.dish .zh{grid-row:span 3;font-family:var(--cn);font-weight:900;font-size:22px;line-height:1.15;color:var(--city);writing-mode:vertical-rl;letter-spacing:.05em;max-height:120px}
+.dish h4{margin:0;font-size:15.5px;font-weight:800}
+.dish p{margin:0;font-size:13.5px;color:var(--ink2)}
+.dish .where{font-size:12.5px;color:var(--gold);font-weight:600}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin:0 0 12px}
+.box h3{margin:0 0 6px;font-size:17px;font-weight:800;display:flex;align-items:center;gap:8px}
+.box ul{margin:6px 0 0;padding-left:18px}
+.box li{margin:5px 0}
+.todo{list-style:none;padding:0!important}
+.todo li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);margin:0!important}
+.todo li:last-child{border:0}
+.todo input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--hz);flex:0 0 auto}
+.todo .due{display:inline-block;font:600 11px/1 var(--mono);padding:4px 6px;border-radius:5px;background:var(--seal-soft);color:#8c241c;margin-left:4px;vertical-align:1px}
+.todo li.ok span{text-decoration:line-through;color:var(--ink3)}
+.pick{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
+.pick img{width:100%;aspect-ratio:2/1;object-fit:cover;display:block;background:var(--paper)}
+.pick .in{padding:12px 14px 14px}
+.badge{display:inline-block;font:600 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:5px 7px;border-radius:5px;background:var(--gold-soft);color:var(--gold)}
+.pick h3{margin:8px 0 2px;font-size:19px;font-weight:800;line-height:1.2}
+.foodlist{list-style:none;margin:0;padding:0}
+.foodlist li{display:grid;grid-template-columns:76px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.foodlist .d{font:600 12px/1.3 var(--mono);color:var(--ink3)}
+.foodlist .n{font-weight:700;font-size:14.5px;line-height:1.25}
+.foodlist .n small{display:block;font-weight:400;color:var(--ink2);font-size:12.5px}
+#allmap{height:calc(100vh - 260px);min-height:380px}
+.filters{display:flex;gap:6px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:none}
+.filters button{flex:0 0 auto;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-weight:700;font-size:13px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ---------- bottom tab bar ---------- */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:600;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:var(--safe-b)}
+.tabs button{flex:1;max-width:160px;border:0;background:none;padding:9px 0 8px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11.5px;font-weight:700;color:var(--ink3);cursor:pointer;min-height:58px}
+.tabs button svg.i{width:23px;height:23px}
+.tabs button[aria-selected="true"]{color:var(--ink)}
+.tabs button[aria-selected="true"] svg.i{stroke:var(--seal)}
+
+/* ---------- driver sheet ---------- */
+.sheet{position:fixed;inset:0;z-index:900;background:rgba(15,20,18,.55);display:none;align-items:flex-end;justify-content:center}
+.sheet.on{display:flex}
+.sheet .panel{background:#fff;width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:22px 22px calc(22px + var(--safe-b));animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(30px);opacity:.4}}
+.sheet .ask{font-family:var(--cn);font-weight:600;font-size:17px;color:var(--ink2)}
+.sheet .big{font-family:var(--cn);font-weight:900;font-size:clamp(34px,10vw,50px);line-height:1.15;margin:8px 0 10px;letter-spacing:.02em}
+.sheet .addr{font-family:var(--cn);font-weight:600;font-size:20px;line-height:1.45}
+.sheet .en{color:var(--ink3);font-size:13.5px;margin-top:10px}
+.sheet .actions .btn{flex:1;justify-content:center}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<div id="app">
-  <div class="view view-main">
-    <div class="page">
-      <div class="navbar">
-        <div class="navbar-bg"></div>
-        <div class="navbar-inner">
-          <div class="title"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Hangzhou &amp; Shanghai</div>
-          <div class="right"><span class="badge color-orange" id="countdown"></span></div>
-        </div>
-      </div>
-      <div class="toolbar tabbar toolbar-bottom">
-        <div class="toolbar-inner">
-          <a href="#tab-days" class="tab-link tab-link-active"><span class="tab-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span class="tabbar-label">Days</span></a>
-          <a href="#tab-food" class="tab-link"><span class="tab-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></span><span class="tabbar-label">Food</span></a>
-          <a href="#tab-info" class="tab-link"><span class="tab-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></span><span class="tabbar-label">Travel</span></a>
-          <a href="#tab-book" class="tab-link"><span class="tab-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span><span class="tabbar-label">Book</span></a>
-        </div>
-      </div>
-      <div class="tabs">
-
-  <div id="tab-days" class="page-content tab tab-active">
-    <div class="hero">
-      <h1><svg class="ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Hangzhou &amp; Shanghai</h1>
-      <p>11–20 December 2026 · Relaxed pace, 2–3 places a day</p>
-      <p><svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg> TR188 SIN → Hangzhou, Fri 11 Dec 16:45–21:55 · <svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg> SQ839 Hangzhou → SIN, Sun 20 Dec 02:15–07:15</p>
-      <p class="wx"><svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg> December: highs ~11°C, lows ~3–4°C — pack warm layers, hats and gloves for the kids</p>
-    </div>
-    <div class="card">
-      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> What the sense-check changed</h2>
-      <p>Every stop was checked for opening hours, closing days, prices and travel time. Four things in the original plan would not have worked — all fixed below:</p>
-      <ul>
-        <li><b>Hangzhou Paradise is closed all winter</b> (30 Nov–5 Mar). Sat 19 Dec is now the China Animation Museum in the morning, then the Four Seasons indoor spa in the afternoon.</li>
-        <li><b>Shanghai Natural History Museum is closed on Tuesdays</b> — it was planned for Tue 15 Dec. The Science and Technology Museum moves to Tue afternoon instead, and Wed 16 Dec becomes a full day at the Wild Animal Park. The Natural History Museum no longer fits this trip.</li>
-        <li><b>Sun 13 Dec tried to fit three venues that all close by 18:00</b> across town. Now: Xixi Wetland in the morning, Wetland Museum early afternoon, Airobox Tech 15:30–18:00. Airobox is <b>not</b> an evening visit — it closes at 18:00.</li>
-        <li><b>MeLand Club after dinner on Tue</b> would leave ~1 hour for a full-price ticket. Replaced with a free Bund evening walk.</li>
-      </ul>
-      <p>Smaller fixes: Mon 14 Dec train should be ~13:00 (hotel ~15:30, not 15:00); Yu Garden is closed Mondays, so the evening is bazaar + Wu Kang Lu only; Yongfu Temple needs a reservation made at least 1 day ahead; the Songcheng show is likely 19:30, back at the hotel ~21:30, and you need a luggage plan for that day.</p>
-    </div>
-    <nav class="days" id="daynav"></nav>
-    <div id="days"></div>
+<header class="top">
+  <div class="top-row">
+    <div class="brand">Hangzhou &amp; Shanghai <span class="cn">杭州 · 上海</span></div>
+    <span class="pill" id="countdown"></span>
   </div>
+  <nav class="strip" id="strip" aria-label="Trip days"></nav>
+</header>
 
-  <div id="tab-food" class="page-content tab">
-    <div class="card rest">
-      <span class="tag">Recommended by Cylin</span>
-      <h2>榆园·甬绍荟馆 (杭州嘉里中心店)</h2>
-      <p><b>Slotted: Sat 12 Dec, dinner</b> — after Wulin Night Market, same Wulin area.</p>
-      <img src="https://img.alicdn.com/i1/2673015014/O1CN01gWrHFQ1muSQgjIXsu_!!2673015014.jpg_400x400.jpg" alt="Marinated red-paste crab">
-      <dl class="meta">
-        <dt>Address</dt><dd>Kerry Centre, Yan'an Road, Wulin — North Zone Commercial 1F, next to Qingchunli</dd>
-        <dt>Hours</dt><dd>11:00–22:30. Mon–Thu 14:00–17:00 afternoon tea only</dd>
-        <dt>Price</dt><dd>¥169/person on Dianping (budget ¥169–250 for a full crab feast)</dd>
-        <dt>Nearest metro</dt><dd>Line 1, Fengqi Road (凤起路), Exit C1 — ~30 m</dd>
-        <dt>Booking</dt><dd>Dianping / Meituan — no direct online booking link found</dd>
-      </dl>
-      <p>A dark, elegant new-Chinese “garden” dining room — old stone slabs, pine and water features, semi-private booths. Ningbo's salty-fresh seafood meets Shaoxing's wine-soaked, fermented flavours. Named in the 2026 Michelin Guide, Hangzhou.</p>
-      <div class="must">
-        <div><b>Must do:</b> order the signature raw-marinated crab and let the staff shuck it at the table.</div>
-        <div><b>Must try:</b> 十八斩生腌膏蟹 — Zhoushan red-paste crab cured 24 hours in Shaoxing yellow wine; sweet, silky, melts in the mouth.</div>
-        <div><b>Must eat:</b> 臭豆腐烧白蟹 (stinky tofu braised with white crab), 蒋氏干菜焖肉 (braised pork belly with dried mustard greens, in a bun), and fresh-baked 榨菜月饼.</div>
+<main>
+  <!-- DAYS -->
+  <section id="v-days" class="view on"><div id="dayview" class="dayview on"></div></section>
+
+  <!-- MAP -->
+  <section id="v-map" class="view">
+    <div class="sect">
+      <h2>Every stop on one map</h2>
+      <p class="lede">Tap a pin for its days and an AMAP route from where you are.</p>
+      <div class="filters" id="mapfilters">
+        <button data-f="all" aria-pressed="true">All</button>
+        <button data-f="hz" aria-pressed="false">Hangzhou</button>
+        <button data-f="sh" aria-pressed="false">Shanghai</button>
+        <button data-f="food" aria-pressed="false">Food only</button>
       </div>
+      <div id="allmap" class="map"></div>
     </div>
+  </section>
 
-    <div class="card rest">
-      <span class="tag">Recommended by Cylin</span>
-      <h2>成隆行·蟹王府 (九江路店)</h2>
-      <p><b>Slotted: Mon 14 Dec, dinner</b> — your first night in Shanghai.</p>
-      <img src="https://zwz66.cn/uploads/allimg/20251010/5c5b38820862c52293ea0cee65c503c9.jpg" alt="Steamed hairy crab">
-      <dl class="meta">
-        <dt>Address</dt><dd>216 Jiujiang Road, Huangpu (near Henan Middle Rd)</dd>
-        <dt>Hours</dt><dd>11:00–15:00, 17:00–22:00</dd>
-        <dt>Price</dt><dd>¥311/person on Dianping; budget ~¥500/person for a full crab feast — sources disagree, so budget high</dd>
-        <dt>Nearest metro</dt><dd>East Nanjing Road (南京东路), Lines 2/10, Exit 3 — ~200 m, 2–3 min walk</dd>
-        <dt>Phone</dt><dd>021-63212010 — book ahead, evenings fill up</dd>
-      </dl>
-      <p>A Shanghai crab institution since the 1950s, with its own Yangcheng Lake crab farms. Ming–Qing dining room, red lanterns, old wood, live folk music in the evenings. Free expert crab-shelling at the table.</p>
-      <p class="warn"><b><svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Call ahead:</b> mid-December is the tail end of hairy-crab season — supply drops and quality gets inconsistent. Confirm crab is still available for 14 Dec, and order male crabs (peak mid-Nov–early Dec).</p>
-      <div class="must">
-        <div><b>Must do:</b> let the staff shell the crab for you, and order warm yellow wine with ginger — the traditional pairing.</div>
-        <div><b>Must try:</b> 清蒸大闸蟹 — steamed hairy crab. December is past peak season, but they serve crab all year.</div>
-        <div><b>Must eat:</b> the “four greats” — steamed crab claw, crab-leg meat with asparagus, stir-fried crab roe, crab paste with rice-noodle skins — plus 秃黄油捞饭 (rice in rich crab-roe oil; add the vinegar).</div>
+  <!-- EAT -->
+  <section id="v-eat" class="view">
+    <div class="sect">
+      <h2>What to eat</h2>
+      <p class="lede">The dishes each city is known for, and every meal planned for the trip.</p>
+      <div class="seg" id="eatseg" role="group" aria-label="City">
+        <button data-c="hz" aria-pressed="true">Hangzhou</button>
+        <button data-c="sh" aria-pressed="false">Shanghai</button>
       </div>
+      <div class="grid two" id="musttry"></div>
     </div>
+    <div class="sect">
+      <h2>Cylin’s picks</h2>
+      <p class="lede">Three restaurants recommended by Cylin, each placed in the plan.</p>
+      <div class="grid two" id="picks"></div>
+    </div>
+    <div class="sect">
+      <h2>Every meal, by day</h2>
+      <ul class="foodlist" id="foodlist"></ul>
+    </div>
+  </section>
 
-    <div class="card rest">
-      <span class="tag">Recommended by Cylin</span>
-      <h2>米桃雅宴·江南苏锡菜</h2>
-      <p><b>Slotted: Tue 15 Dec, dinner — Hongqiao Nanfeng City branch</b> (corrected location — see below).</p>
-      <img src="https://img.shetu66.com/2026/04/13/177607280639219433.png?x-oss-process=image/resize,h_900/format,webp" alt="Squirrel fish (松鼠桂鱼)">
-      <dl class="meta">
-        <dt>Address</dt><dd>150 Zunyi Rd, Hongqiao Nanfeng City North Zone, 5F, Changning District (虹桥南丰城店)</dd>
-        <dt>Hours</dt><dd>11:00–14:00, 16:30–21:00 (confirm by phone)</dd>
-        <dt>Price</dt><dd>~¥137–200/person; set menus ~25% off</dd>
-        <dt>Nearest metro</dt><dd>Loushanguan Road (娄山关路), Lines 2/15, Exit 2 — ~600 m, 8 min walk</dd>
-        <dt>Phone</dt><dd>+86 177 9870 8896</dd>
-      </dl>
-      <p>Sweet, delicate Jiangnan cooking with beautiful plating and staff in hanfu. The seafood rice is finished with hot broth poured at the table. The mall is a parent-child mall, so it's good with kids.</p>
-      <p class="warn"><b><svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Branch correction:</b> the Changning branch is at Hongqiao Nanfeng City (150 Zunyi Rd), not near Zhongshan Park / Jiangsu Road as first listed. It's on Metro Line 2 — the same line as the Science and Technology Museum that afternoon.</p>
-      <div class="must">
-        <div><b>Must do:</b> order a set menu for 2–4 people — it covers the signatures at about 25% off.</div>
-        <div><b>Must try:</b> 松鼠桂鱼 (squirrel fish) — mandarin fish scored so it fans out like a squirrel's tail, crisp outside, snowy inside, sweet-and-sour glaze (about ¥188).</div>
-        <div><b>Must eat:</b> 招牌无锡蟹粉小笼包 (crab-roe soup dumplings), 活杀响油鳝糊 (sizzling eel paste), 海鲜乌米泡饭 (seafood black-rice soup rice), and 阳山桃胶酒酿圆子 for dessert.</div>
-      </div>
+  <!-- ESSENTIALS -->
+  <section id="v-info" class="view">
+    <div class="sect">
+      <h2>Book before you go</h2>
+      <p class="lede">Ticks are saved on this phone. Many China sights use real-name booking — have every passport number ready.</p>
+      <div class="box"><ul class="todo" id="todo"></ul></div>
     </div>
+    <div class="sect">
+      <h2>Getting around</h2>
+      <div class="grid two" id="essentials"></div>
+    </div>
+  </section>
+</main>
 
-    <div class="card">
-      <h2>Also on the plan</h2>
-      <div class="place">
-        <h3>Xiao Dadong <span class="cn">小大董 — Nanjing West Rd branch</span></h3>
-        <p><b>Tue 15 Dec, lunch.</b> Michelin one-star Peking duck specialist.</p>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/%E7%89%87%E7%9A%AE%E9%B4%A8.jpg" alt="Sliced Peking duck" loading="lazy" onerror="this.style.display='none'">
-      <p class="src"><svg class="ic-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg> Sliced Peking duck (representative photo) — Wikimedia Commons</p>
-        <dl class="meta">
-          <dt>Address</dt><dd>6F, South Building, New World City, 2–68 Nanjing West Rd, Huangpu</dd>
-          <dt>Hours</dt><dd>Mon–Fri 11:30–21:00; Sat–Sun 11:00–15:30, 17:00–21:00</dd>
-          <dt>Price</dt><dd>¥100–250/person; roast duck ~¥199/piece</dd>
-          <dt>Nearest metro</dt><dd>People's Square (人民广场), Lines 1/2/8, Exit 7 or 19 — 1–3 min walk</dd>
-          <dt>Booking</dt><dd>Does not accept phone reservations — walk in, arrive at 11:30 opening to avoid the queue</dd>
-        </dl>
-        <p>Signature: tableside-carved crispy roast duck (half-duck set for 2 includes pancakes and duck-bone soup). Also braised sea cucumber in scallion sauce and Xiao Dadong stuffed skin. Window tables look over Nanjing Road Pedestrian Street.</p>
-        <p class="src">Listing: <a href="https://www.trip.com/restaurant/china/shanghai/detail/restaurant-79467070/">Trip.com</a></p>
-      </div>
-      <div class="place">
-        <h3>Green Tea Restaurant <span class="cn">绿茶餐厅</span></h3>
-        <p><b>Fri 18 Dec, dinner.</b> Two good branches — pick the Longjing flagship after the Yongfu Temple day (both on the west side), or the Yintai branch near the hotel.</p>
-        <dl class="meta">
-          <dt>Flagship</dt><dd>绿茶餐厅(龙井船宴·品牌总店), 83 Longjing Road — lotus pond, boat seating, guzheng; calmer and more scenic</dd>
-          <dt>Near hotel</dt><dd>绿茶餐厅(西湖银泰店), 3F, 98 Yan'an South Road (Lakeside Yintai IN77) — expect a queue</dd>
-          <dt>Hours</dt><dd>10:30–22:00 both branches</dd>
-          <dt>Price</dt><dd>~¥88–104/person</dd>
-        </dl>
-        <p>Must-order: 面包诱惑 Bread Temptation ¥35 (signature, with Häagen-Dazs ice cream), 粉丝裹虾 vermicelli-wrapped prawns ¥52, roast chicken + spring-onion roast pork combo ¥68, Song Sao fish soup, Longjing shrimp, Dongpo pork.</p>
-      </div>
-    </div>
-  </div>
+<nav class="tabs" role="tablist" aria-label="Sections">
+  <button data-v="days" role="tab" aria-selected="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Days</button>
+  <button data-v="map" role="tab" aria-selected="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.1 6.6 9.9 4.4a2 2 0 0 0-1.8 0L3.6 6.7A1 1 0 0 0 3 7.6v12.8a1 1 0 0 0 1.4.9l3.7-1.9a2 2 0 0 1 1.8 0l4.2 2.2a2 2 0 0 0 1.8 0l4.5-2.3a1 1 0 0 0 .6-.9V5.6a1 1 0 0 0-1.4-.9l-3.7 1.9a2 2 0 0 1-1.8 0Z"/><path d="M15 6.8v15M9 3.2v15"/></svg>Map</button>
+  <button data-v="eat" role="tab" aria-selected="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>Eat</button>
+  <button data-v="info" role="tab" aria-selected="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>Essentials</button>
+</nav>
 
-  <div id="tab-info" class="page-content tab">
-    <div class="card">
-      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg> Hotels</h2>
-      <ul>
-        <li><b>11–14 Dec — Holiday Inn Hangzhou West Lake</b> (3 nights, 2 rooms, King Premium City View). Check in after 14:00, check out before 12:00. Nearest metro: Fengqi Road (凤起路), Lines 1/2 — ~80 m, 2 min walk.</li>
-        <li><b>14–17 Dec — Jianguo Hidden Hotel, Shanghai</b> (Bund Jinling East Road), No. 531 Jinling East Road, Huangpu. Check in from 15:00, check out before 12:00. Tel +86-21-55698858. Nearest metro: Dashijie (大世界), Lines 8/14 — ~100 m across the street.</li>
-        <li><b>17–20 Dec — Holiday Inn Hangzhou West Lake</b> again.</li>
-      </ul>
-      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="13" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m18 22-2-3"/><circle cx="8.5" cy="14.5" r=".5"/><circle cx="15.5" cy="14.5" r=".5"/></svg> High-speed trains (not booked yet)</h2>
-      <ul>
-        <li><b>Hangzhou East ↔ Shanghai Hongqiao:</b> G-train 45–60 min, ¥73 second class. 150–300+ trains a day, roughly every 5–20 min, ~06:00–23:00. Book on 12306 or Trip.com. Use <b>Hongqiao</b>, not Shanghai station — different station across town.</li>
-        <li><b>Mon 14 Dec:</b> book a train around <b>13:00</b>. Hotel → Hangzhou East ~25 min by metro (Line 1 to Fengqi Road is direct), then ~1 h train, then Hongqiao → hotel ~50 min by metro (Line 2 to People's Square, change to Line 8 to Dashijie). Expect the hotel ~15:30.</li>
-        <li><b>Thu 17 Dec:</b> hotel → Hongqiao ~50 min + ~40 min inside the huge station before departure. Train ~1 h, Hangzhou East → Songcheng ~30 min by taxi. Allow the whole afternoon.</li>
-      </ul>
-      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg> Airport — Hangzhou Xiaoshan (HGH)</h2>
-      <ul>
-        <li><b>Fri 11 Dec, landing 21:55:</b> take a taxi/DiDi, not the metro — the last metro time is disputed (22:30 vs 23:14) and you'd likely miss it after immigration and bags. Taxi ~¥100–130 + ¥20 toll, 50–60 min.</li>
-        <li><b>Sun 20 Dec, SQ839 02:15:</b> metro is closed. Leave the hotel ~23:00–23:30 Sat by taxi/DiDi (~40–50 min at night, arrive ~00:15–00:30 for a 2-hour international check-in).</li>
-      </ul>
-      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Songcheng — Thu 17 Dec</h2>
-      <p>Half an afternoon: straight from Hangzhou East station (~30 min by taxi), arrive ~3:30pm. Explore the Song-dynasty streets, then the <b>Romance of the Song Dynasty show</b> (about 1 hour). The evening show is usually <b>19:30</b> — confirm the exact time when booking, as sources disagree (19:00 / 19:30). Back at the hotel ~21:00–21:30.</p>
-      <p><b>Luggage:</b> you check out of Shanghai with bags and only check into the Holiday Inn after the show. Either use left-luggage at Hangzhou East, or drop bags at the hotel first (adds ~1 h round trip; still leaves you at Songcheng ~16:00, fine for a 19:30 show).</p>
-      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg> Family spa — Sat 19 Dec</h2>
-      <p><b>The Spa at Four Seasons Hotel Hangzhou at West Lake</b>, 5 Lingyin Road — fully indoors: heated indoor pool (10 × 19 m), nine treatment rooms, sauna and steam, plus a free kids' club (ages 2–12, 09:00–11:30 and 13:00–17:00). Spa daily 10:00–22:00. Treatments must be booked at least 24 hours ahead — call +86 571 8829 8888. Treatments from ~¥580 (30-min bath) / ¥680 (40-min scrub); massages more. Indoor-pool access usually comes with a treatment booking — confirm when you call. Taxi from the hotel ~15–20 min.</p>
-      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg> Skipped from the list</h2>
-      <p>Hangzhou Zoo, Shanghai Disneyland Park, Chuiyun Tongtian River, Hengdian World Studios, Shanghai Astronomy Museum (replaced by the Science and Technology Museum), and now the Shanghai Natural History Museum (closed Tuesdays, doesn't fit Mon or Thu).</p>
-    </div>
-  </div>
-
-  <div id="tab-book" class="page-content tab">
-    <div class="card">
-      <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg> Book before you go</h2>
-      <p>Most of these use real-name timed booking, released 7 days ahead. Trip.com sells foreigner-friendly tickets for several of them if a WeChat mini-program won't accept a passport.</p>
-      <ul class="book">
-        <li><b>Shanghai Science and Technology Museum</b> — tickets released <b>7 days ahead at 10:00</b>, real-name booking only, no on-site ticket office. Book on Tue 8 Dec. <a href="https://en.sstm.org.cn/tickets/policy">Tickets</a></li>
-        <li><b>Yongfu Temple (Fri 18 Dec)</b> — free, but a real-name reservation is <b>mandatory, 1–7 days ahead</b>, via the “Hangzhou Lingyin Feilai Peak” mini-program. No same-day booking. Book by Thu 17 Dec at the latest.</li>
-        <li><b>Songcheng show (Thu 17 Dec)</b> — book the dated combo ticket (park + show) in advance, ~¥320 standard / ¥350 VIP. Confirm whether the 17 Dec show is 19:00 or 19:30. Don't buy the cheaper night-tour-only ticket by mistake.</li>
-        <li><b>Xixi Wetland Park</b> — real-name booking, opens 7 days ahead; ¥80 adult (¥70 if booked a day ahead on official WeChat), electric boat ¥60 extra.</li>
-        <li><b>The Spa at Four Seasons (Sat 19 Dec)</b> — treatments must be booked <b>at least 24 hours ahead</b>: call +86 571 8829 8888. From ~¥580 per treatment; confirm indoor-pool access for non-guests when you book.</li>
-        <li><b>成隆行·蟹王府 dinner (Mon 14 Dec)</b> — call <b>021-63212010</b> to book and confirm hairy crab is still available in mid-December.</li>
-        <li><b>High-speed trains (14 &amp; 17 Dec)</b> — book on 12306 or Trip.com; Hangzhou East ↔ Shanghai Hongqiao, ~¥73 second class.</li>
-        <li><b>Impression West Lake show (Sat 12 Dec, optional)</b> — only if you want the evening show (~19:15 in Dec, ¥360 standard). It would replace the night market or dinner, not sit alongside both. Season ends mid-December.</li>
-      </ul>
-    </div>
-  </div>
-</div>
-    </div>
-  </div>
-</div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Show this to the driver"><div class="panel"></div></div>
 <script>
-const ICONS = {
-  compass: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
-  calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
-  utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
-  luggage: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/>',
-  clipboard: '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
-  plane: '<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>',
-  thermometer: '<path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>',
-  bulb: '<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>',
-  camera: '<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>',
-  info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
-  building: '<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>',
-  train: '<rect x="4" y="3" width="16" height="13" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m18 22-2-3"/><circle cx="8.5" cy="14.5" r=".5"/><circle cx="15.5" cy="14.5" r=".5"/>',
-  landmark: '<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>',
-  droplets: '<path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/>',
-  ban: '<circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/>'
+/* ================= data: places =================
+   lat/lng are WGS-84 (OpenStreetMap). The app converts them to GCJ-02 for AMAP. */
+const PLACES = {
+  /* ---- Hangzhou ---- */
+  hgh: { en: "Hangzhou Xiaoshan Airport (HGH)", cn: "杭州萧山国际机场", city: "hz", kind: "travel", lat: 30.23687, lng: 120.42912, addr: "Xiaoshan District, ~30 km from the hotel", addrCn: "萧山区 杭州萧山国际机场", hours: "24 h", station: "At night: taxi/DiDi only. Rank is outside arrivals.", tip: "Arriving 21:55: allow ~50 min for immigration and bags, then 50 min by taxi." },
+  hzhotel: { en: "Holiday Inn Hangzhou West Lake", cn: "杭州西湖假日酒店", city: "hz", kind: "hotel", lat: 30.26458, lng: 120.16034, addr: "Yan'an Road by Fengqi Road, Gongshu (11–14 & 17–20 Dec)", addrCn: "杭州市拱墅区延安路 凤起路口", hours: "Check-in 14:00 · check-out 12:00", station: "Metro Fengqi Road (凤起路), Lines 1/2, Exit C3", tip: "Not the Mercure on Fengqi Rd, nor the older Hangzhou International Holiday Inn — show the driver the Chinese name." },
+  zhiweiguan: { en: "Zhiweiguan (Hubin flagship)", cn: "知味观（湖滨总店）", city: "hz", kind: "food", lat: 30.25497, lng: 120.15883, addr: "83 Renhe Road, Shangcheng", addrCn: "上城区仁和路83号", hours: "07:00–21:00 · breakfast is ordered at the ground-floor counters", price: "~¥30–60 per person", station: "Metro Line 1 Longxiangqiao (龙翔桥), ~5 min walk", tip: "Hangzhou's 160-year-old snack house. Pay at the counter, then hand your ticket to the window for each item." },
+  hubin: { en: "West Lake · Hubin lakefront", cn: "西湖 湖滨", city: "hz", kind: "sight", lat: 30.2545, lng: 120.1575, addr: "Hubin Road lakefront", addrCn: "上城区湖滨路 西湖边", hours: "Open 24 h · free", price: "Free", station: "Metro Line 1 Longxiangqiao (龙翔桥), Exit C", img: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Hangzhou-Westsee-42-Bruecke-2012-gje.jpg", imgcap: "West Lake — Gerd Eichmann, Wikimedia Commons", official: "https://westlake.hangzhou.gov.cn/", tip: "Free music fountain at Hubin Park No. 3, 19:30 daily (weather permitting)." },
+  brokenbridge: { en: "Broken Bridge", cn: "断桥残雪", city: "hz", kind: "sight", lat: 30.2609, lng: 120.14703, addr: "East end of Bai Causeway, Beishan Street", addrCn: "西湖区北山街 断桥", hours: "Open 24 h · free", price: "Free", station: "Walk 20 min along the lake from Hubin, or bus to 断桥 stop", tip: "Weekend crowds build after 09:30 — be here early for the photo." },
+  gushan: { en: "Bai Causeway & Gushan Island", cn: "白堤 · 孤山", city: "hz", kind: "sight", lat: 30.25419, lng: 120.13778, addr: "Gushan Road, inside West Lake", addrCn: "西湖区孤山路", hours: "Open 24 h · free", price: "Free. Optional boat to Three Pools Mirroring the Moon ¥55–70 from the Gushan pier", station: "On foot along Bai Causeway (1 km, flat, stroller-friendly)", tip: "Gushan has the Zhejiang Museum's West Lake branch (free, closed Mon) and the Xiling Seal Society — real seals, like the one on this app." },
+  louwailou: { en: "Lou Wai Lou", cn: "楼外楼（孤山路总店）", city: "hz", kind: "food", lat: 30.25265, lng: 120.13607, addr: "30 Gushan Road", addrCn: "西湖区孤山路30号", hours: "Lunch and dinner — arrive 11:15–11:30 to beat the queue", price: "~¥120–200 per person; vinegar fish ~¥108 (half portion available)", station: "Walk from Gushan, 3 min", phone: "0571-87969023", link: "https://guide.michelin.com/sg/zh_CN/zhe-jiang/hangzhou_1027184/restaurant/lou-wai-lou-gushan-road", tip: "Open since 1848 and in the Michelin Guide. Weekend queues of 40–60 min — take a number at the door the moment you arrive." },
+  hefang: { en: "Hefang Street & Qinghefang", cn: "河坊街 · 清河坊", city: "hz", kind: "sight", lat: 30.24253, lng: 120.16897, addr: "Hefang Street, east of Wushan Square", addrCn: "上城区河坊街", hours: "Street 24 h · shops ~09:00–21:00", price: "Free. Hu Qing Yu Tang pharmacy museum ¥10", station: "Metro Line 7 Wushan Square (吴山广场) or Line 1 Ding'an Road (定安路), 5–10 min walk", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Hefang_Street_20240729.jpg?width=1024", imgcap: "Hefang Street — Wikimedia Commons", tip: "Hu Qing Yu Tang (胡庆余堂, 1874) is the one interior worth paying for: a carved-wood Qing pharmacy still dispensing. Most stalls are phone-payment only." },
+  congbaohui: { en: "Congbaohui stall, Hefang Shiji", cn: "葱包烩（河坊食集店）", city: "hz", kind: "food", lat: 30.2425, lng: 120.169, addr: "198-H7 Hefang Street", addrCn: "上城区河坊街198号-H7", hours: "06:00–19:30", price: "~¥6", tip: "Eat it hot off the griddle." },
+  yuyuan: { en: "Yuyuan · Yong-Shao Hui (Kerry Centre)", cn: "榆园·甬绍荟馆（杭州嘉里中心店）", city: "hz", kind: "food", lat: 30.26394, lng: 120.15811, addr: "Kerry Centre North Zone 1F, Yan'an Road, next to Qingchunli", addrCn: "杭州嘉里中心北区商业1层 青春里旁", hours: "11:00–22:30 (Mon–Thu 14:00–17:00 afternoon tea only)", price: "~¥169–250 per person", station: "Metro Fengqi Road (凤起路), Exit C1, ~30 m — 5 min walk from the hotel", tip: "Recommended by Cylin. Book on Dianping/Meituan." },
+  wulin: { en: "Wulin Night Market", cn: "武林夜市", city: "hz", kind: "food", lat: 30.26442, lng: 120.15638, addr: "40 Longyou Road / Wulin Road", addrCn: "拱墅区龙游路40号 武林夜市", hours: "Sat–Sun from 14:00, weekdays from 17:00, to ~23:00", price: "¥10–30 per snack", station: "7 min walk from the hotel", img: "https://photos.lensculture.com/large/2c83a09f-748d-44c3-b48f-0840feab9f4a.jpg", imgcap: "Wulin Night Market — LensCulture", tip: "Phone payment only. Stalls change often — follow the longest local queue." },
+  xixi: { en: "Xixi Wetland · Zhoujiacun entrance", cn: "西溪国家湿地公园（周家村入口）", city: "hz", kind: "sight", lat: 30.25782, lng: 120.05618, addr: "518 Tianmushan Road", addrCn: "西湖区天目山路518号 周家村入口", hours: "Winter 08:00–17:30, last entry 17:00", price: "Adult ¥80 (¥70 booked a day ahead on the official WeChat) · electric boat ¥60 · free under 1.2 m", station: "Taxi from the hotel ~30 min. Metro: Line 3 Xixi Wetland South (西溪湿地南), Exit A", img: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Xixi_wetland.jpg", imgcap: "Xixi Wetland — Wikimedia Commons", official: "https://www.xixiwetland.com.cn/", tip: "Take the electric boat loop first (it is cold — sit inside), then walk the Plum Causeway (梅堤) back. Tea at 西溪问茶 by the entrance." },
+  xixibieyuan: { en: "Xixi Bieyuan (Xixi Paradise)", cn: "西溪别院（西溪天堂店）", city: "hz", kind: "food", lat: 30.26862, lng: 120.08328, addr: "Xixi Paradise shopping street, next to the Wetland Museum", addrCn: "西湖区西溪天堂商业街 西溪别院", price: "~¥50–80 per person", tip: "Quick home-style Hangzhou cooking. If it is closed, Xixi Paradise has several other restaurants on the same street." },
+  wetlandmuseum: { en: "China Wetland Museum", cn: "中国湿地博物馆", city: "hz", kind: "sight", lat: 30.26644, lng: 120.08262, addr: "402 Tianmushan Road", addrCn: "西湖区天目山路402号", hours: "Tue–Sun 09:00–16:30, last entry 16:00 · closed Mon", price: "Free — reserve on the museum's WeChat account", station: "Metro Line 3 Dongyue (东岳), ~5 min walk", img: "https://upload.wikimedia.org/wikipedia/commons/0/03/Xixi_Wetlands_Museum_-_panoramio.jpg", imgcap: "Wetland Museum — Wikimedia Commons", tip: "Head straight to the 32.5 m curved screen in the B1 Wetland Cave Hall, then the observation tower." },
+  airobox: { en: "AIROBOX Robot Dream Factory", cn: "AIROBOX机器人梦工厂（之江文化中心）", city: "hz", kind: "sight", lat: 30.16085, lng: 120.1045, addr: "Halls A/B, Art Exhibition Centre, Zhijiang Cultural Centre, 300 Jianghan Road", addrCn: "西湖区江涵路300号 之江文化中心艺展中心A/B厅", hours: "Tue–Sun 09:00–18:00, last entry 17:00 · closed Mon", price: "~¥59–69 per person; ¥119 for 1 adult + 1 child", station: "Metro Line 6 Zhijiang Cultural Centre (之江文化中心) — at the door", link: "https://www.trip.com/travel-guide/attraction/hangzhou/airobox-robot-dream-factory-153110164/", tip: "90+ robots, robot dogs, mech battles and a brain-controlled race. Opened Oct 2025 — check on the AIROBOX WeChat mini-program that it is still running." },
+  hzjiujia: { en: "Hangzhou Jiujia", cn: "杭州酒家（延安路店）", city: "hz", kind: "food", lat: 30.25418, lng: 120.15935, addr: "205 Yan'an Road, Hubin", addrCn: "上城区延安路205号", price: "~¥80–150 per person", station: "Metro Line 1 Longxiangqiao (龙翔桥) · 1 stop from the hotel", tip: "A Hangzhou institution since 1921 — classic dishes at fair prices." },
+  kuiyuanguan: { en: "Kuiyuanguan", cn: "奎元馆（解放路店）", city: "hz", kind: "food", lat: 30.25324, lng: 120.1656, addr: "154 Jiefang Road", addrCn: "上城区解放路154号", price: "Noodles ~¥30–60", station: "Taxi 8 min from the hotel", link: "https://guide.michelin.com/sg/zh_CN/zhe-jiang/hangzhou_1027184/restaurant/kui-yuan-guan-jiefang-road", tip: "Noodle house since 1867, in the Michelin Guide. Opening time not confirmed — if it's shut, Zhiweiguan (opens 07:00) is a 10-min walk." },
+  hzeast: { en: "Hangzhou East Railway Station", cn: "杭州东站", city: "hz", kind: "travel", lat: 30.29355, lng: 120.2082, addr: "1 Tiancheng Road", addrCn: "上城区天城路1号 杭州东站", hours: "~05:30–24:00", station: "Metro Lines 1/4/6/19 — Hangzhou East Railway Station (火车东站)", tip: "Food courts on B1: 江南荟 (East Square: Shengzhou xiaolongbao from 06:00, Lao Niang Jiu, KFC) and 潮街 (West Square). Left luggage: 轻松游 centre, G level, West Square — ¥6/hour, max ¥50/day." },
+  songcheng: { en: "Songcheng Park", cn: "宋城景区", city: "hz", kind: "sight", lat: 30.17346, lng: 120.09242, addr: "148 Zhijiang Road", addrCn: "西湖区之江路148号", hours: "~09:30 until 30 min after the last show", price: "Park + show combo ~¥320 standard / ¥350 VIP. A night-tour-only ticket (~¥70) does NOT include the show", station: "Taxi from the hotel ~35 min", phone: "0571-87313101", official: "https://www.songcn.com/", img: "https://upload.wikimedia.org/wikipedia/commons/4/47/Night_in_%22SongCheng%22%2C_Hang_Zhou%2C_China.jpg", imgcap: "Songcheng at night — Wikimedia Commons", tip: "Show times seen in 2025: 12:30, 14:00, 18:00, 19:30. December is not confirmed — check the dated ticket before you pay." },
+  yongfu: { en: "Yongfu Temple", cn: "永福寺", city: "hz", kind: "sight", lat: 30.24197, lng: 120.09277, addr: "Fayun Lane, Lingyin–Feilai Peak scenic area", addrCn: "西湖区灵隐路法云弄16号 永福寺", hours: "07:30–17:30, last entry 17:00", price: "Free since 1 Dec 2025 — but a real-name booking is required", station: "Taxi from the hotel ~25 min", official: "https://www.lingyinsi.org/", img: "https://upload.wikimedia.org/wikipedia/commons/0/0e/HZ_%E6%9D%AD%E5%B7%9E_Hangzhou_%E6%B0%B8%E7%A6%8F%E5%AF%BA_Yongfu_Temple_China_Tourism_2012_entrance_name_sign.jpg", imgcap: "Yongfu Temple — Wikimedia Commons", tip: "Book in the “杭州灵隐飞来峰” Alipay/WeChat mini-program, 1–7 days ahead, morning slot. Passports accepted. Children ≤14 go with an adult (max 3 per adult). On the way out, look at the Feilai Peak cliff carvings." },
+  lingyinmian: { en: "Lingyin Temple vegetarian noodles", cn: "灵隐寺素面（十方苑）", city: "hz", kind: "food", lat: 30.2424, lng: 120.0976, addr: "Inside Lingyin Temple, right of the ticket check", addrCn: "灵隐寺内 十方苑", hours: "08:30–16:30", price: "~¥15–20", tip: "Simple, warming temple noodles. Alternative outside the gate: 知竹 Know Bamboo vegetarian, 69 Tianzhu Road." },
+  polar: { en: "Hangzhou Polar Ocean Park", cn: "杭州长乔极地海洋公园", city: "hz", kind: "sight", lat: 30.14501, lng: 120.22222, addr: "777 Xianghu Road, Xiaoshan", addrCn: "萧山区湘湖路777号", hours: "09:00–17:00, last entry 16:30", price: "Adult ~¥360 · child ¥299 · family 2+1 ¥1019 · under 1 m free (cheaper on Trip.com/Ctrip)", station: "Taxi from Lingyin ~45 min. Metro Line 1 Xianghu (湘湖) + 10 min taxi", img: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Hangzhou_Polar_Ocean_Park_01.jpg", imgcap: "Polar Ocean Park — Wikimedia Commons", tip: "About 5 shows a day (dolphin, beluga, walrus). Photograph the show board at the gate and plan around it. Born in December? A December-birthday promo has charged ¥0.1 — bring passports." },
+  greentea: { en: "Green Tea Restaurant (Hubin)", cn: "绿茶餐厅（延安路店）", city: "hz", kind: "food", lat: 30.25415, lng: 120.15986, addr: "98 Yan'an Road, Hubin (Lakeside Yintai in77)", addrCn: "上城区延安路98号", hours: "~10:30–22:00", price: "~¥80–100 per person", station: "Metro Line 1 Longxiangqiao (龙翔桥)", tip: "Expect a queue — take a number on the Dianping/Meituan app on the taxi ride over." },
+  animation: { en: "China Animation Museum", cn: "中国动漫博物馆", city: "hz", kind: "sight", lat: 30.16448, lng: 120.20107, addr: "375 Baimahu Road, Binjiang", addrCn: "滨江区白马湖路375号", hours: "Wed–Sun 09:30–16:30, last entry 16:00 · closed Mon & Tue", price: "Free — reserve on the museum's WeChat account (5 days of slots)", station: "Taxi from the hotel ~35 min", phone: "0571-86056757", link: "https://ccam.hzxcw.gov.cn/guide.html", img: "https://upload.wikimedia.org/wikipedia/commons/0/03/Zhongguo_Dongman_Bowuguan.jpg", imgcap: "China Animation Museum — Wikimedia Commons", tip: "Four permanent halls plus interactive kids' zones. Allow 2 hours." },
+  binjiangmall: { en: "Longfor Binjiang Paradise Walk", cn: "龙湖杭州滨江天街", city: "hz", kind: "food", lat: 30.20358, lng: 120.19957, addr: "Jiangnan Avenue, Binjiang", addrCn: "滨江区江南大道 龙湖滨江天街", hours: "~10:00–22:00", price: "~¥50–100 per person", tip: "A big mall food floor with family chains — easy with kids, warm, with clean toilets." },
+  fourseasons: { en: "Four Seasons Hotel Hangzhou at West Lake", cn: "杭州西子湖四季酒店", city: "hz", kind: "sight", lat: 30.25376, lng: 120.12407, addr: "5 Lingyin Road", addrCn: "西湖区灵隐路5号", hours: "Spa daily ~10:00–22:00 · kids' club 09:00–11:30, 13:00–17:00", price: "Treatments from ~¥580; massages more", station: "Taxi from Binjiang ~35 min", phone: "+86 571 8829 8888", official: "https://www.fourseasons.com/hangzhou/spa/", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Four%20Seasons%20Hotel%20Hangzhou%20West%20Lake%2020201001.jpg?width=1024", imgcap: "Four Seasons Hangzhou — Wikimedia Commons", tip: "Fully indoors: heated pool, sauna and steam, free Kids For All Seasons club (2–12). Book treatments 24 h ahead; ask whether pool access is included for non-guests." },
+  jinsha: { en: "Jin Sha", cn: "金沙厅（杭州西子湖四季酒店）", city: "hz", kind: "food", lat: 30.25376, lng: 120.12407, addr: "Inside the Four Seasons, 5 Lingyin Road", addrCn: "西湖区灵隐路5号 杭州西子湖四季酒店 金沙厅", hours: "Lunch 11:30–14:00 · dinner 17:30–21:00", price: "~¥750 per person — a splurge", phone: "+86 571 8829 8888", link: "https://press.fourseasons.com/hangzhou/hotel-news/2026/michelin-starred-jin-sha-restaurant", tip: "One Michelin star every year 2023–2026 and on Asia's 50 Best 2026. Book ahead, ask for a high chair and a 17:30 table. Cheaper farewell: Lou Wai Lou or Hangzhou Jiujia." },
+  /* ---- Shanghai ---- */
+  hongqiao: { en: "Shanghai Hongqiao Railway Station", cn: "上海虹桥站", city: "sh", kind: "travel", lat: 31.19612, lng: 121.31611, addr: "1500 Shengui Road, Minhang", addrCn: "闵行区申贵路1500号 上海虹桥站", hours: "Station open all day", station: "Metro Lines 2/10/17 — Hongqiao Railway Station (虹桥火车站)", tip: "Not “Shanghai Station” — that is a different station across town. Food is basic chains (KFC, McDonald's, Starbucks, noodle counters) on the departure level." },
+  shhotel: { en: "Jianguo Hidden Hotel (Bund · Jinling East Rd)", cn: "建国璞隐酒店（上海外滩金陵东路店）", city: "sh", kind: "hotel", lat: 31.22937, lng: 121.47717, addr: "531 Jinling East Road, Huangpu (14–17 Dec)", addrCn: "黄浦区金陵东路531号", hours: "Check-in 15:00 · check-out 12:00", station: "Metro Dashijie (大世界), Lines 8/14 — ~200 m", phone: "+86 21 5569 8858", tip: "Online listings show this address as Home Inn Plus (如家精选), part of the same hotel group. Check the name on your booking confirmation before you show a driver." },
+  yuyuan_sh: { en: "Yuyuan Bazaar & City God Temple", cn: "豫园商城 · 上海城隍庙", city: "sh", kind: "sight", lat: 31.22788, lng: 121.48823, addr: "249 Fangbang Middle Road, Huangpu", addrCn: "黄浦区方浜中路249号", hours: "Bazaar daily into the evening · temple 08:30–16:30 · Yu Garden closed Mondays", price: "Bazaar free · temple ~¥10 · Yu Garden ¥30 (not on Monday)", station: "Metro Line 10/14 Yuyuan Garden (豫园), Exit 1 — or 18 min walk from the hotel", img: "https://upload.wikimedia.org/wikipedia/commons/d/de/Chenghuangmiao5.jpg", imgcap: "City God Temple — Wikimedia Commons", tip: "Sunset is ~16:55 — the roofs and lanterns light up around 17:00, which is the best moment to be on the Nine-Zigzag Bridge." },
+  nanxiang: { en: "Nanxiang Steamed Bun Restaurant", cn: "南翔馒头店（城隍庙店）", city: "sh", kind: "food", lat: 31.22853, lng: 121.4871, addr: "85 Yuyuan Road, by the Zigzag Bridge", addrCn: "黄浦区豫园路85号", hours: "~08:00–21:00 (not confirmed)", price: "1F takeaway ~¥30 for 6 · 2F seated ~¥38 pork / ¥48 crab", tip: "In the Michelin Guide. Skip the huge 1F takeaway queue and sit upstairs on 2F." },
+  chenglonghang: { en: "Cheng Long Hang Crab King", cn: "成隆行蟹王府（九江路店）", city: "sh", kind: "food", lat: 31.23892, lng: 121.4815, addr: "216 Jiujiang Road, Huangpu", addrCn: "黄浦区九江路216号", hours: "11:00–14:30, 17:00–22:00", price: "~¥300–500 per person", station: "Metro East Nanjing Road (南京东路), Lines 2/10, Exit 3 — 3 min walk", phone: "021-63212010", tip: "Recommended by Cylin. Call ahead: mid-December is the tail of hairy-crab season — confirm crab is available and ask for male crabs." },
+  bund: { en: "The Bund at night", cn: "外滩（陈毅广场）", city: "sh", kind: "sight", lat: 31.24103, lng: 121.48596, addr: "Zhongshan East 1st Road at Nanjing East Road", addrCn: "黄浦区中山东一路 南京东路口 陈毅广场", hours: "Promenade 24 h · lights usually ~18:00–22:00", price: "Free", station: "8 min walk east along Jiujiang Road from dinner", official: "https://english.shanghai.gov.cn/en-ScenicSpots/20231205/584672cc6d044eabb5f7f6fc9049a19f.html", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Shanghai-Skyline-06-Oriental%20Pearl%20Tower%20nachts-2012-gje.jpg?width=1024", imgcap: "Lujiazui from the Bund — Gerd Eichmann, Wikimedia Commons", tip: "Walk the raised promenade from the Chen Yi statue north to the Peace Hotel. River wind is cold — hats on." },
+  taikang: { en: "Taikang Foods (Bund end)", cn: "泰康食品（南京东路外滩店）", city: "sh", kind: "food", lat: 31.24026, lng: 121.48226, addr: "Nanjing East Road near the Bund", addrCn: "黄浦区南京东路 近外滩", hours: "Until ~22:00 (not confirmed)", price: "¥5–10 per mooncake", tip: "Mooncakes baked to order all day — eat them hot." },
+  dahuchun: { en: "Da Hu Chun", cn: "大壶春（四川中路店）", city: "sh", kind: "food", lat: 31.2367, lng: 121.48477, addr: "136 Sichuan Middle Road", addrCn: "黄浦区四川中路136号", hours: "From 06:30 or 08:00 (sources differ) — aim for 08:00", price: "~¥20–40 per person", station: "5 min walk to East Nanjing Road station (Line 2)", link: "https://uk.trip.com/restaurant/china/shanghai/detail/da-hu-chun-11145209", tip: "Michelin Bib Gourmand. Its shengjian are the fluffy, fully-leavened style — less squirt than Xiaoyang's, safer for kids." },
+  pearl: { en: "Oriental Pearl Tower", cn: "东方明珠广播电视塔", city: "sh", kind: "sight", lat: 31.24195, lng: 121.49526, addr: "1 Century Avenue, Lujiazui, Pudong", addrCn: "浦东新区世纪大道1号", hours: "09:00–21:00, last entry 20:30", price: "Two-sphere ¥199 adult / ¥99 child · under 1 m free", station: "Metro Line 2 Lujiazui (陆家嘴), Exit 1 — 5 min walk", official: "https://www.orientalpearltower.com/", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Shanghai-Skyline-06-Oriental%20Pearl%20Tower%20nachts-2012-gje.jpg?width=1024", imgcap: "Lujiazui at night — Gerd Eichmann, Wikimedia Commons", tip: "The two-sphere ticket covers the 263 m deck, the 259 m glass floor and the Shanghai History exhibition at the base — the part kids remember is the glass floor." },
+  xiaodadong: { en: "Taste of Dadong (New World City)", cn: "小大董（新世界城店）", city: "sh", kind: "food", lat: 31.23695, lng: 121.4691, addr: "6F South Building, New World City, 2–68 Nanjing West Road", addrCn: "黄浦区南京西路2-68号 新世界城南楼6楼", hours: "Mon–Fri 11:00–21:30 · Sat–Sun 10:30–21:30", price: "~¥150–250 per person · roast duck ~¥199", station: "Metro People's Square (人民广场), Lines 1/2/8, Exit 7 or 19", tip: "No phone bookings — walk in at 11:15. Ask for a window table over Nanjing Road." },
+  sstm: { en: "Shanghai Science & Technology Museum", cn: "上海科技馆", city: "sh", kind: "sight", lat: 31.2206, lng: 121.53673, addr: "2000 Century Avenue, Pudong", addrCn: "浦东新区世纪大道2000号", hours: "Tue–Sun 09:00–17:00, last entry 16:00 · closed Mon", price: "Adult ¥45 · child/student ¥22 · 6 and under free but must be booked", station: "Metro Line 2 Shanghai Science & Technology Museum (上海科技馆) — under the museum", official: "https://en.sstm.org.cn/", img: "https://www.shanghaitourism.org/wp-content/uploads/2026/07/shanghai-science-technology-museum-hands-on-exhibits.jpg", imgcap: "Hands-on exhibits — shanghaitourism.org", tip: "Reopened Feb 2026 after renovation. No ticket office — real-name online booking only, released 7 days ahead at 10:00. Kids: Children's Rainbow Land, Robot World, Spectrum of Life." },
+  mitao: { en: "Mitao Yayan · Jiangnan Su-Xi cuisine", cn: "米桃雅宴·江南苏锡菜（虹桥南丰城店）", city: "sh", kind: "food", lat: 31.21017, lng: 121.40306, addr: "Hongqiao Nanfeng City North Zone 5F, 150 Zunyi Road, Changning", addrCn: "长宁区遵义路150号 虹桥南丰城北区5楼", hours: "11:00–14:00, 16:30–21:00 (confirm by phone)", price: "~¥140–200 per person · set menus ~25% off", station: "Metro Loushanguan Road (娄山关路), Lines 2/15, Exit 2 — 10 min walk", phone: "+86 177 9870 8896", tip: "Recommended by Cylin. Our research couldn't confirm this branch online — phone to book and confirm the address. Other branches: North Bund Raffles, Zhongshan Park Raffles." },
+  dexingguan: { en: "De Xing Guan", cn: "德兴馆（广东路店）", city: "sh", kind: "food", lat: 31.23409, lng: 121.47778, addr: "471 Guangdong Road, Huangpu", addrCn: "黄浦区广东路471号", hours: "Early breakfast — confirm opening on Dianping", price: "~¥20–40 per bowl", station: "7 min walk north of the hotel", phone: "+86 21 6352 2535", tip: "Noodle house since 1878, in the Michelin Guide. Locals queue at 07:00 for the 三鲜面." },
+  wildpark: { en: "Shanghai Wild Animal Park", cn: "上海野生动物园", city: "sh", kind: "sight", lat: 31.05738, lng: 121.71664, addr: "178 Nanliu Highway, Pudong (~40 km)", addrCn: "浦东新区南六公路178号", hours: "Winter ~08:30/09:00–16:30 · tickets to ~15:30 · safari coach ~09:15–15:30", price: "Adult ~¥130–190 (sources differ) · free ≤6 years or ≤1.3 m", station: "DiDi ~60 min. Metro ~1 h 30: Line 14 → Line 2 → Line 16 to Wild Animal Park, then bus 惠南6路", official: "https://www.shwzoo.com/", img: "https://www.shanghaitourism.org/wp-content/uploads/2026/05/shanghai-wildlife-park-tigers.jpg", imgcap: "Big cats — shanghaitourism.org", tip: "Do the drive-through safari coach first — queues reach 45 min by 10:30. Photograph the show board at the gate. Food inside is basic and pricey: bring snacks and water. Scooters not allowed." },
+  xiaoshaoxing: { en: "Xiao Shaoxing", cn: "小绍兴（山西南路过渡店）", city: "sh", kind: "food", lat: 31.2375, lng: 121.4786, addr: "South Shanxi Road near Nanjing East Road (moved from Yunnan S Rd in Feb 2026)", addrCn: "黄浦区山西南路 近南京东路 小绍兴", hours: "Until ~22:00", price: "~¥60–100 per person", tip: "English menu, English-speaking staff. Map pin is approximate — the shop's new door number isn't published, so search 小绍兴 in AMAP when you get there." },
+  shendacheng: { en: "Shen Da Cheng", cn: "沈大成（南京东路总店）", city: "sh", kind: "food", lat: 31.23764, lng: 121.47385, addr: "636 Nanjing East Road", addrCn: "黄浦区南京东路636号", hours: "Until ~21:30", price: "¥5–20 per item", link: "https://www.smartshanghai.com/venue/14217/shen_dacheng_nanjing_dong_lu", tip: "Rice-cake shop since 1875. Point at the trays and buy a mixed box to share." },
+  bakerspice: { en: "Baker & Spice (Anfu Road)", cn: "Baker & Spice（安福路店）", city: "sh", kind: "food", lat: 31.216, lng: 121.4395, addr: "195 Anfu Road, Xuhui", addrCn: "徐汇区安福路195号", hours: "06:00–22:00", price: "~¥60–100 per person", tip: "Farine on Wukang Road has closed; Ferguson Lane (376 Wukang Rd) still has cafés." },
+  wukang: { en: "Anfu Road → Wukang Road → Wukang Mansion", cn: "武康路 · 武康大楼", city: "sh", kind: "sight", lat: 31.20626, lng: 121.43373, addr: "1850 Huaihai Middle Road at Wukang Road, Xuhui", addrCn: "徐汇区淮海中路1850号 武康大楼", hours: "Street always open · the mansion is residential, view from outside", price: "Free · Soong Ching-ling Residence ¥20 (Tue–Sun)", station: "Metro Jiaotong University (交通大学), Lines 10/11, ~8 min walk", img: "https://upload.wikimedia.org/wikipedia/commons/0/07/Normandie_Apartment.jpg", imgcap: "Wukang Mansion, 1924 — Wikimedia Commons", tip: "Plane-tree streets of the former French Concession. The classic ship's-bow photo of the mansion is from the traffic island at the Huaihai Rd junction." }
 };
-function ic(name, cls){ return '<svg class="ic '+(cls||'')+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+ICONS[name]+'</svg>'; }
-const P = {
-  westlake: { n:"West Lake", cn:"西湖", addr:"West Lake Scenic Area, Xihu District (east shore at Hubin)", hours:"Open 24h, free", price:"Free — boat to Three Pools island ¥55–70; Leifeng Pagoda ¥40; Yue Fei Temple ¥25", station:"Line 1 Longxiangqiao (龙翔桥), Exit C — 3–10 min walk to the east shore", link:"https://www.chinatravel.com/hangzhou/attraction/west-lake", img:"https://upload.wikimedia.org/wikipedia/commons/b/b4/Hangzhou-Westsee-42-Bruecke-2012-gje.jpg", official:"https://westlake.hangzhou.gov.cn/", imgcap:"Bridge over West Lake — Gerd Eichmann, Wikimedia Commons", tip:"Go weekday morning. Free music fountain at Hubin Park No. 3, 19:30 daily." },
-  impression: { n:"West Lake Impression", cn:"最忆是杭州", addr:"No. 82 Beishan Road, Xihu District (Yue Lake, opposite Yue Fei Temple)", hours:"Evening show only, ~55–60 min — usual slot 19:40 (Dec ~19:15); season runs Mar–mid-Dec", price:"Standard ¥360; VIP ¥430–450; premium ¥680–960", station:"No metro at the gate — Line 1 Longxiangqiao or Line 3 Huanglongdong, then bus/taxi ~10–15 min", link:"https://www.chinadiscovery.com/zhejiang/hangzhou/west-lake/impression-west-lake.html", img:"https://media.tacdn.com/media/attractions-splice-spp-674x446/0a/77/46/bb.jpg", official:"", imgcap:"Nighttime water performance — Tripadvisor", tip:"The afternoon slot in the plan is the lakeside/ticket office only — the show is evening-only. 12 Dec is near the end of the season; book ahead and bring a jacket." },
-  hefang: { n:"He Fang Jie", cn:"河坊街 · Qinghefang", addr:"Hefang Street, Shangcheng District (No. 180 Hefang St, at the foot of Wu Hill)", hours:"Street open 24h, free; shops ~09:00/10:00–21:30/22:00. Best 17:00–21:00 for lanterns and street food", price:"Free to walk. Hu Qing Yu Tang Chinese Medicine Museum ¥10", station:"Line 7 Wushan Square (吴山广场), Exit C/D — 3 min walk. Or Line 1 Ding'an Road, ~10 min", link:"https://www.nihaovisit.com/attractions/hangzhou/hefang-street/", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Hefang_Street_20240729.jpg?width=1024", official:"", imgcap:"Hefang Street, 2024 — Wikimedia Commons", tip:"~15 min walk south from West Lake along Nanshan Rd." },
-  wulin: { n:"Wulin Night Market", cn:"武林夜市", addr:"40 Longyou Road, Gongshu District", hours:"Mon–Fri 17:00–23:00; Sat–Sun 14:00–23:00. ~200 stalls", price:"Free entry; food pay-as-you-go", station:"Lines 1/2 Fengqi Road (凤起路), Exit E — 320 m, ~5 min walk", link:"https://en.hangzhou.com.cn/News/content/2024-11/01/content_8808171.html", img:"https://photos.lensculture.com/large/2c83a09f-748d-44c3-b48f-0840feab9f4a.jpg", official:"", imgcap:"Night-market stalls and crowds — LensCulture", tip:"Sat 12 Dec is a Saturday, so stalls start at 14:00. A few minutes' walk from the hotel." },
-  xixi: { n:"Xixi Wetland Park", cn:"西溪国家湿地公园", addr:"No. 518 Tianmushan Road, Xihu District — main ticketed entrance Zhoujiacun (周家村)", hours:"Winter (8 Oct–31 Mar): 08:00–17:30, ticket sales to 16:30, last entry 17:00", price:"Adult ¥80 (¥70 if booked a day ahead on official WeChat); half ¥40; free under-6 / under 1.2 m. Electric boat ¥60 extra", station:"Line 3 Xixi Wetland South (西溪湿地南), Exit A — ~200 m to Zhoujiacun", link:"https://www.ehangzhou.gov.cn/2020-04/22/c_271679.htm", img:"https://upload.wikimedia.org/wikipedia/commons/e/e5/Xixi_wetland.jpg", official:"https://www.xixiwetland.com.cn/", imgcap:"Xixi National Wetland Park — Wikimedia Commons", tip:"Reeds peak mid-Nov–early Dec — good timing. Allow 3–4 hrs. Bookings open 7 days ahead, real-name." },
-  wetlandmuseum: { n:"National Wetland Museum of China", cn:"中国湿地博物馆", addr:"No. 402 Tianmushan Road, Xihu District (SE corner of Xixi Wetland Park)", hours:"Tue–Sun 09:00–16:30, last entry 16:00. Closed Mondays", price:"Free", station:"Line 3 Dongyue (东岳), Exit A/B — ~300 m, 5 min walk", link:"https://www.ehangzhou.gov.cn/2024-04/29/c_289415.htm", img:"https://upload.wikimedia.org/wikipedia/commons/0/03/Xixi_Wetlands_Museum_-_panoramio.jpg", official:"", imgcap:"Museum exterior — Wikimedia Commons", tip:"32.5 m curved giant screen in the B1 Wetland Cave Hall is the highlight; ~1–1.5 hrs, very family-friendly. Reserve via the museum's official WeChat." },
-  airobox: { n:"Airobox Tech — Robot Dream Factory", cn:"AIROBOX机器人梦工厂", addr:"Halls A/B, Art Exhibition Centre, Zhijiang Cultural Centre, No. 300 Jianghan Road, Xihu District", hours:"Tue–Sun 10:00–18:00 (some listings 09:00), last entry 17:00. Closed Mondays", price:"¥69/person; ¥119 for 1 adult + 1 child. Under 90 cm free", station:"Line 6 Zhijiang Cultural Centre Station (之江文化中心站) — at the complex", link:"https://www.trip.com/travel-guide/attraction/hangzhou/airobox-robot-dream-factory-153110164/", img:"https://tr-osdcp.qunarzz.com/tr_osd_tr_hy/tr-osd-tr-mapi-img_bcb65b76e98f56fa1c9b295e4242c32d.jpg_r_750x1000_.jpg", official:"", imgcap:"Robot Dream Factory interior — Qunar", tip:"China's first human–machine future space: 90+ robots, 30+ interactive installations, robot band and robot dogs. Book via the AIROBOX WeChat mini-program or Ctrip. The Zhejiang Literature Museum in the same complex is free, Tue–Sun 09:00–17:00." },
-  animation: { n:"China Animation Museum", cn:"中国动漫博物馆", addr:"No. 375 Baimahu Road, Binjiang District (White Horse Lake) — south across the Qiantang River", hours:"Wed–Sun 09:30–16:30, last entry 16:00. Closed Mon AND Tue", price:"Free", station:"No direct metro — Line 5 to Jucai Road, then bus 522M to Tangjiaqiao East; or taxi ~40–60 min from Xixi", link:"https://ccam.hzxcw.gov.cn/guide.html", img:"https://upload.wikimedia.org/wikipedia/commons/0/03/Zhongguo_Dongman_Bowuguan.jpg", official:"", imgcap:"China Animation Museum — Wikimedia Commons", tip:"Moved here from Sun 13 Dec — it was too far to fit that afternoon. Allow a full morning." },
-  chenghuang: { n:"Chenghuangmiao (City God Temple) + bazaar", cn:"上海城隍庙", addr:"249 Fangbang Middle Road, Huangpu District", hours:"Temple 08:30–16:30. Yuyuan Bazaar ~10:00–22:00; lanterns on ~17:30", price:"Temple interior ~¥10. Bazaar, Nine-Turn Bridge and Huxinting: free. Yu Garden (separate): ¥30 in Dec, closed Mondays", station:"Yuyuan Garden (豫园), Lines 10/14, Exits 1/7 — ~5 min walk", link:"https://localshanghai.com/city-god-temple-shanghai-chenghuangmiao/", img:"https://upload.wikimedia.org/wikipedia/commons/d/de/Chenghuangmiao5.jpg", official:"", imgcap:"City God Temple — Wikimedia Commons", tip:"The evening visit is the lit bazaar, not the temple halls — the temple closes at 16:30. Yu Garden is closed on Mon 14 Dec, so save it for another trip." },
-  wukang: { n:"Wu Kang Lu", cn:"武康路", addr:"Wukang Road, Xuhui District, former French Concession (1.18 km, Huashan Rd to Huaihai Middle Rd)", hours:"Street always open, free", price:"Free to walk. Soong Ching-ling Residence ¥20; Ba Jin Residence free — both closed Mondays", station:"Jiaotong University (交通大学), Lines 10/11, Exit 3 — ~8 min walk. Or Shanghai Library, Line 10, Exit 3 (~5 min)", link:"https://askthecity.com/shanghai/landmarks/wukang-road", img:"https://upload.wikimedia.org/wikipedia/commons/0/07/Normandie_Apartment.jpg", official:"", imgcap:"Wukang Mansion (1924) — Wikimedia Commons", tip:"Start at Wukang Mansion (south end, the classic ship-bow photo), walk north, then Anfu Road east for cafés. Mon 14 Dec: both house museums closed — street and café walk only." },
-  bund: { n:"The Bund", cn:"外滩", addr:"Zhongshan East 1st Road, Huangpu District — promenade ~1.5 km, Yan'an East Rd to Waibaidu Bridge", hours:"Free, open 24h", price:"Free walk. Huangpu River night cruise ~¥150; public ferry ~¥2", station:"East Nanjing Road (南京东路), Lines 2/10 — 5–10 min walk east down Nanjing Rd", link:"https://www.shanghaitourism.org/the-bund-at-night/", img:"https://www.shanghaitourism.org/wp-content/uploads/2026/05/the-bund-shanghai-guide-night-skyline.jpg", official:"https://english.shanghai.gov.cn/en-ScenicSpots/20231205/584672cc6d044eabb5f7f6fc9049a19f.html", imgcap:"The Bund at night — shanghaitourism.org", tip:"Sunset 14 Dec ~16:52. Arrive ~30 min before sunset for blue hour; lights winter nights ~18:00–22:00. Dress warm — river wind is cold in December." },
-  pearl: { n:"Oriental Pearl TV Tower", cn:"东方明珠", addr:"1 Century Avenue, Lujiazui, Pudong", hours:"09:00–21:00, last entry 20:30", price:"Two-Sphere ¥199 adult / ¥99 child; Three-Sphere ¥220 / ¥110. Under 1 m free", station:"Lujiazui (陆家嘴), Line 2, Exit 1 — at the tower plaza", link:"https://www.trip.com/guide/attraction/oriental-pearl-tower.html", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Shanghai-Skyline-06-Oriental%20Pearl%20Tower%20nachts-2012-gje.jpg?width=1024", official:"https://www.orientalpearltower.com/", imgcap:"Lujiazui skyline at night — Gerd Eichmann, Wikimedia Commons", tip:"Best value is Two-Sphere (lower + 263 m deck + 259 m glass walkway + History Exhibition Hall). Book 1–3 days ahead; weekday morning first hour is quietest. Allow 2–3 hrs." },
-  sstm: { n:"Shanghai Science and Technology Museum", cn:"上海科技馆", addr:"2000 Century Avenue, Pudong", hours:"Tue–Sun 09:00–17:00, last entry 16:00. Closed Mondays", price:"Adult ¥45; students ¥22; under 1.3 m free. IMAX 3D ¥40 extra", station:"Line 2, Shanghai Science and Technology Museum Station (上海科技馆站), Exit 7/8 — exits lead to the museum plaza", link:"https://en.sstm.org.cn/tickets/policy", img:"https://www.shanghaitourism.org/wp-content/uploads/2026/07/shanghai-science-technology-museum-hands-on-exhibits.jpg", official:"https://en.sstm.org.cn/", imgcap:"Hands-on exhibits — shanghaitourism.org", tip:"No on-site ticket office — real-name online booking only, released 7 days ahead at 10:00. Book on Tue 8 Dec; tickets sell out. Allow 3–4 hrs." },
-  animalpark: { n:"Shanghai Wild Animal Park", cn:"上海野生动物园", addr:"178 Nanliu Highway, Pudong (~35 km from central Shanghai)", hours:"December: 09:00–16:30, last entry 15:30. Open daily", price:"Adult ¥190; free ≤6 yrs or ≤1.3 m; half price 6–18 and students", station:"Line 16 to Wild Animal Park Station (野生动物园站), then free park shuttle ~5 min. From People's Square ~55–70 min each way", link:"http://www.shwzoo.com/", img:"https://www.shanghaitourism.org/wp-content/uploads/2026/05/shanghai-wildlife-park-tigers.jpg", official:"https://www.shwzoo.com/", imgcap:"Big cats at the Wild Animal Park — shanghaitourism.org", tip:"A full day — 4–6 hrs. Arrive at opening and do the drive-through safari bus first; animals are most active in the morning. December is cold and mostly outdoors — dress warmly." },
-  songcheng: { n:"Songcheng", cn:"宋城", addr:"No. 148 Zhijiang Road, Xihu District", hours:"Park 09:30–21:00 daily. Romance of the Song Dynasty show ~60 min, usually 14:00 and 19:30", price:"Combo ticket (park + show): ~¥320 standard / ¥350 VIP booked online. Night-tour-only ticket from ~¥70 — do NOT buy by mistake", station:"From Hangzhou East: taxi/Didi ~30 min (~15 km). Or Metro Line 6 to Fenghua West Road then 10-min taxi", link:"https://www.greentourasia.com/en/video/songchengqianguqing", img:"https://upload.wikimedia.org/wikipedia/commons/4/47/Night_in_%22SongCheng%22%2C_Hang_Zhou%2C_China.jpg", official:"https://www.songcn.com/", imgcap:"Songcheng at night — Wikimedia Commons", tip:"Confirm the exact 17 Dec showtime (19:00 vs 19:30) on the dated booking page. Book show tickets in advance." },
-  yongfu: { n:"Yongfu Temple", cn:"永福寺", addr:"No. 16 Fayun Lane, Lingyin Road, Xihu District (inside Lingyin–Feilai Peak scenic area)", hours:"07:30–17:30, last entry 17:00, open daily", price:"Free since 1 Dec 2025 — BUT real-name reservation mandatory, at least 1 day in advance, via the “Hangzhou Lingyin Feilai Peak” mini-program. No same-day booking", station:"Line 3 Huanglongdong (黄龙洞), Exit B, then bus 7/27/103/278/505 to Lingyin stop, ~10 min walk", link:"https://en.lingyinsi.org/detail_15105.html", img:"https://upload.wikimedia.org/wikipedia/commons/0/0e/HZ_%E6%9D%AD%E5%B7%9E_Hangzhou_%E6%B0%B8%E7%A6%8F%E5%AF%BA_Yongfu_Temple_China_Tourism_2012_entrance_name_sign.jpg", official:"https://www.lingyinsi.org/", imgcap:"Yongfu Temple entrance — Wikimedia Commons", tip:"Book by Thu 17 Dec at the latest (slots released 7 days ahead at 08:00; passport accepted). Quieter than Lingyin Temple; arrive before 09:00 or after 15:00. Allow 1–1.5 hrs." },
-  polar: { n:"Hangzhou Polar Ocean Park", cn:"杭州长乔极地海洋公园", addr:"No. 777 Xianghu Road, Xiaoshan District (Xianghu Lake resort area)", hours:"09:00–17:00, last entry 16:30, daily", price:"Adult ~¥350–360 (list ¥460); concession ¥299; under 1.0 m free. Beluga show typically 10:30 and 14:30", station:"Line 1 Xianghu (湘湖), then bus 405/706 or taxi ~10 min. Taxi from West Lake ~30 min", link:"https://www.trip.com/travel-guide/attraction/hangzhou/hangzhou-changqiao-polar-ocean-park-91606/", img:"https://upload.wikimedia.org/wikipedia/commons/2/2e/Hangzhou_Polar_Ocean_Park_01.jpg", official:"", imgcap:"Hangzhou Polar Ocean Park — Wikimedia Commons", tip:"December-birthday promo: anyone born in December pays ¥0.1 (ID checked, runs to 31 Dec). Allow 3–6 hrs; check at the gate whether the beluga/dolphin shows are running that day." },
-  fourseasons: { n:"The Spa at Four Seasons Hotel Hangzhou at West Lake", cn:"杭州四季酒店水疗中心", addr:"5 Lingyin Road, Xihu District (West Lake west shore, near Lingyin)", hours:"Daily 10:00–22:00; last reservation 21:00. Kids' club 09:00–11:30 and 13:00–17:00", price:"Treatments from ~¥580 (30-min bath) / ¥680 (40-min scrub); massages more. Indoor-pool access usually with a treatment — confirm when booking", station:"Taxi from Holiday Inn ~15–20 min", link:"https://www.fourseasons.com/hangzhou/spa/", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Four%20Seasons%20Hotel%20Hangzhou%20West%20Lake%2020201001.jpg?width=1024", official:"https://www.fourseasons.com/hangzhou/spa/", imgcap:"Four Seasons Hotel Hangzhou at West Lake — Wikimedia Commons", tip:"Fully indoors — heated indoor pool (10 × 19 m), 9 treatment rooms, sauna and steam, free kids' club (ages 2–12). Book treatments at least 24 hours ahead: +86 571 8829 8888." },
-  xianghu: { n:"Xianghu Lake", cn:"湘湖", addr:"Xianghu Lake resort area, Xiaoshan District", hours:"Open park, free", price:"Free", station:"Line 1 Xianghu (湘湖)", link:"https://www.ezhejiang.gov.cn/2016-08/03/c_54949.htm", img:"https://www.ehangzhou.gov.cn/att/20180612/1528773010007066651.jpg", official:"", imgcap:"Xianghu Lake — Hangzhou government portal", tip:"Free lakeside alternative near the Polar Ocean Park if the afternoon needs a breather." }
-};
-function placeHTML(id){
-  const p = P[id]; if(!p) return "";
-  const img = p.img ? `<img src="${p.img}" alt="${p.n}" loading="lazy" onerror="this.style.display='none'">${p.imgcap?`<p class="src">${ic('camera','ic-sm')} ${p.imgcap}</p>`:""}` : "";
-  const off = p.official ? `<dt>Official site</dt><dd><a href="${p.official}">${p.official.replace(/^https?:\/\//,"").split("/")[0]}</a></dd>` : "";
-  return `<div class="place"><h3>${p.n} <span class="cn">${p.cn}</span></h3>${img}
-  <dl class="meta"><dt>Address</dt><dd>${p.addr}</dd><dt>Hours</dt><dd>${p.hours}</dd><dt>Price</dt><dd>${p.price}</dd><dt>Nearest station</dt><dd>${p.station}</dd>${off}${p.link?`<dt>More info</dt><dd><a href="${p.link}">${p.link.replace(/^https?:\/\//,"").split("/")[0]}</a></dd>`:""}</dl>
-  <p class="tip">${ic('bulb','ic-sm')} ${p.tip}</p></div>`;
-}
+
+/* ================= data: days =================
+   Each slot: at/to (China time), kind, p (place id), what, order, note (+warn).
+   leg = how you get TO this slot from the one before it. */
 const DAYS = [
- {d:"Fri 11 Dec", c:"hz", t:"Arrive Hangzhou", v:"ok", vt:"Works", items:[{t:"Land 21:55 on TR188 from Singapore.", p:null, note:"Take a taxi/DiDi to the hotel (~¥100–130 + ¥20 toll, 50–60 min) — the last metro time is disputed (22:30 vs 23:14), don't gamble on it."},{t:"Straight to the Holiday Inn Hangzhou West Lake and rest.", p:null, note:"Hotel is ~80 m from Fengqi Road metro (Lines 1/2) for the next morning."}]},
- {d:"Sat 12 Dec", c:"hz", t:"West Lake, Hangzhou", v:"ok", vt:"Works", items:[{t:"Morning: West Lake (Xihu), lakeside walk.", p:"westlake"},{t:"Afternoon: West Lake Impression area, then He Fang Jie.", p:"impression"},{t:"", p:"hefang"},{t:"Evening: Wulin Night Market.", p:"wulin"}], meal:"Dinner: 榆园·甬绍荟馆 (杭州嘉里中心店) — Recommended by Cylin. Kerry Centre, Yan'an Road. Metro Line 1 Fengqi Road, Exit C1, ~30 m. ¥169/person."},
- {d:"Sun 13 Dec", c:"hz", t:"Wetlands & museums", v:"fixed", vt:"Fixed", items:[{t:"Morning: Xixi Wetland Park (enter by ~09:00).", p:"xixi"},{t:"Early afternoon: National Wetland Museum of China (~13:00–14:30).", p:"wetlandmuseum"},{t:"Afternoon: Airobox Tech, 15:30–18:00.", p:"airobox", note:"Airobox closes at 18:00 — it is not an evening visit. The China Animation Museum moved to Sat 19 Dec morning: three venues across town could not all fit in one afternoon."}]},
- {d:"Mon 14 Dec", c:"hz", t:"Hangzhou → Shanghai", v:"tight", vt:"Tight", items:[{t:"Morning: free, check out by 12:00. Book a train around 13:00 — Hangzhou East ↔ Shanghai Hongqiao, G-train 45–60 min, ¥73 second class.", p:null, note:"Hotel → Hangzhou East ~25 min by metro; Hongqiao → hotel ~50 min by metro (Line 2 to People's Square, change to Line 8 to Dashijie). Expect the hotel ~15:30, not 15:00."},{t:"Evening: Chenghuangmiao bazaar, then Wu Kang Lu.", p:"chenghuang"},{t:"", p:"wukang", note:"Yu Garden is closed on Mondays and the temple closes at 16:30 — the evening is the lit bazaar and the street walk, not the interiors."}], meal:"Dinner: 成隆行·蟹王府 (九江路店) — Recommended by Cylin. 216 Jiujiang Road, ~250 m from Nanjing East Road Metro. Call 021-63212010 first to confirm hairy crab is still available — mid-December is the tail end of the season."},
- {d:"Tue 15 Dec", c:"sh", t:"Central Shanghai", v:"fixed", vt:"Fixed", items:[{t:"Morning: Oriental Pearl TV Tower.", p:"pearl"},{t:"Lunch: Xiao Dadong (Nanjing West Rd) — duck. No phone reservations; arrive at 11:30 opening.", p:null, note:"6F, New World City, 2–68 Nanjing West Rd. People's Square metro, Lines 1/2/8, Exit 7 or 19 — 1–3 min walk. ¥100–250/person; roast duck ~¥199."},{t:"Afternoon: Shanghai Science and Technology Museum (moved here from Wed — the Natural History Museum is closed on Tuesdays).", p:"sstm"},{t:"Evening: the Bund walk.", p:"bund", note:"MeLand Club after dinner was dropped — arriving ~20:00 would leave ~1 hour for a ~¥298 ticket. The Bund is free and suits the hour."}], meal:"Dinner: 米桃雅宴·江南苏锡菜 (Hongqiao Nanfeng City branch) — Recommended by Cylin. 150 Zunyi Rd, 5F. Metro Loushanguan Road (Lines 2/15), Exit 2, ~8 min walk. ~¥137–200/person. Note the corrected branch — not near Zhongshan Park."},
- {d:"Wed 16 Dec", c:"sh", t:"Pudong — Wild Animal Park, full day", v:"fixed", vt:"Fixed", items:[{t:"Full day: Shanghai Wild Animal Park (09:00–16:30).", p:"animalpark", note:"The Science and Technology Museum moved to Tue afternoon — the two venues could not fit in one day (the animal park needs 4–6 hrs and the museum's last entry is 16:00)."}]},
- {d:"Thu 17 Dec", c:"hz", t:"Shanghai → Hangzhou · Songcheng", v:"tight", vt:"Tight", items:[{t:"Morning: free, check out by 12:00. Train back to Hangzhou (Hongqiao → Hangzhou East, ~1 h).", p:null, note:"Hotel → Hongqiao ~50 min by metro + ~40 min inside the huge station before departure."},{t:"Afternoon: Songcheng (宋城) — half an afternoon there. Go straight from Hangzhou East station (~30 min by taxi) instead of checking in first — you'll reach Songcheng about 3:30pm.", p:"songcheng"},{t:"Evening: Romance of the Song Dynasty show (about 1 hour). Back to the hotel about 9:30pm.", p:null, note:"The show is usually 19:30, not 19:00 — confirm when booking. Luggage: use left-luggage at Hangzhou East, or drop bags at the hotel first (arrive Songcheng ~16:00, still fine)."}],},
- {d:"Fri 18 Dec", c:"hz", t:"Temples & the west side", v:"tight", vt:"Tight", items:[{t:"Morning: Yongfu Temple.", p:"yongfu"},{t:"Afternoon: Hangzhou Polar Ocean Park.", p:"polar", note:"~45–60 min by taxi from Lingyin, so an afternoon arrival ~13:30–14:00 gives ~3 hrs — catch the 14:30 beluga show. If that feels too rushed for ¥360/adult, swap for free Xianghu Lake nearby."},{t:"", p:"xianghu"}], meal:"Dinner: Green Tea Restaurant — Longjing flagship branch (83 Longjing Road) suits this west-side day; the Yintai branch (98 Yan'an South Road) is nearer the hotel but queues. ~¥88–104/person. Must-order: 面包诱惑 Bread Temptation ¥35, 粉丝裹虾 ¥52."},
- {d:"Sat 19 Dec", c:"hz", t:"Last full day", v:"fixed", vt:"Fixed", items:[{t:"Morning: China Animation Museum (09:30–12:00).", p:"animation", note:"Hangzhou Paradise is closed all winter (30 Nov–5 Mar) — the theme-park plan for this day cannot happen. The Animation Museum moved here from Sun 13 Dec."},{t:"Afternoon/evening: The Spa at Four Seasons (indoor family spa).", p:"fourseasons"},{t:"Evening: early night and pack. Leave for the airport ~23:00–23:30 by taxi for the 02:15 flight.", p:null, note:"Metro is closed at that hour. Taxi ~40–50 min at night."}]},
- {d:"Sun 20 Dec", c:"hz", t:"Fly home", v:"ok", vt:"Works", items:[{t:"SQ839 Hangzhou → Singapore, 02:15–07:15.", p:null, note:""}]}
+{ date: "2026-12-11", city: "hz", seal: "十一", title: "Land in Hangzhou",
+  sum: "TR188 from Singapore lands late. Taxi straight to the hotel and sleep.",
+  facts: [{ icon: "plane", t: "TR188 SIN 16:45 → HGH 21:55" }, { icon: "temp", t: "Night ~4 °C — jackets in the cabin bag" }],
+  slots: [
+    { at: "21:55", to: "22:50", kind: "travel", p: "hgh", title: "Land at Hangzhou Xiaoshan", what: "Immigration, bags, then follow signs to the taxi rank (出租车).", note: "Skip the metro tonight — the last train time is uncertain and you'll be tired." , leg: { mode: "plane", text: "TR188 from Singapore" } },
+    { at: "23:45", kind: "hotel", p: "hzhotel", what: "Check in, straight to bed. FamilyMart / Lawson convenience stores nearby for water and snacks.", leg: { mode: "taxi", min: 50, cost: "¥110–140 incl. toll", text: "Show the driver the hotel's Chinese name" } }
+  ] },
+
+{ date: "2026-12-12", city: "hz", seal: "十二", title: "West Lake on foot",
+  sum: "Breakfast at a 160-year-old snack house, the lake's north shore at walking pace, Lou Wai Lou for lunch, old Hangzhou in the afternoon and Cylin's crab dinner by the hotel.",
+  facts: [{ icon: "walk", t: "~6 km walking, all flat" }, { icon: "sun", t: "Sunset 16:58" }, { warn: true, t: "Saturday — lake gets busy after 10:00" }],
+  slots: [
+    { at: "08:00", to: "08:45", kind: "breakfast", p: "zhiweiguan", order: "小笼包 soup dumplings · 虾仁馄饨 shrimp wontons · 定胜糕 pink rice cake · 西湖藕粉 hot lotus-root pudding for the kids", leg: { mode: "taxi", min: 6, cost: "~¥13", text: "Or walk 15 min down Yan'an Road" } },
+    { at: "09:00", to: "09:45", kind: "sight", p: "hubin", what: "Out of the door and onto the lakefront. Walk north along the water.", leg: { mode: "walk", min: 4 } },
+    { at: "10:00", to: "10:30", kind: "sight", p: "brokenbridge", what: "Photos on the bridge where the Bai Causeway begins.", leg: { mode: "walk", min: 20, text: "Along Beishan Street lakeside path" } },
+    { at: "10:50", to: "11:20", kind: "sight", p: "gushan", what: "Stroll the 1 km Bai Causeway out to Gushan. Optional: the free Zhejiang Museum West Lake branch.", leg: { mode: "walk", min: 20, text: "Across the Bai Causeway" } },
+    { at: "11:20", to: "12:45", kind: "lunch", p: "louwailou", order: "西湖醋鱼 West Lake vinegar fish (half) · 东坡肉 Dongpo pork · 龙井虾仁 Longjing tea shrimp · 叫化童鸡 beggar's chicken (ask on arrival — it takes time)", note: "Take a queue number the moment you arrive.", leg: { mode: "walk", min: 3 } },
+    { at: "13:15", to: "16:00", kind: "sight", p: "hefang", what: "Hu Qing Yu Tang pharmacy (¥10), then the snack stalls of Hefang and the lanes of Qinghefang.", leg: { mode: "taxi", min: 20, cost: "~¥20", text: "Weekend lake traffic — taxi beats the bus" } },
+    { at: "15:15", to: "15:30", kind: "snack", p: "congbaohui", order: "葱包桧 — a dough stick and scallions rolled in a pancake and pressed on the griddle, with sweet sauce", leg: { mode: "walk", min: 2 } },
+    { at: "16:15", to: "17:20", kind: "hotel", p: "hzhotel", what: "Back for a rest and a warm-up.", leg: { mode: "metro", min: 20, cost: "¥3", text: "Line 1 Ding'an Road → Fengqi Road (3 stops)" } },
+    { at: "17:30", to: "19:00", kind: "dinner", p: "yuyuan", order: "十八斩生腌膏蟹 raw-marinated red-paste crab · 臭豆腐烧白蟹 stinky tofu with white crab · 蒋氏干菜焖肉 pork belly with dried greens in a bun · 榨菜月饼", note: "Recommended by Cylin. Book a table for 17:30.", leg: { mode: "walk", min: 5 } },
+    { at: "19:05", to: "20:15", kind: "dessert", p: "wulin", order: "冻豆花 chilled sweet tofu pudding · 拇指生煎 thumb-sized pan-fried buns · candied hawthorn (糖葫芦)", leg: { mode: "walk", min: 5 } }
+  ] },
+
+{ date: "2026-12-13", city: "hz", seal: "十三", title: "Wetlands and robots",
+  sum: "A boat through the Xixi reeds, a giant-screen wetland museum, then 90 robots by the Qiantang River.",
+  facts: [{ icon: "taxi", t: "3 taxi rides today, ~¥150 total" }, { warn: true, t: "Book Xixi + Wetland Museum on WeChat" }],
+  slots: [
+    { at: "08:00", to: "08:30", kind: "breakfast", p: "hzhotel", title: "Hotel breakfast", what: "Fill up — lunch is at 12:00." },
+    { at: "09:00", to: "11:45", kind: "sight", p: "xixi", what: "Electric boat loop first (sit inside — it's cold on the water), then walk the Plum Causeway back. Reeds are at their best in early December.", leg: { mode: "taxi", min: 30, cost: "¥35–45" } },
+    { at: "12:00", to: "13:00", kind: "lunch", p: "xixibieyuan", order: "龙井虾仁 · 东坡肉 · 西湖莼菜汤 water-shield soup · rice and greens for the kids", leg: { mode: "taxi", min: 10, cost: "~¥15", text: "The museum is 3 km east of Zhoujiacun, not at the entrance" } },
+    { at: "13:10", to: "14:40", kind: "sight", p: "wetlandmuseum", what: "Go straight down to the 32.5 m curved screen in the B1 Wetland Cave Hall.", leg: { mode: "walk", min: 5 } },
+    { at: "15:20", to: "17:00", kind: "sight", p: "airobox", what: "Robot band, robot dogs, mech battles, a brain-controlled race.", note: "Last entry 17:00 — don't linger at the museum.", leg: { mode: "taxi", min: 35, cost: "¥50–65" } },
+    { at: "18:00", to: "19:30", kind: "dinner", p: "hzjiujia", order: "杭州熏鱼 smoked fish · 东坡肉 · 龙井虾仁 · 片儿川 noodles · 桂花糖藕 osmanthus lotus root for dessert", leg: { mode: "taxi", min: 40, cost: "¥55–70" } },
+    { at: "19:45", kind: "hotel", p: "hzhotel", what: "Early night — packing for Shanghai.", leg: { mode: "metro", min: 12, cost: "¥2", text: "Line 1 Longxiangqiao → Fengqi Road (1 stop)" } }
+  ] },
+
+{ date: "2026-12-14", city: "sh", seal: "十四", title: "Train to Shanghai",
+  sum: "A last Hangzhou noodle breakfast, the 1-hour bullet train, then Yuyuan's lanterns at dusk, Cylin's crab feast and the Bund lit up.",
+  facts: [{ icon: "train", t: "G-train ~13:00, ~¥73 2nd class" }, { warn: true, t: "Yu Garden closed Mondays — bazaar only" }, { icon: "sun", t: "Sunset 16:55" }],
+  slots: [
+    { at: "08:30", to: "09:15", kind: "breakfast", p: "kuiyuanguan", order: "片儿川 — noodles with sliced pork, bamboo shoots and pickled greens · 虾爆鳝面 shrimp and eel noodles", leg: { mode: "taxi", min: 8, cost: "~¥14" } },
+    { at: "09:30", to: "11:30", kind: "hotel", p: "hzhotel", what: "Slow morning: pack, or a last lake walk at Hubin (10 min). Check out by 11:30.", leg: { mode: "taxi", min: 8, cost: "~¥14" } },
+    { at: "12:10", to: "12:40", kind: "lunch", p: "hzeast", order: "B1 江南荟 food court: Shengzhou xiaolongbao and rice cakes, or Lao Niang Jiu set meals", note: "Through security and at the gate by 12:45.", leg: { mode: "metro", min: 35, cost: "¥4", text: "Line 1 Fengqi Road → Hangzhou East Railway Station, direct" } },
+    { at: "13:00", to: "14:00", kind: "travel", p: "hongqiao", title: "G-train → Shanghai Hongqiao", cn: "杭州东 → 上海虹桥", what: "Second class ~¥73. Passports are your tickets — scan at the gate.", leg: { mode: "train", min: 60, cost: "~¥73" } },
+    { at: "15:00", to: "15:30", kind: "hotel", p: "shhotel", what: "Check in, drop bags.", leg: { mode: "metro", min: 55, cost: "~¥5", text: "Line 2 → People's Square, change to Line 8, 1 stop to Dashijie. Taxi with luggage ~40 min, ¥65–85" } },
+    { at: "15:45", to: "17:45", kind: "sight", p: "yuyuan_sh", what: "Bazaar lanes, Nine-Zigzag Bridge, Huxinting teahouse. Stay for the lights at 17:00.", leg: { mode: "walk", min: 18, text: "East along Jinling East Road — or Line 14, 1 stop to Yuyuan" } },
+    { at: "16:15", to: "16:45", kind: "snack", p: "nanxiang", order: "One basket of 鲜肉小笼 pork xiaolongbao to share — keep room for crab", leg: { mode: "walk", min: 3 } },
+    { at: "18:15", to: "19:45", kind: "dinner", p: "chenglonghang", order: "清蒸大闸蟹 steamed hairy crab (staff shell it) · 蟹粉豆腐 crab tofu · 秃黄油捞饭 rice in crab-roe oil · warm yellow wine with ginger · plain rice and greens for the kids", note: "Recommended by Cylin. Phone 021-63212010 to book and confirm crab is still available.", warn: true, leg: { mode: "taxi", min: 12, cost: "~¥18" } },
+    { at: "19:50", to: "20:40", kind: "sight", p: "bund", what: "From the Chen Yi statue north to the Peace Hotel and back, with Pudong lit up across the river.", leg: { mode: "walk", min: 8, text: "East along Jiujiang Road" } },
+    { at: "20:45", to: "21:00", kind: "dessert", p: "taikang", order: "鲜肉月饼 — flaky pork mooncakes, hot from the oven", leg: { mode: "walk", min: 5 } },
+    { at: "21:15", kind: "hotel", p: "shhotel", what: "Home.", leg: { mode: "taxi", min: 12, cost: "~¥20" } }
+  ] },
+
+{ date: "2026-12-15", city: "sh", seal: "十五", title: "Up the Pearl, into the museum",
+  sum: "Shengjian buns, the glass floor 259 m up, Peking duck over Nanjing Road, the science museum all afternoon and Cylin's Jiangnan dinner.",
+  facts: [{ icon: "metro", t: "Line 2 all day — ¥3–5 a ride" }, { warn: true, t: "Science Museum: book 8 Dec, 10:00" }],
+  slots: [
+    { at: "08:00", to: "08:40", kind: "breakfast", p: "dahuchun", order: "生煎 pan-fried pork buns (4 a portion) · 咖喱牛肉汤 curry beef soup · 小馄饨 tiny wontons", note: "Bite a small hole and let the soup cool before kids take a bite.", leg: { mode: "taxi", min: 10, cost: "~¥16", text: "Or walk 15 min" } },
+    { at: "09:10", to: "11:00", kind: "sight", p: "pearl", what: "Two-sphere ticket: the 263 m deck, the 259 m glass floor, then the Shanghai History exhibition at the base.", leg: { mode: "metro", min: 25, cost: "¥3", text: "Walk to East Nanjing Road, Line 2 one stop to Lujiazui" } },
+    { at: "11:30", to: "13:00", kind: "lunch", p: "xiaodadong", order: "酥不腻烤鸭 crisp roast duck, carved at the table (half for 2) · 枣泥糕 jujube cake · 董氏烧海参 braised sea cucumber", note: "Walk in — no phone bookings. Ask for a window table.", leg: { mode: "metro", min: 25, cost: "¥3", text: "Line 2 Lujiazui → People's Square (3 stops), Exit 7" } },
+    { at: "13:30", to: "16:45", kind: "sight", p: "sstm", what: "Children's Rainbow Land first, then Robot World and Spectrum of Life.", leg: { mode: "metro", min: 30, cost: "¥4", text: "Line 2 People's Square → Science & Technology Museum (6 stops)" } },
+    { at: "17:45", to: "19:30", kind: "dinner", p: "mitao", order: "松鼠桂鱼 squirrel-cut mandarin fish (~¥188) · 无锡蟹粉小笼 crab-roe xiaolongbao · 响油鳝糊 sizzling eel · 海鲜乌米泡饭 seafood black-rice soup · dessert: 阳山桃胶酒酿圆子 peach-gum rice balls", note: "Recommended by Cylin. Order the set menu for 2–4 — about 25% off. Confirm the branch when you book.", warn: true, leg: { mode: "metro", min: 55, cost: "¥5", text: "Line 2 direct to Loushanguan Road + 10 min walk. DiDi ~45 min, ~¥80 at rush hour" } },
+    { at: "20:00", kind: "hotel", p: "shhotel", what: "Taxi home.", leg: { mode: "taxi", min: 30, cost: "~¥45" } }
+  ] },
+
+{ date: "2026-12-16", city: "sh", seal: "十六", title: "Safari day in Pudong",
+  sum: "Early noodles, a drive-through safari before the queues, then old-Shanghai poached chicken and rice cakes for dinner.",
+  facts: [{ icon: "taxi", t: "DiDi ~60 min each way, ~¥140" }, { icon: "temp", t: "Outdoors all day — layer up" }],
+  slots: [
+    { at: "07:15", to: "07:50", kind: "breakfast", p: "dexingguan", order: "三鲜面 three-topping noodles (crisp eel, smoked fish, braised trotter) · 焖肉面 braised pork noodles · plain noodles for the kids", note: "Confirm opening time on Dianping; hotel breakfast is the fallback.", leg: { mode: "walk", min: 7 } },
+    { at: "09:00", to: "12:00", kind: "sight", p: "wildpark", what: "1) Drive-through safari coach first — lions, tigers, bears. 2) Flamingos and pandas. 3) Sea-lion show — times on the board at the gate.", leg: { mode: "taxi", min: 60, cost: "~¥130–160", text: "Metro alternative ~1 h 30: Line 14 → 2 → 16" } },
+    { at: "12:00", to: "12:45", kind: "lunch", p: "wildpark", title: "Lunch inside the park", what: "Snack stalls and McDonald's — basic and pricey. A packed picnic is better." },
+    { at: "12:45", to: "15:30", kind: "sight", p: "wildpark", title: "Walking zones", what: "Pedestrian zones, the giraffe feeding area and the second show." },
+    { at: "16:45", to: "17:45", kind: "hotel", p: "shhotel", what: "Rest and warm up.", leg: { mode: "taxi", min: 70, cost: "~¥130–160" } },
+    { at: "18:00", to: "19:15", kind: "dinner", p: "xiaoshaoxing", order: "白斩鸡 poached chicken with soy dip · 鸡粥 chicken congee · 鸡血汤 · plus 排骨年糕 pork chop and rice cakes from Xian De Lai (鲜得来) on Fujian Middle Rd", note: "These old Yunnan South Road shops moved here in Feb 2026. Alternative on a cold night: Hong Chang Xing (洪长兴) copper-pot lamb hotpot, same street.", leg: { mode: "walk", min: 15, text: "North via Fujian Middle Road" } },
+    { at: "19:30", to: "19:50", kind: "dessert", p: "shendacheng", order: "条头糕 osmanthus rice roll · 双酿团 sesame & red-bean ball · 八宝饭 eight-treasure rice (winter)", leg: { mode: "walk", min: 7, text: "West along Nanjing East Road" } },
+    { at: "20:05", kind: "hotel", p: "shhotel", what: "Pack — checking out tomorrow.", leg: { mode: "walk", min: 15 } }
+  ] },
+
+{ date: "2026-12-17", city: "hz", seal: "十七", title: "Plane trees, then Songcheng",
+  sum: "Pastries on Anfu Road and a stroll to Wukang Mansion, the train back to Hangzhou, then a Song-dynasty town and its big show.",
+  facts: [{ icon: "train", t: "G-train ~13:30 Hongqiao → Hangzhou East" }, { warn: true, t: "Confirm Songcheng show time when booking" }],
+  slots: [
+    { at: "08:45", to: "09:30", kind: "breakfast", p: "bakerspice", order: "Pastries, eggs, cinnamon rolls · hot chocolate for the kids", leg: { mode: "taxi", min: 20, cost: "~¥28", text: "Leave bags at the hotel front desk" } },
+    { at: "09:30", to: "10:45", kind: "sight", p: "wukang", what: "Anfu Road → Wukang Road past Ferguson Lane → the ship's-bow photo of Wukang Mansion.", note: "Moved here from Monday night: the house museums are closed Mondays and the street is better in daylight.", leg: { mode: "walk", min: 15 } },
+    { at: "11:15", to: "11:45", kind: "hotel", p: "shhotel", what: "Collect bags, check out.", leg: { mode: "taxi", min: 22, cost: "~¥30" } },
+    { at: "12:30", to: "13:10", kind: "lunch", p: "hongqiao", title: "Quick lunch at Hongqiao", what: "Noodle counters and chains on the departure level — or eat on the train.", leg: { mode: "taxi", min: 40, cost: "¥65–85", text: "With luggage, a taxi is easier than 2 metro changes" } },
+    { at: "13:30", to: "14:30", kind: "travel", p: "hzeast", title: "G-train → Hangzhou East", cn: "上海虹桥 → 杭州东", leg: { mode: "train", min: 60, cost: "~¥73" } },
+    { at: "15:00", to: "15:15", kind: "hotel", p: "hzhotel", what: "Check in and drop bags — saves a late trip back to the station.", leg: { mode: "taxi", min: 25, cost: "¥30–40" } },
+    { at: "15:50", to: "17:15", kind: "sight", p: "songcheng", what: "Song-dynasty streets, street performances, the haunted house for brave kids.", leg: { mode: "taxi", min: 35, cost: "¥55–70" } },
+    { at: "17:15", to: "18:15", kind: "dinner", p: "songcheng", title: "Dinner on Songcheng's food street", order: "东坡肉 · 西湖醋鱼 · 定胜糕 · 葱包桧 — ~¥50–80 per person", note: "Eat before 18:15, when the show crowd arrives." },
+    { at: "19:30", to: "20:30", kind: "sight", p: "songcheng", title: "The Romance of the Song Dynasty", cn: "宋城千古情", what: "The 60-minute stage show: flying horses, a flood and a 3D waterfall.", note: "In 2025 the evening shows were 18:00 and 19:30. Check the time on your dated ticket.", warn: true },
+    { at: "21:15", kind: "hotel", p: "hzhotel", what: "Expect a short wait for taxis after the show.", leg: { mode: "taxi", min: 40, cost: "¥55–70" } }
+  ] },
+
+{ date: "2026-12-18", city: "hz", seal: "十八", title: "Temple morning, ocean afternoon",
+  sum: "A quiet hillside temple, temple noodles, then belugas and dolphins across the river.",
+  facts: [{ warn: true, t: "Yongfu: book 1–7 days ahead" }, { icon: "taxi", t: "Taxi ~45 min Lingyin → Xianghu" }],
+  slots: [
+    { at: "07:45", to: "08:10", kind: "breakfast", p: "hzhotel", title: "Hotel breakfast" },
+    { at: "08:35", to: "10:30", kind: "sight", p: "yongfu", what: "Climb the terraced halls through the bamboo, then the Feilai Peak cliff carvings on the way out.", note: "Bring every passport — you'll scan in by name.", leg: { mode: "taxi", min: 25, cost: "¥30–40" } },
+    { at: "10:45", to: "11:30", kind: "lunch", p: "lingyinmian", order: "素面 — vegetarian temple noodles, ~¥15–20", leg: { mode: "walk", min: 10 } },
+    { at: "12:15", to: "16:15", kind: "sight", p: "polar", what: "Polar bears, penguins, then the beluga and dolphin shows. Plan around the show board at the gate.", leg: { mode: "taxi", min: 45, cost: "¥75–95" } },
+    { at: "17:15", to: "18:45", kind: "dinner", p: "greentea", order: "面包诱惑 “Bread Temptation” (¥35, with ice cream) · 绿茶烤鸡 roast chicken · 粉丝裹虾 vermicelli prawns · 西湖醋鱼", note: "Take a queue number on Dianping/Meituan during the taxi ride.", leg: { mode: "taxi", min: 50, cost: "¥75–95", text: "Rush hour" } },
+    { at: "19:00", kind: "hotel", p: "hzhotel", what: "Optional: the West Lake music fountain at Hubin Park No. 3, 19:30, is on the way.", leg: { mode: "metro", min: 12, cost: "¥2", text: "Line 1 Longxiangqiao → Fengqi Road" } }
+  ] },
+
+{ date: "2026-12-19", city: "hz", seal: "十九", title: "Cartoons, a spa, a farewell",
+  sum: "The animation museum, a warm indoor spa afternoon and a Michelin-starred Hangzhou dinner, then the night flight home.",
+  facts: [{ warn: true, t: "Leave hotel 22:45 for 02:15 flight" }, { icon: "bed", t: "Room is yours until departure" }],
+  slots: [
+    { at: "08:00", to: "08:45", kind: "breakfast", p: "hzhotel", title: "Hotel breakfast" },
+    { at: "09:30", to: "11:45", kind: "sight", p: "animation", what: "Four permanent halls and the interactive kids' zones.", leg: { mode: "taxi", min: 35, cost: "¥45–55" } },
+    { at: "12:00", to: "13:15", kind: "lunch", p: "binjiangmall", what: "Family chains on the restaurant floors — try 外婆家 or 新白鹿 if there, for cheap Hangzhou home cooking.", leg: { mode: "taxi", min: 12, cost: "~¥18" } },
+    { at: "14:00", to: "17:15", kind: "sight", p: "fourseasons", what: "Heated indoor pool, sauna and steam; kids' club 13:00–17:00 while adults have treatments.", leg: { mode: "taxi", min: 35, cost: "¥45–60" } },
+    { at: "17:30", to: "19:15", kind: "dinner", p: "jinsha", order: "龙井虾仁 Longjing tea shrimp · 东坡肉 Dongpo pork · 西湖醋鱼 vinegar fish · 叫化鸡 beggar's chicken · ask for a 桂花 osmanthus dessert", note: "A splurge (~¥750 per person). Cheaper farewell: Lou Wai Lou, 10 min away.", leg: { mode: "walk", min: 2, text: "Same hotel" } },
+    { at: "19:40", to: "22:30", kind: "hotel", p: "hzhotel", what: "Pack, shower, kids nap in their clothes.", leg: { mode: "taxi", min: 15, cost: "~¥22" } },
+    { at: "22:45", kind: "travel", p: "hgh", title: "Leave for the airport", what: "Book a DiDi at 22:30. Arrive ~23:30 for SQ839 at 02:15 — check-in for international flights closes 60 min before departure.", leg: { mode: "taxi", min: 45, cost: "¥110–140" } }
+  ] },
+
+{ date: "2026-12-20", city: "hz", seal: "二十", title: "Fly home",
+  sum: "SQ839 to Singapore. Home for breakfast.",
+  facts: [{ icon: "plane", t: "SQ839 HGH 02:15 → SIN 07:15" }],
+  slots: [
+    { at: "02:15", to: "07:15", kind: "travel", p: "hgh", title: "SQ839 → Singapore", cn: "杭州 → 新加坡", what: "Spend leftover yuan in the airside shops — West Lake Longjing tea and lotus-root starch make good gifts.", leg: { mode: "plane" } }
+  ] }
 ];
-const nav = document.getElementById('daynav'), wrap = document.getElementById('days');
-DAYS.forEach((day,i)=>{
-  const b=document.createElement('button'); b.textContent=day.d.replace(' Dec',''); b.onclick=()=>showDay(i);
-  nav.appendChild(b);
-  const div=document.createElement('div'); div.className='day'; div.id='day-'+i;
-  let html = `<div class="card"><span class="city ${day.c==='sh'?'sh':''}">${day.c==='sh'?'Shanghai':'Hangzhou'}</span><h2>${day.d} — ${day.t}<span class="verdict ${day.v}">${day.vt}</span></h2>`;
-  day.items.forEach((it,j)=>{
-    if(it.t) html += `<p><b>${it.t}</b></p>`;
-    if(it.p) html += placeHTML(it.p);
-    if(it.note) html += `<p class="tip">${ic('bulb','ic-sm')} ${it.note}</p>`;
-  });
-  if(day.meal) html += `<div class="meal">${ic('utensils','ic-sm')} ${day.meal}</div>`;
-  html += `<ul class="check">${day.items.filter(x=>x.t).map((x,j)=>`<li data-k="${i}-${j}"><input type="checkbox"> <span>${x.t}</span></li>`).join('')}</ul></div>`;
-  div.innerHTML = html;
-  wrap.appendChild(div);
-});
-function showDay(i){
-  document.querySelectorAll('.day').forEach((el,j)=>el.classList.toggle('active', j===i));
-  nav.querySelectorAll('button').forEach((el,j)=>el.classList.toggle('active', j===i));
+
+/* ================= data: food guide ================= */
+const MUST = {
+  hz: [
+    { cn: "西湖醋鱼", en: "West Lake vinegar fish", desc: "Poached grass carp under a glossy sweet-sour vinegar sauce. Polarising — order a half.", where: "Lou Wai Lou (Sat lunch) · Hangzhou Jiujia" },
+    { cn: "东坡肉", en: "Dongpo pork", desc: "Pork belly braised for hours in Shaoxing wine until it barely holds together.", where: "Lou Wai Lou · Hangzhou Jiujia · Jin Sha" },
+    { cn: "龙井虾仁", en: "Longjing tea shrimp", desc: "Tiny river shrimp stir-fried with fresh Dragon Well tea leaves. Mild — kids like it.", where: "Lou Wai Lou · Xixi Bieyuan · Jin Sha" },
+    { cn: "叫化童鸡", en: "Beggar's chicken", desc: "Whole chicken wrapped in lotus leaf and clay, baked, and cracked open at the table.", where: "Lou Wai Lou — order on arrival" },
+    { cn: "片儿川", en: "Pian'erchuan noodles", desc: "Hangzhou's breakfast noodle soup: sliced pork, bamboo shoot, pickled greens.", where: "Kuiyuanguan (Mon breakfast)" },
+    { cn: "葱包桧", en: "Congbaohui", desc: "A dough stick and scallions rolled in a thin pancake, pressed on a griddle, brushed with sweet sauce.", where: "Hefang Street · Songcheng" },
+    { cn: "定胜糕", en: "Dingsheng cake", desc: "Pink steamed rice cake with red-bean filling — once given to soldiers for luck.", where: "Zhiweiguan · Songcheng" },
+    { cn: "西湖藕粉", en: "Lotus-root starch pudding", desc: "Hot, translucent and silky, with osmanthus and nuts. The best cold-morning dessert.", where: "Zhiweiguan · Hefang shops" },
+    { cn: "桂花糖藕", en: "Osmanthus lotus root", desc: "Lotus root stuffed with sticky rice and glazed in osmanthus syrup.", where: "Hangzhou Jiujia · most restaurants" },
+    { cn: "龙井茶", en: "Longjing (Dragon Well) tea", desc: "Hangzhou's famous green tea. Buy loose leaf as a gift.", where: "西溪问茶 at Xixi · Hefang tea shops" }
+  ],
+  sh: [
+    { cn: "生煎", en: "Shengjian pan-fried buns", desc: "Crisp-bottomed pork buns full of hot soup. Bite a hole, sip, then eat.", where: "Da Hu Chun (Tue breakfast)" },
+    { cn: "小笼包", en: "Xiaolongbao soup dumplings", desc: "Thin-skinned steamed dumplings with broth inside — the Nanxiang original.", where: "Nanxiang (Mon) · Mitao crab version (Tue)" },
+    { cn: "大闸蟹", en: "Hairy crab", desc: "Steamed, with ginger vinegar and warm yellow wine. December is the end of the season.", where: "Cheng Long Hang (Mon dinner)" },
+    { cn: "秃黄油", en: "Crab-roe oil rice", desc: "Pure crab roe and fat poured over rice — the richest bite of the trip.", where: "Cheng Long Hang" },
+    { cn: "三鲜面", en: "Three-topping noodles", desc: "Noodles topped with crisp eel, smoked fish and braised trotter.", where: "De Xing Guan (Wed breakfast)" },
+    { cn: "白斩鸡", en: "Poached chicken", desc: "Silky chilled chicken with a soy and ginger dip.", where: "Xiao Shaoxing (Wed dinner)" },
+    { cn: "排骨年糕", en: "Pork chop & rice cakes", desc: "Crisp-fried pork chop and chewy rice cakes in sweet sauce.", where: "Xian De Lai, Fujian Middle Rd" },
+    { cn: "鲜肉月饼", en: "Pork mooncake", desc: "Flaky pastry with a hot pork filling, baked to order.", where: "Taikang (Mon) · Guangmingcun, Huaihai Rd" },
+    { cn: "条头糕", en: "Osmanthus rice roll", desc: "Soft glutinous roll filled with red-bean paste, dusted with osmanthus.", where: "Shen Da Cheng (Wed)" },
+    { cn: "酒酿圆子", en: "Rice balls in sweet wine soup", desc: "Tiny glutinous balls in warm fermented-rice soup. Barely any alcohol.", where: "Mitao (Tue) · Yuyuan" }
+  ]
+};
+
+/* Cylin's three restaurant picks */
+const PICKS = [
+  { en: "Yuyuan · Yong-Shao Hui", cn: "榆园·甬绍荟馆（杭州嘉里中心店）", slot: "Sat 12 Dec · dinner", img: "https://img.alicdn.com/i1/2673015014/O1CN01gWrHFQ1muSQgjIXsu_!!2673015014.jpg_400x400.jpg", alt: "Marinated red-paste crab",
+    html: `<p>A dark, new-Chinese garden dining room: stone slabs, pine and water, semi-private booths. Ningbo's salty-fresh seafood meets Shaoxing's wine-soaked flavours. In the 2026 Michelin Guide, Hangzhou.</p><p class="order"><b>Order</b>十八斩生腌膏蟹 — Zhoushan red-paste crab cured 24 h in Shaoxing wine, shucked at the table · 臭豆腐烧白蟹 · 蒋氏干菜焖肉 · 榨菜月饼</p>` },
+  { en: "Cheng Long Hang Crab King", cn: "成隆行·蟹王府（九江路店）", slot: "Mon 14 Dec · dinner", img: "https://zwz66.cn/uploads/allimg/20251010/5c5b38820862c52293ea0cee65c503c9.jpg", alt: "Steamed hairy crab",
+    html: `<p>A Shanghai crab institution since the 1950s with its own Yangcheng Lake farms. Ming–Qing dining room, red lanterns, live folk music in the evenings; free crab-shelling at the table.</p><p class="order"><b>Order</b>清蒸大闸蟹 steamed hairy crab · the “four greats” (crab claw, crab leg with asparagus, stir-fried roe, crab paste with rice-noodle skins) · 秃黄油捞饭 · warm yellow wine with ginger</p><p class="note warn">Call 021-63212010: mid-December is the end of crab season, so confirm crab is available.</p>` },
+  { en: "Mitao Yayan · Jiangnan Su-Xi cuisine", cn: "米桃雅宴·江南苏锡菜", slot: "Tue 15 Dec · dinner", img: "https://img.shetu66.com/2026/04/13/177607280639219433.png?x-oss-process=image/resize,h_900/format,webp", alt: "Squirrel-cut mandarin fish",
+    html: `<p>Sweet, delicate Jiangnan cooking, beautiful plating, staff in hanfu. The seafood rice is finished with hot broth at the table. Hongqiao Nanfeng City is a family mall.</p><p class="order"><b>Order</b>The set menu for 2–4 (~25% off) · 松鼠桂鱼 squirrel fish · 无锡蟹粉小笼 · 响油鳝糊 · 海鲜乌米泡饭 · 阳山桃胶酒酿圆子</p><p class="note warn">Phone +86 177 9870 8896 to book, and confirm this Nanfeng City branch — it couldn't be verified online.</p>` }
+];
+
+/* ================= data: essentials ================= */
+const TODO = [
+  { k: "sstm", t: "Shanghai Science & Technology Museum (Tue 15)", due: "Tue 8 Dec, 10:00", d: "Released 7 days ahead at 10:00, real-name, sells out. Book kids under 6 too (free). Mini-program 上海科技馆自然博物馆天文馆门票." },
+  { k: "train1", t: "G-train Hangzhou East → Shanghai Hongqiao, Mon 14 ~13:00", due: "From 29 Nov", d: "12306 or Trip.com. ~¥73 second class. Sales open 15 days ahead." },
+  { k: "train2", t: "G-train Shanghai Hongqiao → Hangzhou East, Thu 17 ~13:30", due: "From 2 Dec", d: "Same as above. Use Hongqiao, not Shanghai Station." },
+  { k: "songcheng", t: "Songcheng park + show combo (Thu 17)", due: "Before you fly", d: "~¥320 standard. Pick the dated 19:30 (or 18:00) show. Not the night-tour-only ticket." },
+  { k: "crab", t: "Cheng Long Hang dinner (Mon 14, 18:15)", due: "Phone", d: "021-63212010 — book and confirm crab availability." },
+  { k: "mitao", t: "Mitao Yayan dinner (Tue 15, 17:45)", due: "Phone", d: "+86 177 9870 8896 — book and confirm the Nanfeng City branch." },
+  { k: "yuyuanhz", t: "Yuyuan Yong-Shao Hui dinner (Sat 12, 17:30)", due: "Dianping", d: "Book on Dianping/Meituan." },
+  { k: "pearl", t: "Oriental Pearl Tower, two-sphere (Tue 15, 09:10)", due: "1–3 days ahead", d: "WeChat or Trip.com. ¥199 adult / ¥99 child." },
+  { k: "xixi", t: "Xixi Wetland + boat (Sun 13)", due: "From 6 Dec", d: "Real-name, opens 7 days ahead. ¥70 if booked a day ahead on the official WeChat; boat ¥60." },
+  { k: "wetland", t: "China Wetland Museum (Sun 13)", due: "WeChat", d: "Free — reserve on the museum's WeChat account." },
+  { k: "yongfu", t: "Yongfu Temple (Fri 18, morning)", due: "11–17 Dec", d: "Free, real-name, 1–7 days ahead in the 杭州灵隐飞来峰 Alipay/WeChat mini-program. Passports accepted." },
+  { k: "anim", t: "China Animation Museum (Sat 19)", due: "From 14 Dec", d: "Free — museum WeChat account, 5 days of slots." },
+  { k: "spa", t: "Four Seasons spa (Sat 19, 14:00)", due: "24 h ahead", d: "+86 571 8829 8888. Ask about pool access and the kids' club for non-guests." },
+  { k: "jinsha", t: "Jin Sha farewell dinner (Sat 19, 17:30)", due: "1–2 weeks ahead", d: "+86 571 8829 8888. Ask for a high chair." },
+  { k: "apps", t: "Phone set-up", due: "Before you fly", d: "Alipay + WeChat Pay with a foreign card · AMAP (高德地图) · DiDi (inside Alipay works) · Trip.com · a roaming eSIM (Google/WhatsApp need it)." }
+];
+
+const ESSENTIALS = [
+  { icon: "plane", h: "Flights", html: `<ul><li><b>Out:</b> TR188 Singapore 16:45 → Hangzhou 21:55, Fri 11 Dec</li><li><b>Home:</b> SQ839 Hangzhou 02:15 → Singapore 07:15, Sun 20 Dec — it's the night of Sat 19. Leave the hotel 22:45.</li><li>Airport ↔ hotel: taxi/DiDi only at these hours, 45–50 min, ¥110–140.</li></ul>` },
+  { icon: "bed", h: "Hotels", html: `<ul><li><b>11–14 & 17–20 Dec:</b> Holiday Inn Hangzhou West Lake (杭州西湖假日酒店), Yan'an Rd at Fengqi Rd. Metro Fengqi Road, Lines 1/2, Exit C3.</li><li><b>14–17 Dec:</b> Jianguo Hidden Hotel, 531 Jinling East Rd, Shanghai (建国璞隐酒店 金陵东路531号). Metro Dashijie, Lines 8/14. +86 21 5569 8858.</li></ul><p class="note warn">Online listings show the Shanghai address as Home Inn Plus (如家精选) — check the hotel name on your booking.</p>` },
+  { icon: "map", h: "Using the maps", html: `<ul><li><b>AMAP route</b> opens the 高德地图 app (or the AMAP website) with a route from where you are — it picks walking, metro or driving to match the plan.</li><li><b>Taxi card</b> shows the destination in big Chinese characters for a taxi driver.</li><li>The maps in this app are AMAP's, with English and Chinese labels. Pins marked as approximate in their notes may be off by up to ~150 m.</li></ul>` },
+  { icon: "metro", h: "Metro & taxis", html: `<ul><li>Both cities: scan the metro gate with the Alipay transport QR code (乘车码). Kids under 1.3 m ride free.</li><li>DiDi works in English inside Alipay. Taxis start ~¥13 (Hangzhou) / ~¥16 (Shanghai).</li><li>Rush hour 07:30–09:00 and 17:00–19:00: the metro is faster than taxis.</li></ul>` },
+  { icon: "train", h: "High-speed trains", html: `<ul><li>Hangzhou East ↔ Shanghai Hongqiao, 45–60 min, every 5–20 min, ~¥73.</li><li>Your passport is your ticket — scan it at the gate.</li><li>Arrive 40 min early: Hongqiao is huge, and security queues are long.</li></ul>` },
+  { icon: "temp", h: "Weather & packing", html: `<ul><li>Highs ~11 °C, lows ~3–4 °C, damp and windy by the water. Indoors is often barely heated.</li><li>Hats, gloves, thermal layers, waterproof shoes. Swimsuits for the Four Seasons pool.</li><li>Tissues and hand sanitiser — many public toilets have no paper.</li></ul>` },
+  { icon: "alert", h: "What the sense-check changed", html: `<ul><li><b>Hangzhou Paradise is closed all winter</b> (30 Nov–5 Mar). Sat 19 is now the Animation Museum and the Four Seasons spa.</li><li><b>Shanghai Natural History Museum is closed Tuesdays</b> — the Science & Technology Museum takes Tue afternoon; Wed is a full Wild Animal Park day.</li><li><b>Wu Kang Lu moved to Thu morning</b> — on Monday night it was dark and the house museums were closed.</li><li><b>Mon evening</b> is now Yuyuan at dusk → crab dinner → the Bund lit up (8 min walk from dinner), all in one loop.</li><li><b>Thu:</b> drop bags at the hotel before Songcheng instead of using left luggage — no late trip back to the station.</li><li><b>Yunnan South Road food street</b> moved to Shanxi S / Fujian Middle Rd in Feb 2026. <b>Farine on Wukang Road</b> has closed.</li><li>Skipped: Hangzhou Zoo, Shanghai Disneyland, Chuiyun Tongtian River, Hengdian, Astronomy Museum, Natural History Museum, MeLand Club.</li></ul>` }
+];
+
+/* ================= engine ================= */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+};
+
+const ICON = {
+  pin: '<path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-2.93 1.41-1.41M17.66 6.34l1.41-1.41M2 12h2m16 0h2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41"/>',
+  bowl: '<path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"/><path d="M7 21h10"/><path d="M19.5 12 22 6"/><path d="M16.25 3c.27.1.8.53.75 1.36-.06.83-.93 1.2-1 2.02-.05.78.34 1.24.73 1.62"/><path d="M11.25 3c.27.1.8.53.74 1.36-.05.83-.93 1.2-.98 2.02-.06.78.33 1.24.72 1.62"/><path d="M6.25 3c.27.1.8.53.75 1.36-.06.83-.93 1.2-1 2.02-.05.78.34 1.24.74 1.62"/>',
+  utensils: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
+  icecream: '<path d="m7 11 4.08 10.35a1 1 0 0 0 1.84 0L17 11"/><path d="M17 7A5 5 0 0 0 7 7"/><path d="M17 7a2 2 0 0 1 0 4H7a2 2 0 0 1 0-4"/>',
+  bed: '<path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>',
+  plane: '<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>',
+  train: '<rect x="4" y="3" width="16" height="13" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m18 22-2-3"/><path d="M8 15h.01"/><path d="M16 15h.01"/>',
+  metro: '<rect x="4" y="3" width="16" height="16" rx="4"/><path d="M4 11h16"/><path d="M8 15h.01"/><path d="M16 15h.01"/><path d="m8 19-2 3"/><path d="m16 19 2 3"/>',
+  taxi: '<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>',
+  walk: '<circle cx="13" cy="4" r="2"/><path d="m9 20 3-6 3 3v4"/><path d="M6 13l2-4 4-1 3 4 3 1"/>',
+  nav: '<polygon points="3 11 22 2 13 21 11 13 3 11"/>',
+  card: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 10h8M6 14h5"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  cal: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  map: '<path d="M14.1 6.6 9.9 4.4a2 2 0 0 0-1.8 0L3.6 6.7A1 1 0 0 0 3 7.6v12.8a1 1 0 0 0 1.4.9l3.7-1.9a2 2 0 0 1 1.8 0l4.2 2.2a2 2 0 0 0 1.8 0l4.5-2.3a1 1 0 0 0 .6-.9V5.6a1 1 0 0 0-1.4-.9l-3.7 1.9a2 2 0 0 1-1.8 0Z"/><path d="M15 6.8v15M9 3.2v15"/>',
+  bag: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/>',
+  temp: '<path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>',
+  alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4M12 17h.01"/>',
+  ticket: '<path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/>',
+  phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  link: '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>'
+};
+const ic = (n, cls = "") => `<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICON[n] || ""}</svg>`;
+
+/* WGS-84 → GCJ-02 (AMAP tiles and AMAP links use GCJ-02) */
+function wgs2gcj(lat, lng) {
+  const PI = Math.PI, a = 6378245.0, ee = 0.00669342162296594323;
+  const x = lng - 105, y = lat - 35;
+  let dLat = -100 + 2 * x + 3 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * Math.sqrt(Math.abs(x));
+  dLat += (20 * Math.sin(6 * x * PI) + 20 * Math.sin(2 * x * PI)) * 2 / 3;
+  dLat += (20 * Math.sin(y * PI) + 40 * Math.sin(y / 3 * PI)) * 2 / 3;
+  dLat += (160 * Math.sin(y / 12 * PI) + 320 * Math.sin(y * PI / 30)) * 2 / 3;
+  let dLng = 300 + x + 2 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * Math.sqrt(Math.abs(x));
+  dLng += (20 * Math.sin(6 * x * PI) + 20 * Math.sin(2 * x * PI)) * 2 / 3;
+  dLng += (20 * Math.sin(x * PI) + 40 * Math.sin(x / 3 * PI)) * 2 / 3;
+  dLng += (150 * Math.sin(x / 12 * PI) + 300 * Math.sin(x / 30 * PI)) * 2 / 3;
+  const rad = lat / 180 * PI; let m = Math.sin(rad); m = 1 - ee * m * m; const sm = Math.sqrt(m);
+  dLat = (dLat * 180) / ((a * (1 - ee)) / (m * sm) * PI);
+  dLng = (dLng * 180) / (a / sm * Math.cos(rad) * PI);
+  return [lat + dLat, lng + dLng];
 }
-// Default to the current day of the trip (first day before it, last day after it).
-const _today = new Date();
-const _start = new Date(2026, 11, 11), _end = new Date(2026, 11, 20);
-let _startIdx = 0;
-if (_today >= _start && _today <= _end) _startIdx = _today.getDate() - 11;
-else if (_today > _end) _startIdx = DAYS.length - 1;
-showDay(_startIdx);
-nav.querySelectorAll('button')[_startIdx].scrollIntoView({inline:'center', block:'nearest'});
-document.querySelectorAll('.check li').forEach(li=>{
-  li.addEventListener('click', e=>{ if(e.target.tagName!=='INPUT'){ const cb=li.querySelector('input'); cb.checked=!cb.checked; } li.classList.toggle('done', li.querySelector('input').checked); localStorage.setItem('hz-'+li.dataset.k, li.querySelector('input').checked?'1':'0'); });
-  if(localStorage.getItem('hz-'+li.dataset.k)==='1'){ li.querySelector('input').checked=true; li.classList.add('done'); }
-});
+Object.values(PLACES).forEach(p => { if (p.lat) p.g = wgs2gcj(p.lat, p.lng); });
 
-const dep=new Date('2026-12-11T16:45:00+08:00'), now=new Date();
-const daysLeft=Math.ceil((dep-now)/86400000);
-document.getElementById('countdown').innerHTML = daysLeft>0 ? ic('plane','ic-sm') + ' ' + daysLeft + ' days to go' : ic('plane','ic-sm') + ' Trip time!';
+/* AMAP deep links: open the AMAP app on phones (callnative=1), the AMAP website elsewhere */
+const amapNav = (p, mode = "bus") => `https://uri.amap.com/navigation?to=${p.g[1].toFixed(6)},${p.g[0].toFixed(6)},${encodeURIComponent(p.cn)}&mode=${mode}&policy=1&src=hzsh-trip&coordinate=gaode&callnative=1`;
+const amapPin = p => `https://uri.amap.com/marker?position=${p.g[1].toFixed(6)},${p.g[0].toFixed(6)}&name=${encodeURIComponent(p.cn)}&src=hzsh-trip&coordinate=gaode&callnative=1`;
 
-// Framework7: native-feel mobile app shell (iOS / Material auto theme).
-// If the CDN fails, fall back to plain tab switching so the page still works.
-if (window.Framework7) {
-  var app = new Framework7({ el: '#app', theme: 'auto' });
-  app.views.create('.view-main');
-} else {
-  document.querySelectorAll('.tab-link').forEach(function(a){
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      document.querySelectorAll('.tab-link').forEach(function(x){ x.classList.remove('tab-link-active'); });
-      a.classList.add('tab-link-active');
-      document.querySelectorAll('.tabs .page-content').forEach(function(t){ t.classList.remove('tab-active'); });
-      var target = document.querySelector(a.getAttribute('href'));
-      if (target) target.classList.add('tab-active');
-    });
+const TILE = "https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_en&size=1&scale=1&style=8&x={x}&y={y}&z={z}";
+const tiles = () => L.tileLayer(TILE, { subdomains: "1234", maxZoom: 18, attribution: "© AMAP 高德地图" });
+
+const KIND = {
+  sight: { label: "Visit", icon: "pin", group: "sight" },
+  breakfast: { label: "Breakfast", icon: "sun", group: "food" },
+  lunch: { label: "Lunch", icon: "bowl", group: "food" },
+  dinner: { label: "Dinner", icon: "utensils", group: "food" },
+  dessert: { label: "Dessert", icon: "icecream", group: "food" },
+  snack: { label: "Snack", icon: "icecream", group: "food" },
+  hotel: { label: "Hotel", icon: "bed", group: "hotel" },
+  travel: { label: "Travel", icon: "train", group: "travel" }
+};
+const MODE = { walk: ["walk", "Walk", "walk"], metro: ["metro", "Metro", "bus"], taxi: ["taxi", "Taxi / DiDi", "car"], train: ["train", "High-speed train", "bus"], plane: ["plane", "Flight", "car"], bus: ["metro", "Bus", "bus"] };
+
+const mins = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+const durLabel = (a, b) => { if (!a || !b) return ""; let d = mins(b) - mins(a); if (d < 0) d += 1440; const h = Math.floor(d / 60), m = d % 60; return h ? `${h} h${m ? " " + m : ""}` : `${m} min`; };
+
+/* Trip clock in China time (UTC+8) regardless of phone setting */
+function chinaNow() { const d = new Date(Date.now() + 8 * 3600e3); return { date: d.toISOString().slice(0, 10), min: d.getUTCHours() * 60 + d.getUTCMinutes() }; }
+
+/* ---------- day view ---------- */
+let dayMap, dayLayer, current = 0;
+function renderStrip() {
+  const today = chinaNow().date;
+  $("#strip").innerHTML = DAYS.map((d, i) => {
+    const dt = new Date(d.date + "T12:00:00+08:00");
+    const wd = dt.toLocaleDateString("en-GB", { weekday: "short", timeZone: "Asia/Shanghai" });
+    return `<button class="chip ${d.city} ${d.date === today ? "today" : ""}" data-i="${i}" aria-label="${esc(wd + " " + dt.getDate() + " December, " + d.title)}"><span class="dw">${wd}</span><span class="dn">${dt.getDate()}</span><span class="dc"></span></button>`;
+  }).join("");
+  $$("#strip .chip").forEach(b => b.onclick = () => { showDay(+b.dataset.i); showView("days"); window.scrollTo({ top: 0 }); });
+}
+
+function placeDetails(p) {
+  if (!p) return "";
+  const rows = [["Address", p.addr + (p.addrCn ? ` <span class="cn">${esc(p.addrCn)}</span>` : "")], ["Hours", p.hours], ["Price", p.price], ["Getting there", p.station], ["Phone", p.phone ? `<a href="tel:${p.phone.replace(/[^+\d]/g, "")}">${esc(p.phone)}</a>` : ""]]
+    .filter(r => r[1]).map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
+  const img = p.img ? `<img class="photo" src="${p.img}" alt="${esc(p.en)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">${p.imgcap ? `<div class="cap">${esc(p.imgcap)}</div>` : ""}` : "";
+  const links = [p.official && `<a href="${p.official}" target="_blank" rel="noopener">Official site</a>`, p.link && `<a href="${p.link}" target="_blank" rel="noopener">More info</a>`].filter(Boolean).join(" · ");
+  return `<details class="more"><summary>Address, hours &amp; prices</summary>${img}<dl class="meta">${rows}${links ? `<dt>Links</dt><dd>${links}</dd>` : ""}</dl>${p.tip ? `<p class="note">${p.tip}</p>` : ""}</details>`;
+}
+
+function slotHTML(s, di, si, num) {
+  const k = KIND[s.kind] || KIND.sight, p = PLACES[s.p];
+  const key = `v2-${di}-${si}`, done = store.get(key) === "1";
+  const leg = s.leg ? legHTML(s.leg, p) : "";
+  const name = s.title || (p ? p.en : ""), cn = s.cn || (p ? p.cn : "");
+  const navMode = s.leg ? (MODE[s.leg.mode] || MODE.metro)[2] : "bus";
+  return `${leg}<li class="slot k-${k.group} ${done ? "done" : ""}" data-at="${s.at}" data-to="${s.to || ""}" id="s-${di}-${si}">
+    <div class="when"><b>${s.at}</b>${s.to ? `<span>→ ${s.to}</span>` : ""}</div>
+    <div class="card">
+      <div class="kind">${ic(k.icon, "sm")} ${num ? num + " · " : ""}${k.label}<span class="dur">${durLabel(s.at, s.to)}</span><button class="btn check" aria-pressed="${done}" data-key="${key}" aria-label="Mark done" title="Mark done">${ic("check", "sm")}</button></div>
+      <h3>${esc(name)}${cn ? `<span class="cn">${esc(cn)}</span>` : ""}</h3>
+      ${s.what ? `<p class="what">${s.what}</p>` : ""}
+      ${s.order ? `<div class="order"><b>Order</b>${s.order}</div>` : ""}
+      ${s.note ? `<p class="note ${s.warn ? "warn" : ""}">${s.warn ? ic("alert", "sm") + " " : ""}${s.note}</p>` : ""}
+      ${p && p.g ? `<div class="actions"><a class="btn primary" href="${amapNav(p, navMode)}" target="_blank" rel="noopener">${ic("nav", "sm")} AMAP route</a>
+        <button class="btn" data-driver="${s.p}">${ic("card", "sm")} Taxi card</button></div>` : ""}
+      ${placeDetails(p)}
+    </div></li>`;
+}
+
+function legHTML(l, p) {
+  const m = MODE[l.mode] || MODE.metro;
+  const body = `<span class="mode ${m[0]}">${ic(m[0], "sm")}</span><span><b>${m[1]}</b>${l.min ? ` · ${l.min} min` : ""}${l.cost ? ` · ${l.cost}` : ""}${l.text ? `<br>${l.text}` : ""}</span>`;
+  return `<li class="leg" aria-label="Getting there"><span class="rail"></span>${p && p.g && l.mode !== "plane" ? `<a href="${amapNav(p, m[2])}" target="_blank" rel="noopener">${body}<span class="go">AMAP ›</span></a>` : `<div class="l">${body}</div>`}</li>`;
+}
+
+function showDay(i) {
+  current = i;
+  const d = DAYS[i];
+  $("#v-days").style.setProperty("--city", `var(--${d.city})`);
+  $("#v-days").style.setProperty("--city-soft", `var(--${d.city}-soft)`);
+  $$("#strip .chip").forEach((b, j) => b.setAttribute("aria-current", j === i));
+  const chip = $$("#strip .chip")[i]; chip && chip.scrollIntoView({ inline: "center", block: "nearest" });
+  const dt = new Date(d.date + "T12:00:00+08:00");
+  let n = 0; const seen = {};
+  const numbered = d.slots.map(s => (PLACES[s.p] && PLACES[s.p].g ? (seen[s.p] ||= ++n) : 0));
+  $("#dayview").innerHTML = `
+    <div class="dv-head">
+      <header class="dayhead">
+        <div class="seal" aria-hidden="true"><div><b>${d.seal}</b><small>DEC</small></div></div>
+        <div><div class="eyebrow">${dt.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "Asia/Shanghai" })} · ${d.city === "sh" ? "Shanghai" : "Hangzhou"}</div>
+        <h1>${esc(d.title)}</h1><p>${d.sum}</p></div>
+      </header>
+      ${d.facts ? `<div class="facts">${d.facts.map(f => `<span class="fact ${f.warn ? "warn" : ""}">${ic(f.icon || (f.warn ? "alert" : "temp"), "sm")} ${f.t}</span>`).join("")}</div>` : ""}
+    </div>
+    <div class="daymap-wrap"><div id="daymap" class="map" role="img" aria-label="Map of today's stops"></div>
+      <div class="maplegend"><span>Pins are numbered in the order of the day</span></div></div>
+    <div class="dv-plan">
+      <ol class="tl">${d.slots.map((s, si) => slotHTML(s, i, si, numbered[si])).join("")}</ol>
+    </div>`;
+  bindSlots();
+  markNow();
+  drawDayMap(d, numbered);
+  store.set("v2-day", i);
+}
+
+function bindSlots() {
+  $$("#dayview .btn.check").forEach(b => b.onclick = () => {
+    const on = b.getAttribute("aria-pressed") !== "true";
+    store.set(b.dataset.key, on ? "1" : "0");
+    b.setAttribute("aria-pressed", on);
+    b.closest(".slot").classList.toggle("done", on);
   });
-}</script>
+  $$("[data-driver]").forEach(b => b.onclick = () => openDriver(b.dataset.driver));
+}
+
+function markNow() {
+  const now = chinaNow(), d = DAYS[current];
+  $$("#dayview .slot").forEach(el => el.classList.remove("now"));
+  if (now.date !== d.date) return;
+  const hit = $$("#dayview .slot").find(el => { const a = mins(el.dataset.at), b = el.dataset.to ? mins(el.dataset.to) : a + 45; return now.min >= a && now.min < (b < a ? b + 1440 : b); });
+  if (hit) { hit.classList.add("now"); $(".kind .dur", hit).insertAdjacentHTML("beforebegin", '<span class="nowtag">NOW</span>'); }
+}
+
+function pinIcon(p, label) {
+  const cls = p.kind === "food" ? "food" : p.kind === "hotel" ? "hotel" : p.city;
+  return L.divIcon({ className: "", html: `<div class="pin ${cls}"><span>${label}</span></div>`, iconSize: [26, 26], iconAnchor: [4, 26], popupAnchor: [9, -24] });
+}
+
+function drawDayMap(d, numbered) {
+  if (!window.L) { $("#daymap").outerHTML = '<p class="note warn">The map could not load. Check your connection; the AMAP buttons still work.</p>'; return; }
+  if (dayMap) { dayMap.remove(); dayMap = null; }
+  dayMap = L.map("daymap", { zoomControl: false, scrollWheelZoom: false }); dayMap.attributionControl.setPrefix(false);
+  tiles().addTo(dayMap);
+  const pts = [], drawn = {};
+  d.slots.forEach((s, si) => {
+    const p = PLACES[s.p]; if (!p || !p.g) return;
+    const last = pts[pts.length - 1];
+    if (!last || last[0] !== p.g[0] || last[1] !== p.g[1]) pts.push(p.g);
+    if (drawn[s.p]) return; drawn[s.p] = 1;
+    L.marker(p.g, { icon: pinIcon(p, numbered[si]) }).addTo(dayMap)
+      .bindPopup(`<b>${numbered[si]}. ${esc(p.en)}</b><br><span class="cn">${esc(p.cn)}</span><br><span class="mono">${s.at}</span> · <a href="#s-${DAYS.indexOf(d)}-${si}">See in plan</a>`);
+  });
+  if (pts.length > 1) L.polyline(pts, { color: getComputedStyle(document.documentElement).getPropertyValue(`--${d.city}`).trim() || "#3f7a64", weight: 3, opacity: .7, dashArray: "6 7" }).addTo(dayMap);
+  if (pts.length) dayMap.fitBounds(L.latLngBounds(pts).pad(.18), { maxZoom: 15 }); else dayMap.setView([30.25, 120.16], 12);
+  L.control.zoom({ position: "bottomright" }).addTo(dayMap);
+  dayMap._fit = pts.length ? L.latLngBounds(pts).pad(.18) : null;
+}
+let _rz; window.addEventListener("resize", () => { clearTimeout(_rz); _rz = setTimeout(() => { if (dayMap) { dayMap.invalidateSize(); dayMap._fit && dayMap.fitBounds(dayMap._fit, { maxZoom: 15 }); } }, 200); });
+
+/* ---------- full map ---------- */
+let allMap, allLayer, allFilter = "all";
+function drawAllMap() {
+  if (!window.L) return;
+  if (!allMap) { allMap = L.map("allmap", { zoomControl: true }); allMap.attributionControl.setPrefix(false); tiles().addTo(allMap); allLayer = L.layerGroup().addTo(allMap); }
+  allLayer.clearLayers();
+  const used = new Map();
+  DAYS.forEach((d, di) => d.slots.forEach(s => { const p = PLACES[s.p]; if (p && p.g) { if (!used.has(s.p)) used.set(s.p, []); used.get(s.p).push(di); } }));
+  const pts = [];
+  used.forEach((days, id) => {
+    const p = PLACES[id];
+    if (allFilter === "hz" && p.city !== "hz") return;
+    if (allFilter === "sh" && p.city !== "sh") return;
+    if (allFilter === "food" && p.kind !== "food") return;
+    pts.push(p.g);
+    const label = p.kind === "food" ? "•" : p.kind === "hotel" ? "H" : "★";
+    L.marker(p.g, { icon: pinIcon(p, label) }).addTo(allLayer).bindPopup(`<b>${esc(p.en)}</b><br><span class="cn">${esc(p.cn)}</span><br>${days.map(di => `<a href="#" data-goday="${di}">${new Date(DAYS[di].date).getDate()} Dec</a>`).join(" · ")}<br><a href="${amapNav(p)}" target="_blank" rel="noopener">Route in AMAP ›</a>`);
+  });
+  allMap.invalidateSize();
+  if (pts.length) allMap.fitBounds(L.latLngBounds(pts).pad(.1));
+}
+document.addEventListener("click", e => { const a = e.target.closest("[data-goday]"); if (a) { e.preventDefault(); showDay(+a.dataset.goday); showView("days"); } });
+
+/* ---------- driver sheet ---------- */
+function openDriver(id) {
+  const p = PLACES[id]; if (!p) return;
+  $("#sheet .panel").innerHTML = `<div class="ask">师傅您好，请带我们去：</div>
+    <div class="big">${esc(p.cn)}</div>
+    ${p.addrCn ? `<div class="addr">${esc(p.addrCn)}</div>` : ""}
+    <div class="en">“Hello, please take us to: ${esc(p.en)}”${p.addr ? ` — ${esc(p.addr)}` : ""}</div>
+    <div class="actions"><a class="btn primary" href="${amapNav(p, "car")}" target="_blank" rel="noopener">${ic("taxi", "sm")} Taxi route in AMAP</a><button class="btn" id="closeSheet">Close</button></div>`;
+  $("#sheet").classList.add("on");
+  $("#closeSheet").focus();
+  $("#closeSheet").onclick = closeDriver;
+}
+function closeDriver() { $("#sheet").classList.remove("on"); }
+$("#sheet").addEventListener("click", e => { if (e.target.id === "sheet") closeDriver(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeDriver(); });
+
+/* ---------- tabs ---------- */
+function showView(v) {
+  $$(".view").forEach(el => el.classList.toggle("on", el.id === "v-" + v));
+  $$(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.v === v));
+  $("#strip").style.display = v === "days" ? "" : "none";
+  if (v === "map") setTimeout(drawAllMap, 30);
+  if (v === "days" && dayMap) setTimeout(() => dayMap.invalidateSize(), 30);
+}
+$$(".tabs button").forEach(b => b.onclick = () => { showView(b.dataset.v); window.scrollTo({ top: 0 }); });
+$$("#mapfilters button").forEach(b => b.onclick = () => { allFilter = b.dataset.f; $$("#mapfilters button").forEach(x => x.setAttribute("aria-pressed", x === b)); drawAllMap(); });
+
+/* ---------- eat tab ---------- */
+function renderEat(city) {
+  $$("#eatseg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.c === city));
+  $("#v-eat").style.setProperty("--city", `var(--${city})`);
+  $("#musttry").innerHTML = MUST[city].map(m => `<div class="dish"><div class="zh">${esc(m.cn)}</div><h4>${esc(m.en)}</h4><p>${m.desc}</p><div class="where">${ic("pin", "sm")} ${m.where}</div></div>`).join("");
+  const rows = [];
+  DAYS.forEach((d, di) => d.slots.forEach(s => { if (KIND[s.kind] && KIND[s.kind].group === "food" && d.city === city) { const p = PLACES[s.p]; rows.push(`<li><span class="d">${new Date(d.date).getDate()} Dec<br>${KIND[s.kind].label}</span><span class="n">${esc(s.title || (p && p.en) || "")}<small>${esc(s.cn || (p && p.cn) || "")}</small></span>${p && p.g ? `<a class="btn" href="${amapPin(p)}" target="_blank" rel="noopener" aria-label="Open ${esc(p.en)} in AMAP">${ic("map", "sm")}</a>` : "<span></span>"}</li>`); } }));
+  $("#foodlist").innerHTML = rows.join("");
+}
+$$("#eatseg button").forEach(b => b.onclick = () => renderEat(b.dataset.c));
+
+/* ---------- essentials + picks ---------- */
+function renderInfo() {
+  $("#todo").innerHTML = TODO.map(t => `<li><input type="checkbox" id="todo-${t.k}" data-k="${t.k}"><label for="todo-${t.k}"><span><b>${t.t}</b>${t.due ? ` <span class="due">${t.due}</span>` : ""}<br><small>${t.d}</small></span></label></li>`).join("");
+  $$(".todo input").forEach(cb => {
+    const k = "v2-todo-" + cb.dataset.k;
+    cb.checked = store.get(k) === "1"; cb.closest("li").classList.toggle("ok", cb.checked);
+    cb.onchange = () => { store.set(k, cb.checked ? "1" : "0"); cb.closest("li").classList.toggle("ok", cb.checked); };
+  });
+  $("#essentials").innerHTML = ESSENTIALS.map(b => `<div class="box"><h3>${ic(b.icon)} ${b.h}</h3>${b.html}</div>`).join("");
+  $("#picks").innerHTML = PICKS.map(p => `<article class="pick">${p.img ? `<img src="${p.img}" alt="${esc(p.alt)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ""}<div class="in"><span class="badge">${p.slot}</span><h3>${esc(p.en)}</h3><div class="cn" style="color:var(--ink2)">${esc(p.cn)}</div>${p.html}</div></article>`).join("");
+}
+
+/* ---------- boot ---------- */
+(function boot() {
+  const dep = new Date("2026-12-11T16:45:00+08:00"), left = Math.ceil((dep - Date.now()) / 864e5);
+  $("#countdown").textContent = left > 0 ? `${left} days to go` : left > -9 ? "On the trip" : "Trip done";
+  renderStrip();
+  const today = chinaNow().date, ti = DAYS.findIndex(d => d.date === today);
+  const saved = store.get("v2-day");
+  showDay(ti >= 0 ? ti : saved !== null && DAYS[+saved] ? +saved : 0);
+  renderEat("hz");
+  renderInfo();
+  showView("days");
+  setInterval(markNow, 60e3);
+})();
+</script>
 </body>
 </html>
