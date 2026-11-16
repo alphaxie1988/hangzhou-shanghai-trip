@@ -780,7 +780,8 @@ function showDay(i) {
   const dt = new Date(d.date + "T12:00:00+08:00");
   let n = 0; const seen = {};
   const numbered = d.slots.map(s => (PLACES[s.p] && PLACES[s.p].g ? (seen[s.p] ||= ++n) : 0));
-  const nearAt = {}; d.slots.forEach((s, si) => { if (NEARBY[s.p] && !(s.p in nearAt)) nearAt[s.p] = si; });
+  const mins = s => { if (!s.at || !s.to) return 0; const m = t => +t.slice(0, 2) * 60 + +t.slice(3, 5); return m(s.to) - m(s.at); };
+  const nearAt = {}; d.slots.forEach((s, si) => { if (NEARBY[s.p] && (!(s.p in nearAt) || mins(s) > mins(d.slots[nearAt[s.p]]))) nearAt[s.p] = si; });
   $("#dayview").innerHTML = `
     <div class="dv-head">
       <header class="dayhead">
