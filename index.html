@@ -126,6 +126,22 @@ main{max-width:1180px;margin:0 auto;padding:0 16px calc(96px + var(--safe-b))}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:7px 11px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:13.5px;font-weight:600;text-decoration:none;cursor:pointer}
 .btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
 .btn.check[aria-pressed="true"]{background:var(--city-soft);border-color:transparent;color:var(--city)}
+details.nearby{grid-column:2;margin:2px 0 6px 14px;border-left:2px dashed var(--city);padding-left:10px}
+details.nearby summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);padding:6px 0}
+details.nearby summary::-webkit-details-marker{display:none}
+details.nearby summary span{font:600 11px/1 var(--mono);background:var(--city-soft);color:var(--ink);padding:3px 6px;border-radius:999px}
+details.nearby summary::after{content:"–";font-family:var(--mono);margin-left:auto;padding-right:4px}
+details.nearby:not([open]) summary::after{content:"+"}
+.nb{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;margin:0 0 6px}
+.nb-dist{float:right;margin:0 0 4px 8px;font:600 11px/1.4 var(--mono);color:var(--ink3);background:var(--paper);padding:2px 6px;border-radius:6px}
+.nb h4{margin:0;font-size:15px;line-height:1.25;font-weight:750}
+.nb h4 .cn{display:block;font-size:13px;font-weight:500;color:var(--ink2);margin-top:1px}
+.nb p{margin:5px 0 0;font-size:13.5px;color:var(--ink)}
+.nb-meta{margin-top:5px;font-size:12px;color:var(--ink3)}
+.nb-a{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.nb-a .btn{min-height:34px;padding:5px 9px;font-size:12.5px}
+.pin.near{width:20px;height:20px;background:#fff;border:2px dashed var(--ink2)}
+.pin.near span{color:var(--ink);font-size:11px}
 details.more{margin-top:8px;border-top:1px dashed var(--line);padding-top:6px}
 details.more summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--ink2);list-style:none;padding:4px 0}
 details.more summary::-webkit-details-marker{display:none}
@@ -294,20 +310,21 @@ const PLACES = {
   yuyuan: { en: "Yuyuan · Yong-Shao Hui (Kerry Centre)", cn: "榆园·甬绍荟馆（杭州嘉里中心店）", city: "hz", kind: "food", lat: 30.26394, lng: 120.15811, addr: "Kerry Centre North Zone 1F, Yan'an Road, next to Qingchunli", addrCn: "杭州嘉里中心北区商业1层 青春里旁", hours: "11:00–22:30 (Mon–Thu 14:00–17:00 afternoon tea only)", price: "~¥169–250 per person", station: "Metro Fengqi Road (凤起路), Exit C1, ~30 m — 5 min walk from the hotel", tip: "Recommended by Cylin. Book on Dianping/Meituan." },
   wulin: { en: "Wulin Night Market", cn: "武林夜市", city: "hz", kind: "food", lat: 30.26442, lng: 120.15638, addr: "40 Longyou Road / Wulin Road", addrCn: "拱墅区龙游路40号 武林夜市", hours: "Sat–Sun from 14:00, weekdays from 17:00, to ~23:00", price: "¥10–30 per snack", station: "7 min walk from the hotel", img: "https://photos.lensculture.com/large/2c83a09f-748d-44c3-b48f-0840feab9f4a.jpg", imgcap: "Wulin Night Market — LensCulture", tip: "Phone payment only. Stalls change often — follow the longest local queue." },
   xixi: { en: "Xixi Wetland · Zhoujiacun entrance", cn: "西溪国家湿地公园（周家村入口）", city: "hz", kind: "sight", lat: 30.25782, lng: 120.05618, addr: "518 Tianmushan Road", addrCn: "西湖区天目山路518号 周家村入口", hours: "Winter 08:00–17:30, last entry 17:00", price: "Adult ¥80 (¥70 booked a day ahead on the official WeChat) · electric boat ¥60 · free under 1.2 m", station: "Taxi from the hotel ~30 min. Metro: Line 3 Xixi Wetland South (西溪湿地南), Exit A", img: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Xixi_wetland.jpg", imgcap: "Xixi Wetland — Wikimedia Commons", official: "https://www.xixiwetland.com.cn/", tip: "Take the electric boat loop first (it is cold — sit inside), then walk the Plum Causeway (梅堤) back. Tea at 西溪问茶 by the entrance." },
-  xixibieyuan: { en: "Xixi Bieyuan (Xixi Paradise)", cn: "西溪别院（西溪天堂店）", city: "hz", kind: "food", lat: 30.26862, lng: 120.08328, addr: "Xixi Paradise shopping street, next to the Wetland Museum", addrCn: "西湖区西溪天堂商业街 西溪别院", price: "~¥50–80 per person", tip: "Quick home-style Hangzhou cooking. If it is closed, Xixi Paradise has several other restaurants on the same street." },
+  xixibieyuan: { en: "Xixi Bieyuan (Xixi Paradise)", cn: "西溪别院（西溪天堂店）", city: "hz", kind: "food", lat: 30.26862, lng: 120.08328, addr: "Xixi Paradise shopping street, next to the Wetland Museum", addrCn: "西湖区西溪天堂商业街 西溪别院", hours: "10:30–14:00, 16:30–21:00", phone: "0571-88868811", price: "~¥50–80 per person", tip: "Quick home-style Hangzhou cooking. If it is closed, Xixi Paradise has several other restaurants on the same street." },
   wetlandmuseum: { en: "China Wetland Museum", cn: "中国湿地博物馆", city: "hz", kind: "sight", lat: 30.26644, lng: 120.08262, addr: "402 Tianmushan Road", addrCn: "西湖区天目山路402号", hours: "Tue–Sun 09:00–16:30, last entry 16:00 · closed Mon", price: "Free — reserve on the museum's WeChat account", station: "Metro Line 3 Dongyue (东岳), ~5 min walk", img: "https://upload.wikimedia.org/wikipedia/commons/0/03/Xixi_Wetlands_Museum_-_panoramio.jpg", imgcap: "Wetland Museum — Wikimedia Commons", tip: "Head straight to the 32.5 m curved screen in the B1 Wetland Cave Hall, then the observation tower." },
   airobox: { en: "AIROBOX Robot Dream Factory", cn: "AIROBOX机器人梦工厂（之江文化中心）", city: "hz", kind: "sight", lat: 30.16085, lng: 120.1045, addr: "Halls A/B, Art Exhibition Centre, Zhijiang Cultural Centre, 300 Jianghan Road", addrCn: "西湖区江涵路300号 之江文化中心艺展中心A/B厅", hours: "Tue–Sun 09:00–18:00, last entry 17:00 · closed Mon", price: "~¥59–69 per person; ¥119 for 1 adult + 1 child", station: "Metro Line 6 Zhijiang Cultural Centre (之江文化中心) — at the door", link: "https://www.trip.com/travel-guide/attraction/hangzhou/airobox-robot-dream-factory-153110164/", tip: "90+ robots, robot dogs, mech battles and a brain-controlled race. Opened Oct 2025 — check on the AIROBOX WeChat mini-program that it is still running." },
-  hzjiujia: { en: "Hangzhou Jiujia", cn: "杭州酒家（延安路店）", city: "hz", kind: "food", lat: 30.25418, lng: 120.15935, addr: "205 Yan'an Road, Hubin", addrCn: "上城区延安路205号", price: "~¥80–150 per person", station: "Metro Line 1 Longxiangqiao (龙翔桥) · 1 stop from the hotel", tip: "A Hangzhou institution since 1921 — classic dishes at fair prices." },
-  kuiyuanguan: { en: "Kuiyuanguan", cn: "奎元馆（解放路店）", city: "hz", kind: "food", lat: 30.25324, lng: 120.1656, addr: "154 Jiefang Road", addrCn: "上城区解放路154号", price: "Noodles ~¥30–60", station: "Taxi 8 min from the hotel", link: "https://guide.michelin.com/sg/zh_CN/zhe-jiang/hangzhou_1027184/restaurant/kui-yuan-guan-jiefang-road", tip: "Noodle house since 1867, in the Michelin Guide. Opening time not confirmed — if it's shut, Zhiweiguan (opens 07:00) is a 10-min walk." },
+  hzjiujia: { en: "Hangzhou Jiujia", cn: "杭州酒家（延安路店）", city: "hz", kind: "food", hours: "11:00–14:00, 17:00–20:30", lat: 30.25418, lng: 120.15935, addr: "205 Yan'an Road, Hubin", addrCn: "上城区延安路205号", price: "~¥80–150 per person", station: "Metro Line 1 Longxiangqiao (龙翔桥) · 1 stop from the hotel", tip: "A Hangzhou institution since 1921 — classic dishes at fair prices." },
+  kuiyuanguan: { en: "Kuiyuanguan", cn: "奎元馆（解放路店）", city: "hz", kind: "food", hours: "~06:30–21:00 (one older source says from 09:00)", phone: "0571-87029012", lat: 30.25324, lng: 120.1656, addr: "154 Jiefang Road", addrCn: "上城区解放路154号", price: "Noodles ~¥30–60", station: "Taxi 8 min from the hotel", link: "https://guide.michelin.com/sg/zh_CN/zhe-jiang/hangzhou_1027184/restaurant/kui-yuan-guan-jiefang-road", tip: "Noodle house since 1867, in the Michelin Guide. Opening time not confirmed — if it's shut, Zhiweiguan (opens 07:00) is a 10-min walk." },
   hzeast: { en: "Hangzhou East Railway Station", cn: "杭州东站", city: "hz", kind: "travel", lat: 30.29355, lng: 120.2082, addr: "1 Tiancheng Road", addrCn: "上城区天城路1号 杭州东站", hours: "~05:30–24:00", station: "Metro Lines 1/4/6/19 — Hangzhou East Railway Station (火车东站)", tip: "Food courts on B1: 江南荟 (East Square: Shengzhou xiaolongbao from 06:00, Lao Niang Jiu, KFC) and 潮街 (West Square). Left luggage: 轻松游 centre, G level, West Square — ¥6/hour, max ¥50/day." },
   songcheng: { en: "Songcheng Park", cn: "宋城景区", city: "hz", kind: "sight", lat: 30.17346, lng: 120.09242, addr: "148 Zhijiang Road", addrCn: "西湖区之江路148号", hours: "~09:30 until 30 min after the last show", price: "Park + show combo ~¥320 standard / ¥350 VIP. A night-tour-only ticket (~¥70) does NOT include the show", station: "Taxi from the hotel ~35 min", phone: "0571-87313101", official: "https://www.songcn.com/", img: "https://upload.wikimedia.org/wikipedia/commons/4/47/Night_in_%22SongCheng%22%2C_Hang_Zhou%2C_China.jpg", imgcap: "Songcheng at night — Wikimedia Commons", tip: "Show times seen in 2025: 12:30, 14:00, 18:00, 19:30. December is not confirmed — check the dated ticket before you pay." },
   yongfu: { en: "Yongfu Temple", cn: "永福寺", city: "hz", kind: "sight", lat: 30.24197, lng: 120.09277, addr: "Fayun Lane, Lingyin–Feilai Peak scenic area", addrCn: "西湖区灵隐路法云弄16号 永福寺", hours: "07:30–17:30, last entry 17:00", price: "Free since 1 Dec 2025 — but a real-name booking is required", station: "Taxi from the hotel ~25 min", official: "https://www.lingyinsi.org/", img: "https://upload.wikimedia.org/wikipedia/commons/0/0e/HZ_%E6%9D%AD%E5%B7%9E_Hangzhou_%E6%B0%B8%E7%A6%8F%E5%AF%BA_Yongfu_Temple_China_Tourism_2012_entrance_name_sign.jpg", imgcap: "Yongfu Temple — Wikimedia Commons", tip: "Book in the “杭州灵隐飞来峰” Alipay/WeChat mini-program, 1–7 days ahead, morning slot. Passports accepted. Children ≤14 go with an adult (max 3 per adult). On the way out, look at the Feilai Peak cliff carvings." },
   lingyinmian: { en: "Lingyin Temple vegetarian noodles", cn: "灵隐寺素面（十方苑）", city: "hz", kind: "food", lat: 30.2424, lng: 120.0976, addr: "Inside Lingyin Temple, right of the ticket check", addrCn: "灵隐寺内 十方苑", hours: "08:30–16:30", price: "~¥15–20", tip: "Simple, warming temple noodles. Alternative outside the gate: 知竹 Know Bamboo vegetarian, 69 Tianzhu Road." },
-  polar: { en: "Hangzhou Polar Ocean Park", cn: "杭州长乔极地海洋公园", city: "hz", kind: "sight", lat: 30.14501, lng: 120.22222, addr: "777 Xianghu Road, Xiaoshan", addrCn: "萧山区湘湖路777号", hours: "09:00–17:00, last entry 16:30", price: "Adult ~¥360 · child ¥299 · family 2+1 ¥1019 · under 1 m free (cheaper on Trip.com/Ctrip)", station: "Taxi from Lingyin ~45 min. Metro Line 1 Xianghu (湘湖) + 10 min taxi", img: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Hangzhou_Polar_Ocean_Park_01.jpg", imgcap: "Polar Ocean Park — Wikimedia Commons", tip: "About 5 shows a day (dolphin, beluga, walrus). Photograph the show board at the gate and plan around it. Born in December? A December-birthday promo has charged ¥0.1 — bring passports." },
+  teamuseum: { en: "China National Tea Museum (Shuangfeng)", cn: "中国茶叶博物馆（双峰馆区）", city: "hz", kind: "sight", lat: 30.2367, lng: 120.1327, addr: "88 Longjing Road", addrCn: "西湖区龙井路88号", hours: "Tue–Sun 09:00–16:30 · closed Mon", price: "Free", station: "Taxi from Lingyin ~12 min", tip: "Pin position is approximate. The Longjing branch (龙井馆区, 翁家山268号) is the second site, up in the tea village." },
+  longjing: { en: "Longjing Tea Village", cn: "龙井村", city: "hz", kind: "sight", lat: 30.2266, lng: 120.1236, addr: "Longjing Village, Longjing Road", addrCn: "西湖区龙井路 龙井村", hours: "Village always open · tea houses ~09:00–17:00", price: "Free · tea ~¥50–100 per person", station: "Taxi from the tea museum ~8 min", tip: "Pin position is approximate. December is not picking season, but the farmers still roast and sell last spring's tea. Look for the 'Eighteen Imperial Tea Trees' (十八棵御茶)." },
   greentea: { en: "Green Tea Restaurant (Hubin)", cn: "绿茶餐厅（延安路店）", city: "hz", kind: "food", lat: 30.25415, lng: 120.15986, addr: "98 Yan'an Road, Hubin (Lakeside Yintai in77)", addrCn: "上城区延安路98号", hours: "~10:30–22:00", price: "~¥80–100 per person", station: "Metro Line 1 Longxiangqiao (龙翔桥)", tip: "Expect a queue — take a number on the Dianping/Meituan app on the taxi ride over." },
   animation: { en: "China Animation Museum", cn: "中国动漫博物馆", city: "hz", kind: "sight", lat: 30.16448, lng: 120.20107, addr: "375 Baimahu Road, Binjiang", addrCn: "滨江区白马湖路375号", hours: "Wed–Sun 09:30–16:30, last entry 16:00 · closed Mon & Tue", price: "Free — reserve on the museum's WeChat account (5 days of slots)", station: "Taxi from the hotel ~35 min", phone: "0571-86056757", link: "https://ccam.hzxcw.gov.cn/guide.html", img: "https://upload.wikimedia.org/wikipedia/commons/0/03/Zhongguo_Dongman_Bowuguan.jpg", imgcap: "China Animation Museum — Wikimedia Commons", tip: "Four permanent halls plus interactive kids' zones. Allow 2 hours." },
   binjiangmall: { en: "Longfor Binjiang Paradise Walk", cn: "龙湖杭州滨江天街", city: "hz", kind: "food", lat: 30.20358, lng: 120.19957, addr: "Jiangnan Avenue, Binjiang", addrCn: "滨江区江南大道 龙湖滨江天街", hours: "~10:00–22:00", price: "~¥50–100 per person", tip: "A big mall food floor with family chains — easy with kids, warm, with clean toilets." },
-  fourseasons: { en: "Four Seasons Hotel Hangzhou at West Lake", cn: "杭州西子湖四季酒店", city: "hz", kind: "sight", lat: 30.25376, lng: 120.12407, addr: "5 Lingyin Road", addrCn: "西湖区灵隐路5号", hours: "Spa daily ~10:00–22:00 · kids' club 09:00–11:30, 13:00–17:00", price: "Treatments from ~¥580; massages more", station: "Taxi from Binjiang ~35 min", phone: "+86 571 8829 8888", official: "https://www.fourseasons.com/hangzhou/spa/", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Four%20Seasons%20Hotel%20Hangzhou%20West%20Lake%2020201001.jpg?width=1024", imgcap: "Four Seasons Hangzhou — Wikimedia Commons", tip: "Fully indoors: heated pool, sauna and steam, free Kids For All Seasons club (2–12). Book treatments 24 h ahead; ask whether pool access is included for non-guests." },
+  shuiguo: { en: "Shuiguo Tangquan bathhouse (Qianjiang Century Park)", cn: "水裹汤泉（钱江世纪公园店）", city: "hz", kind: "sight", lat: 30.2380, lng: 120.2560, addr: "Unit 3, Building 3, Zone A, Qianjiang Century Park, Ningwei, Xiaoshan", addrCn: "萧山区宁围街道钱江世纪公园A区3幢3单元 水裹汤泉", hours: "Open 24 h", price: "Adults ~¥238 (8 h) / ~¥298 (16 h) in 2024; 2026 prices at the Xintiandi branch ~¥369 with meals. Under 1 m reportedly free — check child prices on Meituan/Dianping", station: "Taxi from Binjiang ~20 min · 25 min to the airport", tip: "A Chinese-style 24-hour bathhouse: hot spring pools, steam and sauna rooms, then a shared lounge in the pyjamas they give you, with a buffet, snacks, fruit, massage chairs and a kids' play area. Bathing areas are split men/women. Children go with a parent of the same sex. Pin position is approximate. Prices are from 2024–26 web listings and may be AI-written, so check on Meituan before you go." },
   jinsha: { en: "Jin Sha", cn: "金沙厅（杭州西子湖四季酒店）", city: "hz", kind: "food", lat: 30.25376, lng: 120.12407, addr: "Inside the Four Seasons, 5 Lingyin Road", addrCn: "西湖区灵隐路5号 杭州西子湖四季酒店 金沙厅", hours: "Lunch 11:30–14:00 · dinner 17:30–21:00", price: "~¥750 per person — a splurge", phone: "+86 571 8829 8888", link: "https://press.fourseasons.com/hangzhou/hotel-news/2026/michelin-starred-jin-sha-restaurant", tip: "One Michelin star every year 2023–2026 and on Asia's 50 Best 2026. Book ahead, ask for a high chair and a 17:30 table. Cheaper farewell: Lou Wai Lou or Hangzhou Jiujia." },
   /* ---- Shanghai ---- */
   hongqiao: { en: "Shanghai Hongqiao Railway Station", cn: "上海虹桥站", city: "sh", kind: "travel", lat: 31.19612, lng: 121.31611, addr: "1500 Shengui Road, Minhang", addrCn: "闵行区申贵路1500号 上海虹桥站", hours: "Station open all day", station: "Metro Lines 2/10/17 — Hongqiao Railway Station (虹桥火车站)", tip: "Not “Shanghai Station” — that is a different station across town. Food is basic chains (KFC, McDonald's, Starbucks, noodle counters) on the departure level." },
@@ -330,6 +347,78 @@ const PLACES = {
   wukang: { en: "Anfu Road → Wukang Road → Wukang Mansion", cn: "武康路 · 武康大楼", city: "sh", kind: "sight", lat: 31.20626, lng: 121.43373, addr: "1850 Huaihai Middle Road at Wukang Road, Xuhui", addrCn: "徐汇区淮海中路1850号 武康大楼", hours: "Street always open · the mansion is residential, view from outside", price: "Free · Soong Ching-ling Residence ¥20 (Tue–Sun)", station: "Metro Jiaotong University (交通大学), Lines 10/11, ~8 min walk", img: "https://upload.wikimedia.org/wikipedia/commons/0/07/Normandie_Apartment.jpg", imgcap: "Wukang Mansion, 1924 — Wikimedia Commons", tip: "Plane-tree streets of the former French Concession. The classic ship's-bow photo of the mansion is from the traffic island at the Huaihai Rd junction." }
 };
 
+/* ================= data: nearby =================
+   Optional extras shown under the first card of each anchor place. lat/lng WGS-84. */
+const NEARBY = { /* all pins approximate (±100–300 m) */
+  hubin: [
+    {"id": "santanboat", "en": "West Lake boat to Three Pools Mirroring the Moon", "cn": "西湖游船（湖滨码头—三潭印月）", "lat": 30.2557, "lng": 120.158, "addr": "Hubin pier, Hubin Rd (by Park No. 1)", "addrCn": "湖滨路 一公园 湖滨码头", "hours": "~08:00–16:30, every 15–30 min", "price": "~¥55–80 adult incl. island entry; under 1.2 m usually free", "dist": "3 min walk", "why": "A big boat out to the island in the middle of the lake — kids can spot the three stone pagodas printed on the ¥1 note.", "link": "https://wanderinchina.com/zh/destinations/hangzhou/west-lake/boat-tours/"},
+    {"id": "westlakemuseum", "en": "West Lake Museum & Qian Wang Shrine", "cn": "杭州西湖博物馆总馆 · 钱王祠", "lat": 30.2448, "lng": 120.1588, "addr": "89 Nanshan Rd", "addrCn": "上城区南山路89号", "hours": "Tue–Sun ~09:00–17:00 · closed Mon", "price": "Free", "dist": "15 min walk / 4 min taxi", "why": "China's first museum about a lake, with big scale models of West Lake — indoors and warm.", "link": "https://tidenews.com.cn/news.html?id=3434093"}
+  ],
+  brokenbridge: [
+    {"id": "baochu", "en": "Baoshi Hill & Baochu Pagoda", "cn": "宝石山 · 保俶塔", "lat": 30.2643, "lng": 120.146, "addr": "Baoshi Hill, off Beishan St", "addrCn": "西湖区北山街 宝石山", "hours": "Open all day", "price": "Free", "dist": "5 min walk + 15 min climb", "why": "A short, gentle climb small legs can manage: a slim Song-dynasty pagoda, boulders to scramble on and one of the best views over the lake.", "link": "https://hznews.hangzhou.com.cn/chengshi/content/2020-10/25/content_7839337.htm"},
+    {"id": "baopu", "en": "Baopu Taoist Temple, Geling Hill", "cn": "抱朴道院（葛岭）", "lat": 30.2622, "lng": 120.1418, "addr": "Geling Hill, above Beishan St", "addrCn": "西湖区北山街 葛岭 抱朴道院", "hours": "~07:00–17:00 (not confirmed)", "price": "¥5", "dist": "10 min walk + short climb", "why": "Yellow walls with a wavy 'dragon' wall on top, and a pavilion looking over the lake. The path links to Baochu Pagoda.", "link": "https://hznews.hangzhou.com.cn/chengshi/content/2025-08/02/content_9052255_2.htm"}
+  ],
+  gushan: [
+    {"id": "xiling", "en": "Xiling Seal Engravers' Society", "cn": "西泠印社", "lat": 30.2563, "lng": 120.1377, "addr": "31 Gushan Rd", "addrCn": "西湖区孤山路31号", "hours": "~08:30–16:30", "price": "Free", "dist": "3 min walk", "why": "A tiny hillside garden of stone steps, grottoes and a mini pagoda. Kids hunt for the animal-shaped seal stamps on the way up to a lake view.", "link": "https://gs.ctrip.com/html5/you/sight/14/4337.html"},
+    {"id": "fanghe", "en": "Crane Pavilion & plum grove", "cn": "放鹤亭（孤山梅林）", "lat": 30.258, "lng": 120.1405, "addr": "North side of Gushan", "addrCn": "孤山北麓 放鹤亭", "hours": "Open all day", "price": "Free", "dist": "5–8 min walk", "why": "The poet who 'married plum trees and kept cranes as his children' — a story kids like, on the quieter north shore. Stroller-friendly.", "link": "https://hznews.hangzhou.com.cn/chengshi/content/2016-01/10/content_6039341_0.htm"}
+  ],
+  hefang: [
+    {"id": "deshou", "en": "Deshou Palace Ruins Museum", "cn": "南宋德寿宫遗址博物馆", "lat": 30.2467, "lng": 120.1755, "addr": "223 Wangjiang Rd", "addrCn": "上城区望江路223号", "hours": "Tue–Sun 09:30–17:00 · closed Mon · free weekend booking on WeChat 南宋德寿宫遗址博物馆", "price": "Free", "dist": "12 min walk / 5 min taxi", "why": "Walk on glass floors over a dug-up Song emperor's palace, brought back to life with projections. Short, indoors and striking.", "link": "https://zhejiang.chinadaily.com.cn/2022-11/21/c_833022.htm"},
+    {"id": "huxueyan", "en": "Hu Xueyan's Former Residence", "cn": "胡雪岩故居", "lat": 30.2424, "lng": 120.1733, "addr": "18 Yuanbao St", "addrCn": "上城区元宝街18号", "hours": "Daily ~08:00–16:50", "price": "¥20 adult / ¥10 child; under 1.2 m reportedly free", "dist": "6 min walk", "why": "A merchant's mansion of rockeries, grottoes and zig-zag bridges — great for hide-and-seek, and the man behind Hu Qing Yu Tang.", "link": "https://www.dahepiao.com/lvyounews1/20250925531774.html"},
+    {"id": "chenghuang", "en": "Chenghuang Pavilion, Wushan Hill", "cn": "吴山 城隍阁", "lat": 30.2419, "lng": 120.1618, "addr": "Wushan Hill, top of Hefang St", "addrCn": "上城区吴山 城隍阁", "hours": "~08:00–20:00 (reopened after 2024–25 renovation — check)", "price": "¥30 adult / ¥15 concession", "dist": "10 min walk uphill", "why": "A short climb past ancient camphor trees to a tower with a view over both the city and the lake.", "link": "https://gs.ctrip.com/html5/you/sight/hangzhou14/2027.html"}
+  ],
+  xixi: [
+    {"id": "hezhu", "en": "Hezhu Old Street", "cn": "河渚街", "lat": 30.2655, "lng": 120.064, "addr": "Inside Xixi Wetland, central area", "addrCn": "西溪湿地 河渚街", "hours": "Daytime, with the park", "price": "In the wetland ticket", "dist": "Boat stop · or 15–20 min walk", "why": "A canal-side old street with snack stalls and crafts — a natural hot-drink stop on the boat loop.", "link": "https://hznews.hangzhou.com.cn/chengshi/content/2025-09/26/content_9091574.htm"}
+  ],
+  airobox: [
+    {"id": "zjmuseumzj", "en": "Zhejiang Museum, Zhijiang branch", "cn": "浙江省博物馆之江馆", "lat": 30.1622, "lng": 120.1032, "addr": "Zhijiang Cultural Centre", "addrCn": "西湖区之江文化中心 浙江省博物馆之江馆", "hours": "Tue–Sun 09:00–17:00, last entry 16:30 · closed Mon", "price": "Free (some special exhibitions need booking)", "dist": "Same complex, 3 min walk", "why": "Next door to AIROBOX: big new galleries with interactive displays, warm and indoors.", "link": "https://hznews.hangzhou.com.cn/wenti/content/2026-08/04/content_9271542.htm"},
+    {"id": "zjich", "en": "Zhejiang Intangible Cultural Heritage Museum", "cn": "浙江省非物质文化遗产馆", "lat": 30.16, "lng": 120.106, "addr": "Zhijiang Cultural Centre", "addrCn": "西湖区之江文化中心 浙江省非物质文化遗产馆", "hours": "Tue–Sun ~09:00–17:00 · closed Mon", "price": "Free", "dist": "Same complex, 4 min walk", "why": "Lanterns, puppets and opera costumes, with hands-on craft corners for kids.", "link": "https://hznews.hangzhou.com.cn/wenti/content/2023-08/29/content_8609049.htm"}
+  ],
+  songcheng: [
+    {"id": "yunqi", "en": "Yunqi Bamboo Path", "cn": "云栖竹径", "lat": 30.193, "lng": 120.1, "addr": "Meiling South Rd, Zhuantang", "addrCn": "西湖区梅灵南路 云栖竹径", "hours": "07:00–17:00", "price": "¥8 adult / ¥4 child; free under 1.2 m", "dist": "10 min taxi", "why": "A flat, hushed path under towering bamboo — a calm contrast to Songcheng's noise if you have time before the show.", "link": "https://www.dahepiao.com/lvyounews1/20251011533212.html"}
+  ],
+  wetlandmuseum: [
+    {"id": "lvdi", "en": "Xixi Green Dike & underwater corridor", "cn": "西溪湿地 绿堤 · 水下观光长廊", "lat": 30.27, "lng": 120.079, "addr": "Xixi Wetland east side, Xixi Tiantang entrance", "addrCn": "西溪湿地 绿堤（西溪天堂入口）", "hours": "Daytime", "price": "Free", "dist": "5–10 min walk", "why": "A free, flat, stroller-friendly boardwalk. The 137 m underwater corridor puts kids eye-to-eye with fish.", "link": "https://hznews.hangzhou.com.cn/chengshi/content/2020-11/14/content_7853921.htm"},
+    {"id": "fudi", "en": "Fudi (Blessing Dike) walk", "cn": "西溪湿地 福堤", "lat": 30.2665, "lng": 120.085, "addr": "Xixi Wetland, east area", "addrCn": "西溪湿地 福堤", "hours": "Daytime", "price": "Free", "dist": "5 min walk", "why": "A 2.3 km car-free dike with bridges over the water — room for kids to run or scoot.", "link": "https://gs.ctrip.com/html5/you/sight/hangzhou14/1673206.html"}
+  ],
+  yongfu: [
+    {"id": "lingyin", "en": "Lingyin Temple main halls", "cn": "灵隐寺", "lat": 30.2405, "lng": 120.0975, "addr": "1 Fayun Lane, Lingyin Rd", "addrCn": "西湖区灵隐路法云弄1号 灵隐寺", "hours": "07:30–17:30, last entry 17:00", "price": "Free since Dec 2025 — book a time slot in the 杭州灵隐飞来峰 mini-program", "dist": "5 min walk", "why": "The giant gilded Buddha and the Hall of 500 Arhats — memorable for kids, and now free.", "link": "https://tidenews.com.cn/news.html?id=3303249"},
+    {"id": "taoguang", "en": "Taoguang Temple climb", "cn": "韬光寺", "lat": 30.244, "lng": 120.0905, "addr": "Above Lingyin, Feilai Peak scenic area", "addrCn": "灵隐飞来峰景区 韬光寺", "hours": "07:30–17:30", "price": "Free (same Lingyin booking)", "dist": "20–30 min stone-path climb", "why": "Bamboo-shaded steps up to a cliffside temple with a view to the lake — an adventure for older kids.", "link": "https://hznews.hangzhou.com.cn/chengshi/content/2025-11/20/content_9127604.htm"},
+    {"id": "faxi", "en": "Faxi Temple (Upper Tianzhu)", "cn": "法喜寺（上天竺）", "lat": 30.2345, "lng": 120.105, "addr": "Tianzhu Rd", "addrCn": "西湖区天竺路 法喜寺", "hours": "~06:30–18:00", "price": "¥10 (children half price) · book online", "dist": "5 min taxi", "why": "The yellow-walled 'magnolia temple' — Hangzhou's most photographed temple right now, smaller and calmer than Lingyin.", "link": "https://gs.ctrip.com/html5/you/sight/14/110280.html"}
+  ],
+  animation: [
+    {"id": "baimalake", "en": "Baima Lake Park lawns", "cn": "白马湖公园", "lat": 30.1625, "lng": 120.1985, "addr": "Baima Lake, Binjiang", "addrCn": "滨江区白马湖公园", "hours": "Open all day", "price": "Free", "dist": "3–5 min walk", "why": "A huge lakeside lawn right outside the museum for kids to run off steam.", "link": "https://hznews.hangzhou.com.cn/chengshi/content/2018-10/19/content_7083410_2.htm"},
+    {"id": "changhe", "en": "Changhe Old Street", "cn": "长河老街", "lat": 30.1835, "lng": 120.2005, "addr": "Changhe, Binjiang", "addrCn": "滨江区长河街道 长河老街", "hours": "Street open · shops ~10:00–21:00", "price": "Free", "dist": "8 min taxi", "why": "A restored canal town with Ming–Qing halls, a willow-lined creek and snack shops.", "link": "https://nz.trip.com/moments/poi-changhe-ancient-town-112367889"}
+  ],
+  shuiguo: [
+    {"id": "qjcenturypark", "en": "Qianjiang Century Park lawns", "cn": "钱江世纪公园", "lat": 30.2408, "lng": 120.26, "addr": "Qianjiang Century City, Ningwei, Xiaoshan", "addrCn": "萧山区宁围街道 钱江世纪公园", "hours": "Open all day", "price": "Free", "dist": "Next door, 2–5 min walk", "why": "Shuiguo is in the park itself: 350,000 m² of riverside lawns, a plant maze and a music fountain. Kids can run around in the open air before going indoors to the warm pools.", "link": "https://hznews.hangzhou.com.cn/chengshi/content/2020-05/31/content_7745762_3.htm"},
+    {"id": "biglotus", "en": "Hangzhou Olympic Stadium, “Big Lotus”", "cn": "杭州奥体中心体育场（大莲花）", "lat": 30.2295, "lng": 120.229, "addr": "Hangzhou Olympic Sports Centre, Binjiang", "addrCn": "滨江区 杭州奥体中心 大莲花", "hours": "Grounds open; going inside needs booking in the 浙里办 / AI动杭州 mini-program", "price": "Free to walk around", "dist": "8 min taxi", "why": "The 2022 Asian Games main stadium, its roof shaped like 28 big lotus petals. Walk the riverside promenade around it and see the smaller “Little Lotus” tennis centre next door.", "link": "https://www.thepaper.cn/newsDetail_forward_24692750"},
+    {"id": "citybalcony", "en": "Qianjiang New City “City Balcony”", "cn": "钱江新城 城市阳台", "lat": 30.2455, "lng": 120.2135, "addr": "Qianjiang New City riverfront, Shangcheng", "addrCn": "上城区钱江新城 城市阳台", "hours": "Open all day · light show times unconfirmed", "price": "Free", "dist": "15 min taxi across the river", "why": "A huge viewing deck that hangs over the Qiantang River, facing the Big Lotus and the Gate of Hangzhou across the water. Better if you switch dinner from Jin Sha to somewhere central.", "link": "https://hznews.hangzhou.com.cn/chengshi/content/2020-05/31/content_7745762_0.htm"}
+  ],
+  yuyuan_sh: [
+    {"id": "chenxiangge", "en": "Chenxiang Pavilion", "cn": "沉香阁", "lat": 31.2306, "lng": 121.4855, "addr": "29 Chenxiangge Rd", "addrCn": "黄浦区沉香阁路29号", "hours": "Daily 07:00–16:00", "price": "¥10", "dist": "5 min walk", "why": "A quiet working nunnery with a Guanyin carved from fragrant agarwood. Closes 16:00 — go straight there at 15:45.", "link": "https://www.smartshanghai.com/venue/22924/chen-xiang-pavilion"},
+    {"id": "oldstreet", "en": "Shanghai Old Street", "cn": "上海老街（方浜中路）", "lat": 31.2265, "lng": 121.486, "addr": "Fangbang Middle Rd", "addrCn": "黄浦区方浜中路 上海老街", "hours": "Street open · shops to ~21:00", "price": "Free", "dist": "3–5 min walk", "why": "Qing-style shopfronts, old brands like Tong Han Chun Tang pharmacy and pear-syrup candy stalls — less crowded than the bazaar core.", "link": "https://touch.travel.qunar.com/poi/702956"}
+  ],
+  bund: [
+    {"id": "bundtunnel", "en": "Bund Sightseeing Tunnel", "cn": "外滩观光隧道", "lat": 31.2408, "lng": 121.4862, "addr": "300 Zhongshan East 1st Rd (opposite Nanjing East Rd)", "addrCn": "黄浦区中山东一路300号", "hours": "09:00–22:30 (Nov–Dec)", "price": "One-way ¥50 adult / ¥25 child · parent + child ¥75", "dist": "2 min walk", "why": "A kitsch pod ride under the river with flashing lights and space sounds that young kids love. Comes out at the Pearl Tower.", "link": "https://www.dahepiao.com/lvyounews1/20250626518341.html"},
+    {"id": "waibaidu", "en": "Waibaidu (Garden) Bridge", "cn": "外白渡桥", "lat": 31.2446, "lng": 121.4856, "addr": "North end of the Bund at Suzhou Creek", "addrCn": "黄浦区中山东一路 苏州河口 外白渡桥", "hours": "24 h · lit at night", "price": "Free", "dist": "12 min walk north", "why": "China's first all-steel bridge (1907), glowing where Suzhou Creek meets the Huangpu.", "link": "https://en.wikipedia.org/wiki/Waibaidu_Bridge"}
+  ],
+  pearl: [
+    {"id": "aquarium", "en": "Shanghai Ocean Aquarium", "cn": "上海海洋水族馆", "lat": 31.2407, "lng": 121.497, "addr": "1388 Lujiazui Ring Rd, Pudong", "addrCn": "浦东新区陆家嘴环路1388号", "hours": "09:00–18:00", "price": "Adult ~¥160 · child ~¥110 · under 1 m free", "dist": "3 min walk", "why": "A 155 m underwater tunnel with sharks, plus penguins — right beside the tower on a cold morning.", "link": "https://www.smartshanghai.com/venue/296/Shanghai_Ocean_Aquarium_shanghai"},
+    {"id": "mingzhuhuan", "en": "Lujiazui Circular Footbridge", "cn": "陆家嘴环形天桥（明珠环）", "lat": 31.239, "lng": 121.4978, "addr": "Century Ave / Lujiazui Ring Rd junction", "addrCn": "浦东新区世纪大道陆家嘴环路口 明珠环", "hours": "Open all day", "price": "Free", "dist": "4 min walk", "why": "A giant raised ring with escalators, circled by the Pearl, Jin Mao and Shanghai Tower — the best free spot to crane up at all of them.", "link": "https://www.shobserver.cn/sgh/detail?id=4067761"}
+  ],
+  sstm: [
+    {"id": "centurypark", "en": "Century Park", "cn": "世纪公园", "lat": 31.2175, "lng": 121.5405, "addr": "1001 Jinxiu Rd, Pudong", "addrCn": "浦东新区锦绣路1001号 世纪公园", "hours": "Open 24 h", "price": "Free", "dist": "5–10 min walk", "why": "Lakes, lawns and playgrounds right behind the museum to burn off energy before dark (~17:00).", "link": "https://www.thepaper.cn/newsDetail_forward_30069015"}
+  ],
+  wildpark: [
+    {"id": "xinchang", "en": "Xinchang Ancient Town", "cn": "新场古镇", "lat": 31.032, "lng": 121.642, "addr": "128 Haiquan St, Xinchang, Pudong", "addrCn": "浦东新区新场镇海泉街128号", "hours": "Town open · sights 09:30–16:30", "price": "Town free · combo ¥28", "dist": "15 min taxi", "why": "A canal town with stone bridges, an old opera stage and snacks like begonia cakes — only if the kids still have energy after the zoo.", "link": "https://chinatripedia.com/xinchang-ancient-town-shanghai-ticket-opening-hours-highlights-and-tips/comment-page-1"}
+  ],
+  wukang: [
+    {"id": "artscrafts", "en": "Shanghai Arts & Crafts Museum", "cn": "上海工艺美术博物馆", "lat": 31.212, "lng": 121.4414, "addr": "79 Fenyang Rd", "addrCn": "徐汇区汾阳路79号", "hours": "Tue–Sun 09:00–11:30, 13:00–16:30 · closed Mon", "price": "¥8 adult", "dist": "15 min walk / 5 min taxi", "why": "A 1905 'little white house' where craftsmen often demonstrate paper-cutting, embroidery and dough figures.", "link": "https://www.smartshanghai.com/venue/3173/Shanghai_Arts_and_Crafts_Museum_shanghai"},
+    {"id": "columbiacircle", "en": "Columbia Circle", "cn": "上生·新所", "lat": 31.2108, "lng": 121.4203, "addr": "1262 Yan'an West Rd", "addrCn": "长宁区延安西路1262号 上生·新所", "hours": "Grounds daily from 10:00", "price": "Free", "dist": "8 min taxi", "why": "A restored 1920s country club with lawns, a much-photographed old pool and a Tsutaya bookshop with a children's corner.", "link": "https://www.smartshanghai.com/venue/15414/columbia_circle"}
+  ]
+};
+
 /* ================= data: days =================
    Each slot: at/to (China time), kind, p (place id), what, order, note (+warn).
    leg = how you get TO this slot from the one before it. */
@@ -349,7 +438,7 @@ const DAYS = [
     { at: "08:00", to: "08:45", kind: "breakfast", p: "zhiweiguan", order: "小笼包 soup dumplings · 虾仁馄饨 shrimp wontons · 定胜糕 pink rice cake · 西湖藕粉 hot lotus-root pudding for the kids", leg: { mode: "taxi", min: 6, cost: "~¥13", text: "Or walk 15 min down Yan'an Road" } },
     { at: "09:00", to: "09:45", kind: "sight", p: "hubin", what: "Out of the door and onto the lakefront. Walk north along the water.", leg: { mode: "walk", min: 4 } },
     { at: "10:00", to: "10:30", kind: "sight", p: "brokenbridge", what: "Photos on the bridge where the Bai Causeway begins.", leg: { mode: "walk", min: 20, text: "Along Beishan Street lakeside path" } },
-    { at: "10:50", to: "11:20", kind: "sight", p: "gushan", what: "Stroll the 1 km Bai Causeway out to Gushan. Optional: the free Zhejiang Museum West Lake branch.", leg: { mode: "walk", min: 20, text: "Across the Bai Causeway" } },
+    { at: "10:50", to: "11:20", kind: "sight", p: "gushan", what: "Stroll the 1 km Bai Causeway out to Gushan.", note: "The Zhejiang Museum Gushan hall is closed for renovation (since Aug 2026) — skip it.", leg: { mode: "walk", min: 20, text: "Across the Bai Causeway" } },
     { at: "11:20", to: "12:45", kind: "lunch", p: "louwailou", order: "西湖醋鱼 West Lake vinegar fish (half) · 东坡肉 Dongpo pork · 龙井虾仁 Longjing tea shrimp · 叫化童鸡 beggar's chicken (ask on arrival — it takes time)", note: "Take a queue number the moment you arrive.", leg: { mode: "walk", min: 3 } },
     { at: "13:15", to: "16:00", kind: "sight", p: "hefang", what: "Hu Qing Yu Tang pharmacy (¥10), then the snack stalls of Hefang and the lanes of Qinghefang.", leg: { mode: "taxi", min: 20, cost: "~¥20", text: "Weekend lake traffic — taxi beats the bus" } },
     { at: "15:15", to: "15:30", kind: "snack", p: "congbaohui", order: "葱包桧 — a dough stick and scallions rolled in a pancake and pressed on the griddle, with sweet sauce", leg: { mode: "walk", min: 2 } },
@@ -358,17 +447,18 @@ const DAYS = [
     { at: "19:05", to: "20:15", kind: "dessert", p: "wulin", order: "冻豆花 chilled sweet tofu pudding · 拇指生煎 thumb-sized pan-fried buns · candied hawthorn (糖葫芦)", leg: { mode: "walk", min: 5 } }
   ] },
 
-{ date: "2026-12-13", city: "hz", seal: "十三", title: "Wetlands and robots",
-  sum: "A boat through the Xixi reeds, a giant-screen wetland museum, then 90 robots by the Qiantang River.",
-  facts: [{ icon: "taxi", t: "3 taxi rides today, ~¥150 total" }, { warn: true, t: "Book Xixi + Wetland Museum on WeChat" }],
+{ date: "2026-12-13", city: "hz", seal: "十三", title: "Wetlands, robots, Songcheng",
+  sum: "A boat through the Xixi reeds, then out to the Qiantang River: 90 robots, and 2 km away a Song-dynasty town and its big show.",
+  facts: [{ icon: "taxi", t: "Taxis today ~¥160 total" }, { warn: true, t: "AIROBOX last entry 17:00 · Songcheng: book the 19:30 show" }, { warn: true, t: "Sunday — Songcheng will be busy" }],
   slots: [
-    { at: "08:00", to: "08:30", kind: "breakfast", p: "hzhotel", title: "Hotel breakfast", what: "Fill up — lunch is at 12:00." },
+    { at: "08:00", to: "08:30", kind: "breakfast", p: "hzhotel", title: "Hotel breakfast", what: "Fill up — it's a long day." },
     { at: "09:00", to: "11:45", kind: "sight", p: "xixi", what: "Electric boat loop first (sit inside — it's cold on the water), then walk the Plum Causeway back. Reeds are at their best in early December.", leg: { mode: "taxi", min: 30, cost: "¥35–45" } },
-    { at: "12:00", to: "13:00", kind: "lunch", p: "xixibieyuan", order: "龙井虾仁 · 东坡肉 · 西湖莼菜汤 water-shield soup · rice and greens for the kids", leg: { mode: "taxi", min: 10, cost: "~¥15", text: "The museum is 3 km east of Zhoujiacun, not at the entrance" } },
-    { at: "13:10", to: "14:40", kind: "sight", p: "wetlandmuseum", what: "Go straight down to the 32.5 m curved screen in the B1 Wetland Cave Hall.", leg: { mode: "walk", min: 5 } },
-    { at: "15:20", to: "17:00", kind: "sight", p: "airobox", what: "Robot band, robot dogs, mech battles, a brain-controlled race.", note: "Last entry 17:00 — don't linger at the museum.", leg: { mode: "taxi", min: 35, cost: "¥50–65" } },
-    { at: "18:00", to: "19:30", kind: "dinner", p: "hzjiujia", order: "杭州熏鱼 smoked fish · 东坡肉 · 龙井虾仁 · 片儿川 noodles · 桂花糖藕 osmanthus lotus root for dessert", leg: { mode: "taxi", min: 40, cost: "¥55–70" } },
-    { at: "19:45", kind: "hotel", p: "hzhotel", what: "Early night — packing for Shanghai.", leg: { mode: "metro", min: 12, cost: "¥2", text: "Line 1 Longxiangqiao → Fengqi Road (1 stop)" } }
+    { at: "12:00", to: "13:00", kind: "lunch", p: "xixibieyuan", order: "龙井虾仁 · 东坡肉 · 西湖莼菜汤 water-shield soup · rice and greens for the kids", leg: { mode: "taxi", min: 10, cost: "~¥15" } },
+    { at: "13:45", to: "15:45", kind: "sight", p: "airobox", what: "Robot band, robot dogs, mech battles, a brain-controlled race.", note: "Last entry 17:00 — plenty of buffer.", leg: { mode: "taxi", min: 40, cost: "¥55–70" } },
+    { at: "15:55", to: "17:15", kind: "sight", p: "songcheng", what: "Song-dynasty streets, street performances, the haunted house for brave kids. Lanterns come on around 17:00.", leg: { mode: "taxi", min: 7, cost: "~¥14", text: "About 2 km up Zhijiang Road" } },
+    { at: "17:15", to: "18:15", kind: "dinner", p: "songcheng", title: "Dinner on Songcheng's food street", order: "东坡肉 · 西湖醋鱼 · 定胜糕 · 葱包桧 — ~¥50–80 per person", note: "Eat before 18:15, when the show crowd arrives." },
+    { at: "19:30", to: "20:30", kind: "sight", p: "songcheng", title: "The Romance of the Song Dynasty", cn: "宋城千古情", what: "The 60-minute stage show: flying horses, a flood and a 3D waterfall.", note: "In 2025 the evening shows were 18:00 and 19:30. Off-season evening shows are usually ~19:20/19:30; an 18:00 show is not guaranteed in December. Check the time on your dated ticket.", warn: true },
+    { at: "21:15", kind: "hotel", p: "hzhotel", what: "Expect a short wait for taxis after the show. Pack for Shanghai in the morning.", leg: { mode: "taxi", min: 40, cost: "¥55–70" } }
   ] },
 
 { date: "2026-12-14", city: "sh", seal: "十四", title: "Train to Shanghai",
@@ -380,7 +470,7 @@ const DAYS = [
     { at: "12:10", to: "12:40", kind: "lunch", p: "hzeast", order: "B1 江南荟 food court: Shengzhou xiaolongbao and rice cakes, or Lao Niang Jiu set meals", note: "Through security and at the gate by 12:45.", leg: { mode: "metro", min: 35, cost: "¥4", text: "Line 1 Fengqi Road → Hangzhou East Railway Station, direct" } },
     { at: "13:00", to: "14:00", kind: "travel", p: "hongqiao", title: "G-train → Shanghai Hongqiao", cn: "杭州东 → 上海虹桥", what: "Second class ~¥73. Passports are your tickets — scan at the gate.", leg: { mode: "train", min: 60, cost: "~¥73" } },
     { at: "15:00", to: "15:30", kind: "hotel", p: "shhotel", what: "Check in, drop bags.", leg: { mode: "metro", min: 55, cost: "~¥5", text: "Line 2 → People's Square, change to Line 8, 1 stop to Dashijie. Taxi with luggage ~40 min, ¥65–85" } },
-    { at: "15:45", to: "17:45", kind: "sight", p: "yuyuan_sh", what: "Bazaar lanes, Nine-Zigzag Bridge, Huxinting teahouse. Stay for the lights at 17:00.", leg: { mode: "walk", min: 18, text: "East along Jinling East Road — or Line 14, 1 stop to Yuyuan" } },
+    { at: "15:45", to: "17:45", kind: "sight", p: "yuyuan_sh", what: "City God Temple first — the shrine closes 16:30. Then the bazaar lanes, Nine-Zigzag Bridge and Huxinting teahouse. Stay for the lights at 17:00.", leg: { mode: "walk", min: 18, text: "East along Jinling East Road — or Line 14, 1 stop to Yuyuan" } },
     { at: "16:15", to: "16:45", kind: "snack", p: "nanxiang", order: "One basket of 鲜肉小笼 pork xiaolongbao to share — keep room for crab", leg: { mode: "walk", min: 3 } },
     { at: "18:15", to: "19:45", kind: "dinner", p: "chenglonghang", order: "清蒸大闸蟹 steamed hairy crab (staff shell it) · 蟹粉豆腐 crab tofu · 秃黄油捞饭 rice in crab-roe oil · warm yellow wine with ginger · plain rice and greens for the kids", note: "Recommended by Cylin. Phone 021-63212010 to book and confirm crab is still available.", warn: true, leg: { mode: "taxi", min: 12, cost: "~¥18" } },
     { at: "19:50", to: "20:40", kind: "sight", p: "bund", what: "From the Chen Yi statue north to the Peace Hotel and back, with Pudong lit up across the river.", leg: { mode: "walk", min: 8, text: "East along Jiujiang Road" } },
@@ -414,43 +504,45 @@ const DAYS = [
     { at: "20:05", kind: "hotel", p: "shhotel", what: "Pack — checking out tomorrow.", leg: { mode: "walk", min: 15 } }
   ] },
 
-{ date: "2026-12-17", city: "hz", seal: "十七", title: "Plane trees, then Songcheng",
-  sum: "Pastries on Anfu Road and a stroll to Wukang Mansion, the train back to Hangzhou, then a Song-dynasty town and its big show.",
-  facts: [{ icon: "train", t: "G-train ~13:30 Hongqiao → Hangzhou East" }, { warn: true, t: "Confirm Songcheng show time when booking" }],
+{ date: "2026-12-17", city: "hz", seal: "十七", title: "Plane trees, then wetlands",
+  sum: "Pastries on Anfu Road and a stroll to Wukang Mansion, the train back to Hangzhou, a giant-screen wetland museum, then West Lake at dusk and dinner.",
+  facts: [{ icon: "train", t: "G-train ~13:30 Hongqiao → Hangzhou East" }, { warn: true, t: "Wetland Museum last entry 16:00" }, { icon: "sun", t: "Sunset ~17:00" }],
   slots: [
     { at: "08:45", to: "09:30", kind: "breakfast", p: "bakerspice", order: "Pastries, eggs, cinnamon rolls · hot chocolate for the kids", leg: { mode: "taxi", min: 20, cost: "~¥28", text: "Leave bags at the hotel front desk" } },
     { at: "09:30", to: "10:45", kind: "sight", p: "wukang", what: "Anfu Road → Wukang Road past Ferguson Lane → the ship's-bow photo of Wukang Mansion.", note: "Moved here from Monday night: the house museums are closed Mondays and the street is better in daylight.", leg: { mode: "walk", min: 15 } },
     { at: "11:15", to: "11:45", kind: "hotel", p: "shhotel", what: "Collect bags, check out.", leg: { mode: "taxi", min: 22, cost: "~¥30" } },
     { at: "12:30", to: "13:10", kind: "lunch", p: "hongqiao", title: "Quick lunch at Hongqiao", what: "Noodle counters and chains on the departure level — or eat on the train.", leg: { mode: "taxi", min: 40, cost: "¥65–85", text: "With luggage, a taxi is easier than 2 metro changes" } },
     { at: "13:30", to: "14:30", kind: "travel", p: "hzeast", title: "G-train → Hangzhou East", cn: "上海虹桥 → 杭州东", leg: { mode: "train", min: 60, cost: "~¥73" } },
-    { at: "15:00", to: "15:15", kind: "hotel", p: "hzhotel", what: "Check in and drop bags — saves a late trip back to the station.", leg: { mode: "taxi", min: 25, cost: "¥30–40" } },
-    { at: "15:50", to: "17:15", kind: "sight", p: "songcheng", what: "Song-dynasty streets, street performances, the haunted house for brave kids.", leg: { mode: "taxi", min: 35, cost: "¥55–70" } },
-    { at: "17:15", to: "18:15", kind: "dinner", p: "songcheng", title: "Dinner on Songcheng's food street", order: "东坡肉 · 西湖醋鱼 · 定胜糕 · 葱包桧 — ~¥50–80 per person", note: "Eat before 18:15, when the show crowd arrives." },
-    { at: "19:30", to: "20:30", kind: "sight", p: "songcheng", title: "The Romance of the Song Dynasty", cn: "宋城千古情", what: "The 60-minute stage show: flying horses, a flood and a 3D waterfall.", note: "In 2025 the evening shows were 18:00 and 19:30. Check the time on your dated ticket.", warn: true },
-    { at: "21:15", kind: "hotel", p: "hzhotel", what: "Expect a short wait for taxis after the show.", leg: { mode: "taxi", min: 40, cost: "¥55–70" } }
+    { at: "15:00", to: "15:15", kind: "hotel", p: "hzhotel", what: "Check in and drop bags.", leg: { mode: "taxi", min: 25, cost: "¥30–40" } },
+    { at: "15:40", to: "16:40", kind: "sight", p: "wetlandmuseum", what: "Go straight down to the 32.5 m curved screen in the B1 Wetland Cave Hall, then the observation tower.", note: "Last entry 16:00. If the train is late, skip it — go straight to the lakefront.", warn: true, leg: { mode: "taxi", min: 25, cost: "¥30–40" } },
+    { at: "17:05", to: "17:50", kind: "sight", p: "hubin", title: "West Lake at dusk", what: "Walk the lakefront as the lights come on.", leg: { mode: "taxi", min: 25, cost: "¥30–40" } },
+    { at: "18:00", to: "19:30", kind: "dinner", p: "hzjiujia", order: "杭州熏鱼 smoked fish · 东坡肉 · 龙井虾仁 · 片儿川 noodles · 桂花糖藕 osmanthus lotus root for dessert", leg: { mode: "walk", min: 3 } },
+    { at: "19:45", kind: "hotel", p: "hzhotel", what: "Early night.", leg: { mode: "metro", min: 12, cost: "¥2", text: "Line 1 Longxiangqiao → Fengqi Road (1 stop)" } }
   ] },
 
-{ date: "2026-12-18", city: "hz", seal: "十八", title: "Temple morning, ocean afternoon",
-  sum: "A quiet hillside temple, temple noodles, then belugas and dolphins across the river.",
-  facts: [{ warn: true, t: "Yongfu: book 1–7 days ahead" }, { icon: "taxi", t: "Taxi ~45 min Lingyin → Xianghu" }],
+{ date: "2026-12-18", city: "hz", seal: "十八", title: "Temples and tea hills",
+  sum: "A quiet hillside temple, temple noodles, then the tea museum and a cup of Longjing in the village where it grows.",
+  facts: [{ warn: true, t: "Yongfu: book at least 1 day ahead" }, { icon: "taxi", t: "Short taxis today, all under 30 min" }],
   slots: [
     { at: "07:45", to: "08:10", kind: "breakfast", p: "hzhotel", title: "Hotel breakfast" },
     { at: "08:35", to: "10:30", kind: "sight", p: "yongfu", what: "Climb the terraced halls through the bamboo, then the Feilai Peak cliff carvings on the way out.", note: "Bring every passport — you'll scan in by name.", leg: { mode: "taxi", min: 25, cost: "¥30–40" } },
     { at: "10:45", to: "11:30", kind: "lunch", p: "lingyinmian", order: "素面 — vegetarian temple noodles, ~¥15–20", leg: { mode: "walk", min: 10 } },
-    { at: "12:15", to: "16:15", kind: "sight", p: "polar", what: "Polar bears, penguins, then the beluga and dolphin shows. Plan around the show board at the gate.", leg: { mode: "taxi", min: 45, cost: "¥75–95" } },
-    { at: "17:15", to: "18:45", kind: "dinner", p: "greentea", order: "面包诱惑 “Bread Temptation” (¥35, with ice cream) · 绿茶烤鸡 roast chicken · 粉丝裹虾 vermicelli prawns · 西湖醋鱼", note: "Take a queue number on Dianping/Meituan during the taxi ride.", leg: { mode: "taxi", min: 50, cost: "¥75–95", text: "Rush hour" } },
+    { at: "11:50", to: "13:20", kind: "sight", p: "teamuseum", what: "Tea-covered hillsides, ponds and pavilions with indoor halls on how tea is grown, rolled and brewed. Free.", leg: { mode: "taxi", min: 12, cost: "~¥18" } },
+    { at: "13:40", to: "15:15", kind: "sight", p: "longjing", what: "Sit at a tea farmer's house above the terraces with a pot of 龙井 Longjing green tea. Kids can walk the terrace paths.", note: "Agree the price per pot before you sit (~¥50–100 per person is normal). Don't buy tea from touts on the road.", warn: true, leg: { mode: "taxi", min: 8, cost: "~¥14" } },
+    { at: "15:45", to: "17:00", kind: "hotel", p: "hzhotel", what: "Rest and warm up.", leg: { mode: "taxi", min: 30, cost: "¥35–45" } },
+    { at: "17:15", to: "18:45", kind: "dinner", p: "greentea", order: "面包诱惑 “Bread Temptation” (¥35, with ice cream) · 绿茶烤鸡 roast chicken · 粉丝裹虾 vermicelli prawns · 西湖醋鱼", note: "Take a queue number on Dianping/Meituan before you leave the hotel.", leg: { mode: "metro", min: 12, cost: "¥2", text: "Line 1 Fengqi Road → Longxiangqiao (1 stop)" } },
     { at: "19:00", kind: "hotel", p: "hzhotel", what: "Optional: the West Lake music fountain at Hubin Park No. 3, 19:30, is on the way.", leg: { mode: "metro", min: 12, cost: "¥2", text: "Line 1 Longxiangqiao → Fengqi Road" } }
   ] },
 
 { date: "2026-12-19", city: "hz", seal: "十九", title: "Cartoons, a spa, a farewell",
-  sum: "The animation museum, a warm indoor spa afternoon and a Michelin-starred Hangzhou dinner, then the night flight home.",
+  sum: "The animation museum, a warm afternoon soaking in a Xiaoshan bathhouse, a Michelin-starred Hangzhou dinner, then the night flight home.",
   facts: [{ warn: true, t: "Leave hotel 22:45 for 02:15 flight" }, { icon: "bed", t: "Room is yours until departure" }],
   slots: [
     { at: "08:00", to: "08:45", kind: "breakfast", p: "hzhotel", title: "Hotel breakfast" },
     { at: "09:30", to: "11:45", kind: "sight", p: "animation", what: "Four permanent halls and the interactive kids' zones.", leg: { mode: "taxi", min: 35, cost: "¥45–55" } },
     { at: "12:00", to: "13:15", kind: "lunch", p: "binjiangmall", what: "Family chains on the restaurant floors — try 外婆家 or 新白鹿 if there, for cheap Hangzhou home cooking.", leg: { mode: "taxi", min: 12, cost: "~¥18" } },
-    { at: "14:00", to: "17:15", kind: "sight", p: "fourseasons", what: "Heated indoor pool, sauna and steam; kids' club 13:00–17:00 while adults have treatments.", leg: { mode: "taxi", min: 35, cost: "¥45–60" } },
-    { at: "17:30", to: "19:15", kind: "dinner", p: "jinsha", order: "龙井虾仁 Longjing tea shrimp · 东坡肉 Dongpo pork · 西湖醋鱼 vinegar fish · 叫化鸡 beggar's chicken · ask for a 桂花 osmanthus dessert", note: "A splurge (~¥750 per person). Cheaper farewell: Lou Wai Lou, 10 min away.", leg: { mode: "walk", min: 2, text: "Same hotel" } },
+    { at: "13:35", to: "16:30", kind: "sight", p: "shuiguo", what: "Hot spring pools, steam and sauna, then pyjamas, fruit and snacks in the lounge. A warm afternoon before a long night.", note: "Bathing areas are split men/women — kids go with a parent of the same sex. Buy tickets on Meituan/Dianping and check the child price.", warn: true, leg: { mode: "taxi", min: 20, cost: "¥30–40", text: "Across into Xiaoshan" } },
+    { at: "17:30", to: "19:15", kind: "dinner", p: "jinsha", order: "龙井虾仁 Longjing tea shrimp · 东坡肉 Dongpo pork · 西湖醋鱼 vinegar fish · 叫化鸡 beggar's chicken · ask for a 桂花 osmanthus dessert", note: "A splurge (~¥750 per person). Cheaper farewell: Lou Wai Lou, 10 min from the hotel. Or skip the cross-river drive and eat the buffet at Shuiguo.", leg: { mode: "taxi", min: 50, cost: "¥75–95", text: "Saturday rush hour across the river — leave by 16:35" } },
     { at: "19:40", to: "22:30", kind: "hotel", p: "hzhotel", what: "Pack, shower, kids nap in their clothes.", leg: { mode: "taxi", min: 15, cost: "~¥22" } },
     { at: "22:45", kind: "travel", p: "hgh", title: "Leave for the airport", what: "Book a DiDi at 22:30. Arrive ~23:30 for SQ839 at 02:15 — check-in for international flights closes 60 min before departure.", leg: { mode: "taxi", min: 45, cost: "¥110–140" } }
   ] },
@@ -506,16 +598,16 @@ const TODO = [
   { k: "sstm", t: "Shanghai Science & Technology Museum (Tue 15)", due: "Tue 8 Dec, 10:00", d: "Released 7 days ahead at 10:00, real-name, sells out. Book kids under 6 too (free). Mini-program 上海科技馆自然博物馆天文馆门票." },
   { k: "train1", t: "G-train Hangzhou East → Shanghai Hongqiao, Mon 14 ~13:00", due: "From 29 Nov", d: "12306 or Trip.com. ~¥73 second class. Sales open 15 days ahead." },
   { k: "train2", t: "G-train Shanghai Hongqiao → Hangzhou East, Thu 17 ~13:30", due: "From 2 Dec", d: "Same as above. Use Hongqiao, not Shanghai Station." },
-  { k: "songcheng", t: "Songcheng park + show combo (Thu 17)", due: "Before you fly", d: "~¥320 standard. Pick the dated 19:30 (or 18:00) show. Not the night-tour-only ticket." },
+  { k: "songcheng", t: "Songcheng park + show combo (Sun 13)", due: "Before you fly", d: "~¥320 standard. Pick the dated evening show (~19:20/19:30 in the off-season). Phone 0571-87313101 if no December times show. Not the night-tour-only ticket." },
   { k: "crab", t: "Cheng Long Hang dinner (Mon 14, 18:15)", due: "Phone", d: "021-63212010 — book and confirm crab availability." },
   { k: "mitao", t: "Mitao Yayan dinner (Tue 15, 17:45)", due: "Phone", d: "+86 177 9870 8896 — book and confirm the Nanfeng City branch." },
   { k: "yuyuanhz", t: "Yuyuan Yong-Shao Hui dinner (Sat 12, 17:30)", due: "Dianping", d: "Book on Dianping/Meituan." },
   { k: "pearl", t: "Oriental Pearl Tower, two-sphere (Tue 15, 09:10)", due: "1–3 days ahead", d: "WeChat or Trip.com. ¥199 adult / ¥99 child." },
   { k: "xixi", t: "Xixi Wetland + boat (Sun 13)", due: "From 6 Dec", d: "Real-name, opens 7 days ahead. ¥70 if booked a day ahead on the official WeChat; boat ¥60." },
-  { k: "wetland", t: "China Wetland Museum (Sun 13)", due: "WeChat", d: "Free — reserve on the museum's WeChat account." },
-  { k: "yongfu", t: "Yongfu Temple (Fri 18, morning)", due: "11–17 Dec", d: "Free, real-name, 1–7 days ahead in the 杭州灵隐飞来峰 Alipay/WeChat mini-program. Passports accepted." },
+  { k: "wetland", t: "China Wetland Museum (Thu 17)", due: "WeChat", d: "Free — reserve on the museum's WeChat account." },
+  { k: "yongfu", t: "Yongfu Temple (Fri 18, morning)", due: "11–17 Dec", d: "Free, real-name, at least 1 day ahead (no same-day), up to 7 days, in the 杭州灵隐飞来峰 Alipay/WeChat mini-program. Passports accepted." },
   { k: "anim", t: "China Animation Museum (Sat 19)", due: "From 14 Dec", d: "Free — museum WeChat account, 5 days of slots." },
-  { k: "spa", t: "Four Seasons spa (Sat 19, 14:00)", due: "24 h ahead", d: "+86 571 8829 8888. Ask about pool access and the kids' club for non-guests." },
+  { k: "spa", t: "Shuiguo Tangquan, Qianjiang Century Park (Sat 19, 13:35)", due: "Meituan / Dianping", d: "Search 水裹汤泉 钱江世纪公园店. Buy the day ticket online — cheaper than at the door. Check the child price (under 1 m reportedly free)." },
   { k: "jinsha", t: "Jin Sha farewell dinner (Sat 19, 17:30)", due: "1–2 weeks ahead", d: "+86 571 8829 8888. Ask for a high chair." },
   { k: "apps", t: "Phone set-up", due: "Before you fly", d: "Alipay + WeChat Pay with a foreign card · AMAP (高德地图) · DiDi (inside Alipay works) · Trip.com · a roaming eSIM (Google/WhatsApp need it)." }
 ];
@@ -526,8 +618,8 @@ const ESSENTIALS = [
   { icon: "map", h: "Using the maps", html: `<ul><li><b>AMAP route</b> opens the 高德地图 app (or the AMAP website) with a route from where you are — it picks walking, metro or driving to match the plan.</li><li><b>Taxi card</b> shows the destination in big Chinese characters for a taxi driver.</li><li>The maps in this app are AMAP's, with English and Chinese labels. Pins marked as approximate in their notes may be off by up to ~150 m.</li></ul>` },
   { icon: "metro", h: "Metro & taxis", html: `<ul><li>Both cities: scan the metro gate with the Alipay transport QR code (乘车码). Kids under 1.3 m ride free.</li><li>DiDi works in English inside Alipay. Taxis start ~¥13 (Hangzhou) / ~¥16 (Shanghai).</li><li>Rush hour 07:30–09:00 and 17:00–19:00: the metro is faster than taxis.</li></ul>` },
   { icon: "train", h: "High-speed trains", html: `<ul><li>Hangzhou East ↔ Shanghai Hongqiao, 45–60 min, every 5–20 min, ~¥73.</li><li>Your passport is your ticket — scan it at the gate.</li><li>Arrive 40 min early: Hongqiao is huge, and security queues are long.</li></ul>` },
-  { icon: "temp", h: "Weather & packing", html: `<ul><li>Highs ~11 °C, lows ~3–4 °C, damp and windy by the water. Indoors is often barely heated.</li><li>Hats, gloves, thermal layers, waterproof shoes. Swimsuits for the Four Seasons pool.</li><li>Tissues and hand sanitiser — many public toilets have no paper.</li></ul>` },
-  { icon: "alert", h: "What the sense-check changed", html: `<ul><li><b>Hangzhou Paradise is closed all winter</b> (30 Nov–5 Mar). Sat 19 is now the Animation Museum and the Four Seasons spa.</li><li><b>Shanghai Natural History Museum is closed Tuesdays</b> — the Science & Technology Museum takes Tue afternoon; Wed is a full Wild Animal Park day.</li><li><b>Wu Kang Lu moved to Thu morning</b> — on Monday night it was dark and the house museums were closed.</li><li><b>Mon evening</b> is now Yuyuan at dusk → crab dinner → the Bund lit up (8 min walk from dinner), all in one loop.</li><li><b>Thu:</b> drop bags at the hotel before Songcheng instead of using left luggage — no late trip back to the station.</li><li><b>Yunnan South Road food street</b> moved to Shanxi S / Fujian Middle Rd in Feb 2026. <b>Farine on Wukang Road</b> has closed.</li><li>Skipped: Hangzhou Zoo, Shanghai Disneyland, Chuiyun Tongtian River, Hengdian, Astronomy Museum, Natural History Museum, MeLand Club.</li></ul>` }
+  { icon: "temp", h: "Weather & packing", html: `<ul><li>Highs ~11 °C, lows ~3–4 °C, damp and windy by the water. Indoors is often barely heated.</li><li>Hats, gloves, thermal layers, waterproof shoes. Nothing to pack for the bathhouse — towels, pyjamas and toiletries are provided.</li><li>Tissues and hand sanitiser — many public toilets have no paper.</li></ul>` },
+  { icon: "alert", h: "What the sense-check changed", html: `<ul><li><b>Hangzhou Paradise is closed all winter</b> (30 Nov–5 Mar). Sat 19 is now the Animation Museum and a bathhouse afternoon.</li><li><b>Spa:</b> the Four Seasons spa is swapped for Shuiguo Tangquan (水裹汤泉) in Xiaoshan — a 24-hour Chinese bathhouse with food and a kids' area included.</li><li><b>Shanghai Natural History Museum is closed Tuesdays</b> — the Science & Technology Museum takes Tue afternoon; Wed is a full Wild Animal Park day.</li><li><b>Wu Kang Lu moved to Thu morning</b> — on Monday night it was dark and the house museums were closed.</li><li><b>Mon evening</b> is now Yuyuan at dusk → crab dinner → the Bund lit up (8 min walk from dinner), all in one loop.</li><li><b>Songcheng moved from Thu 17 to Sun 13</b> — it's 2 km from AIROBOX, so one trip out to the Qiantang River instead of two, and not on a train day. The Wetland Museum moved to Thu 17 afternoon to make room.</li><li><b>Yunnan South Road food street</b> moved to Shanxi S / Fujian Middle Rd in Feb 2026. <b>Farine on Wukang Road</b> has closed.</li><li><b>Polar Ocean Park dropped</b> — poor reviews and not good value for the price (~¥360 adult). Fri 18 afternoon is now the China Tea Museum and a pot of tea in Longjing Village, 10 min from Lingyin.</li><li><b>Zhejiang Museum Gushan hall</b> is closed for renovation since Aug 2026 — removed from Sat 12.</li><li><b>Songcheng:</b> no December show times published yet. Off-season evening shows are usually ~19:20/19:30; 18:00 may not run.</li><li>Skipped: Hangzhou Polar Ocean Park, Hangzhou Zoo, Shanghai Disneyland, Chuiyun Tongtian River, Hengdian, Astronomy Museum, Natural History Museum, MeLand Club.</li></ul>` }
 ];
 
 /* ================= engine ================= */
@@ -582,6 +674,11 @@ function wgs2gcj(lat, lng) {
   dLng = (dLng * 180) / (a / sm * Math.cos(rad) * PI);
   return [lat + dLat, lng + dLng];
 }
+/* Nearby optional extras become places too ("nb_<id>"), so maps, AMAP links and taxi cards work */
+Object.entries(NEARBY).forEach(([a, list]) => list.forEach(n => {
+  n.p = "nb_" + n.id;
+  PLACES[n.p] = { ...n, city: PLACES[a].city, kind: "near" };
+}));
 Object.values(PLACES).forEach(p => { if (p.lat) p.g = wgs2gcj(p.lat, p.lng); });
 
 /* AMAP deep links: open the AMAP app on phones (callnative=1), the AMAP website elsewhere */
@@ -630,7 +727,7 @@ function placeDetails(p) {
   return `<details class="more"><summary>Address, hours &amp; prices</summary>${img}<dl class="meta">${rows}${links ? `<dt>Links</dt><dd>${links}</dd>` : ""}</dl>${p.tip ? `<p class="note">${p.tip}</p>` : ""}</details>`;
 }
 
-function slotHTML(s, di, si, num) {
+function slotHTML(s, di, si, num, near) {
   const k = KIND[s.kind] || KIND.sight, p = PLACES[s.p];
   const key = `v2-${di}-${si}`, done = store.get(key) === "1";
   const leg = s.leg ? legHTML(s.leg, p) : "";
@@ -647,7 +744,23 @@ function slotHTML(s, di, si, num) {
       ${p && p.g ? `<div class="actions"><a class="btn primary" href="${amapNav(p, navMode)}" target="_blank" rel="noopener">${ic("nav", "sm")} AMAP route</a>
         <button class="btn" data-driver="${s.p}">${ic("card", "sm")} Taxi card</button></div>` : ""}
       ${placeDetails(p)}
-    </div></li>`;
+    </div>${near ? nearbyHTML(s.p) : ""}</li>`;
+}
+
+function nearbyHTML(id) {
+  const list = NEARBY[id]; if (!list || !list.length) return "";
+  return `<details class="nearby" open><summary>${ic("pin", "sm")} Nearby · optional <span>${list.length}</span></summary>${list.map(n => {
+    const q = PLACES[n.p];
+    const meta = [q.hours, q.price].filter(Boolean).map(esc).join(" · ");
+    return `<div class="nb">
+      <div class="nb-dist">${esc(n.dist)}</div>
+      <h4>${esc(q.en)}<span class="cn">${esc(q.cn)}</span></h4>
+      <p>${n.why}</p>
+      ${meta ? `<div class="nb-meta">${meta}</div>` : ""}
+      <div class="nb-a"><a class="btn" href="${amapNav(q, /walk/i.test(n.dist) ? "walk" : "car")}" target="_blank" rel="noopener">${ic("nav", "sm")} AMAP</a>
+        <button class="btn" data-driver="${n.p}">${ic("card", "sm")} Taxi card</button>
+        ${q.link ? `<a class="btn" href="${q.link}" target="_blank" rel="noopener">${ic("link", "sm")} Info</a>` : ""}</div>
+    </div>`; }).join("")}</details>`;
 }
 
 function legHTML(l, p) {
@@ -666,6 +779,7 @@ function showDay(i) {
   const dt = new Date(d.date + "T12:00:00+08:00");
   let n = 0; const seen = {};
   const numbered = d.slots.map(s => (PLACES[s.p] && PLACES[s.p].g ? (seen[s.p] ||= ++n) : 0));
+  const nearAt = {}; d.slots.forEach((s, si) => { if (NEARBY[s.p] && !(s.p in nearAt)) nearAt[s.p] = si; });
   $("#dayview").innerHTML = `
     <div class="dv-head">
       <header class="dayhead">
@@ -676,9 +790,9 @@ function showDay(i) {
       ${d.facts ? `<div class="facts">${d.facts.map(f => `<span class="fact ${f.warn ? "warn" : ""}">${ic(f.icon || (f.warn ? "alert" : "temp"), "sm")} ${f.t}</span>`).join("")}</div>` : ""}
     </div>
     <div class="daymap-wrap"><div id="daymap" class="map" role="img" aria-label="Map of today's stops"></div>
-      <div class="maplegend"><span>Pins are numbered in the order of the day</span></div></div>
+      <div class="maplegend"><span>Pins are numbered in the order of the day · + is an optional nearby extra</span></div></div>
     <div class="dv-plan">
-      <ol class="tl">${d.slots.map((s, si) => slotHTML(s, i, si, numbered[si])).join("")}</ol>
+      <ol class="tl">${d.slots.map((s, si) => slotHTML(s, i, si, numbered[si], nearAt[s.p] === si)).join("")}</ol>
     </div>`;
   bindSlots();
   markNow();
@@ -723,6 +837,11 @@ function drawDayMap(d, numbered) {
     L.marker(p.g, { icon: pinIcon(p, numbered[si]) }).addTo(dayMap)
       .bindPopup(`<b>${numbered[si]}. ${esc(p.en)}</b><br><span class="cn">${esc(p.cn)}</span><br><span class="mono">${s.at}</span> · <a href="#s-${DAYS.indexOf(d)}-${si}">See in plan</a>`);
   });
+  Object.keys(drawn).forEach(a => (NEARBY[a] || []).forEach(n => {
+    const q = PLACES[n.p];
+    L.marker(q.g, { icon: L.divIcon({ className: "", html: '<div class="pin near"><span>+</span></div>', iconSize: [20, 20], iconAnchor: [3, 20], popupAnchor: [7, -18] }) }).addTo(dayMap)
+      .bindPopup(`<b>${esc(q.en)}</b><br><span class="cn">${esc(q.cn)}</span><br>Optional · ${esc(n.dist)}<br><a href="${amapNav(q)}" target="_blank" rel="noopener">Route in AMAP ›</a>`);
+  }));
   if (pts.length > 1) L.polyline(pts, { color: getComputedStyle(document.documentElement).getPropertyValue(`--${d.city}`).trim() || "#3f7a64", weight: 3, opacity: .7, dashArray: "6 7" }).addTo(dayMap);
   if (pts.length) dayMap.fitBounds(L.latLngBounds(pts).pad(.18), { maxZoom: 15 }); else dayMap.setView([30.25, 120.16], 12);
   L.control.zoom({ position: "bottomright" }).addTo(dayMap);
